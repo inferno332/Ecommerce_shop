@@ -19,7 +19,7 @@ const upload = multer({
 
       //NẾU CHƯA CÓ FOLDER THÌ SẼ TẠO 1 FOLDER MỚI
       if (!fs.existsSync(PATH)) {
-        fs.mkdirSync(PATH);
+        fs.mkdirSync(PATH, {recursive: true});
         callback(null, PATH);
       } else {
         callback(null, PATH);
