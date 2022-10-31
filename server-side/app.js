@@ -5,6 +5,9 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
 
+const uploadRoute = require("./routes/upload");
+const categoriesRoute = require("./routes/categories");
+const suppliersRoute = require("./routes/suppliers");
 
 mongoose.connect(
   "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
@@ -25,6 +28,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // CORS
 app.use(cors());
 
+app.use("/upload", uploadRoute);
+app.use("/categories", categoriesRoute);
+app.use("/suppliers", suppliersRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
