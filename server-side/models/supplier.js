@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 
-const categorySchema = new Schema(
+const supplierSchema = new Schema(
   {
     name: { type: String, required: true },
-    description: String,
+    email: { type: String, required: true },
+    phoneNumber: String,
+    address: { type: String, required: true },
   },
   {
     query: {
@@ -14,6 +16,5 @@ const categorySchema = new Schema(
     },
   }
 );
-
-const Category = model("Category", categorySchema);
-module.exports = Category;
+const Supplier = model("Supplier", supplierSchema);
+module.exports = Supplier;
