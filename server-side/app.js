@@ -5,6 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
 
+
 const { findDocument } = require("./helpers/MongoDbHelper");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
@@ -17,6 +18,9 @@ const uploadRoute = require("./routes/upload");
 const authRoute = require("./routes/auth");
 const categoriesRoute = require("./routes/categories");
 const suppliersRoute = require("./routes/suppliers");
+const customersRoute = require("./routes/customers");
+const employeesRoute = require("./routes/employees");
+
 
 mongoose.connect(
   "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
@@ -36,6 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // CORS
 app.use(cors());
+
 
 //PASSPORT: BEARER TOKEN
 const opts = {};
@@ -65,6 +70,9 @@ app.use("/upload", uploadRoute);
 app.use("/auth", authRoute);
 app.use("/categories", categoriesRoute);
 app.use("/suppliers", suppliersRoute);
+app.use("/customers", customersRoute);
+app.use("/employees", employeesRoute);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
