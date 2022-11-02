@@ -18,5 +18,5 @@ const customerSchema = new Schema(
     },
   }
 );
-const Customer = model("Supplier", customerSchema);
+const Customer = model("Customer", customerSchema);
 module.exports = Customer;
