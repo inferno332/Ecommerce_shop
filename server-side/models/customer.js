@@ -4,16 +4,16 @@ const { Schema, model } = mongoose;
 const customerSchema = new Schema(
   {
     firstName: { type: String, required: true },
-    lasttName: { type: String, required: true },
+    lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     phoneNumber: String,
     address: { type: String, required: true },
-    birthday: {type: Date},
+    birthday: Date,
   },
   {
     query: {
-      byName(name) {
-        return this.where({ name: new RegExp(name, "i") });
+      byFirstName(name) {
+        return this.where({ firstName: new RegExp(name, "i") });
       },
     },
   }
