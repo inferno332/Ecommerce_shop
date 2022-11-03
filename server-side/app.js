@@ -5,9 +5,20 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
 
+const { findDocument } = require("./helpers/MongoDbHelper");
+const jwt = require("jsonwebtoken");
+const passport = require("passport");
+
+const jwtSettings = require("./constants/jwtSettings");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+
 const uploadRoute = require("./routes/upload");
+const authRoute = require("./routes/auth");
 const categoriesRoute = require("./routes/categories");
 const suppliersRoute = require("./routes/suppliers");
+const customersRoute = require("./routes/customers");
+const employeesRoute = require("./routes/employees");
 
 mongoose.connect(
   "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
@@ -28,9 +39,36 @@ app.use(express.static(path.join(__dirname, "public")));
 // CORS
 app.use(cors());
 
+//PASSPORT: BEARER TOKEN
+const opts = {};
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = jwtSettings.SECRET;
+
+passport.use(
+  new JwtStrategy(opts, (payload, done) => {
+    const _id = payload.id;
+    findDocument(_id, "users")
+      .then((result) => {
+        if (result) {
+          return done(null, result);
+        } else {
+          return done(null, false);
+        }
+      })
+      .catch((error) => {
+        return done(error, false);
+      });
+  })
+);
+//END
+
+//ROUTES
 app.use("/upload", uploadRoute);
+app.use("/auth", authRoute);
 app.use("/categories", categoriesRoute);
 app.use("/suppliers", suppliersRoute);
+app.use("/customers", customersRoute);
+app.use("/employees", employeesRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
