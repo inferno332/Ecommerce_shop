@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user");
+const Employee = require("../models/employee");
 const jwt = require("jsonwebtoken");
 const jwtSettings = require("../constants/jwtSettings");
 const bcrypt = require("bcrypt");
@@ -8,13 +8,13 @@ const bcrypt = require("bcrypt");
 router.post("/register", async (req, res) => {
   try {
     const data = req.body;
-    const user = new User(data);
+    const employee = new Employee(data);
 
     //HASH PASSWORD
     const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
+    employee.password = await bcrypt.hash(employee.password, salt);
 
-    await user.save();
+    await employee.save();
     res.status(201).json({ ok: true });
   } catch (error) {
     res.status(500).json(error);
@@ -24,14 +24,14 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    if (user) {
-      // check user password with hashed password stored in the database
-      const validPassword = await bcrypt.compare(password, user.password);
+    const employee = await Employee.findOne({ username });
+    if (employee) {
+      // check employee password with hashed password stored in the database
+      const validPassword = await bcrypt.compare(password, employee.password);
       if (validPassword) {
         const payload = {
-          id: user._id,
-          username: user.username,
+          id: employee._id,
+          username: employee.username,
         };
 
         const token = jwt.sign(payload, jwtSettings.SECRET, {
