@@ -2,11 +2,11 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import ParticlesLayout from '../components/ParticlesLayout';
 
-function NoSideBarLayout(props) {
+function NoSideBarLayout({children}) {
     return (
         <>
             <ParticlesLayout />
-            {props.children ? props.children : <Outlet />}
+            {children ? children : <Outlet />}
         </>
     );
 }
