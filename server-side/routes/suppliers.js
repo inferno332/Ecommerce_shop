@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Customer = require("../models/customer");
+const Supplier = require("../models/supplier");
 
 router.get("/", async (req, res) => {
   try {
-    const customers = await Customer.find();
-    res.status(200).json(customers);
+    const suppliers = await Supplier.find();
+    res.status(200).json(suppliers);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const customer = await Customer.findById(id);
-    res.status(200).json(customer);
+    const supplier = await Supplier.findById(id);
+    res.status(200).json(supplier);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -24,8 +24,8 @@ router.get("/:id", async (req, res) => {
 router.get("/find/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const customer = await Customer.find().byFirstName(name);
-    res.status(200).json(customer);
+    const supplier = await Supplier.find().byName(name);
+    res.status(200).json(supplier);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -34,9 +34,9 @@ router.get("/find/:name", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const data = req.body;
-    const customer = new Customer(data);
-    await customer.save();
-    res.status(200).json(customer);
+    const supplier = new Supplier(data);
+    await supplier.save();
+    res.status(200).json(supplier);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    await Customer.findByIdAndUpdate(id, data);
+    await Supplier.findByIdAndUpdate(id, data);
     res.status(200).json({ ok: true });
   } catch (error) {
     res.status(500).json(error);
@@ -56,7 +56,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await Customer.findByIdAndDelete(id);
+    await Supplier.findByIdAndDelete(id);
     res.status(200).json({ ok: true });
   } catch (error) {
     res.status(500).json(error);

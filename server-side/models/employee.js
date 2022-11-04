@@ -8,15 +8,17 @@ const employeeSchema = new Schema(
     email: { type: String, required: true, unique: true },
     phoneNumber: String,
     address: { type: String, required: true },
-    birthday: {type: Date},
+    birthday: Date,
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
   },
   {
     query: {
-      byName(name) {
-        return this.where({ name: new RegExp(name, "i") });
+      byFirstName(name) {
+        return this.where({ firstName: new RegExp(name, "i") });
       },
     },
   }
 );
-const Customer = model("Employee", employeeSchema);
-module.exports = Customer;
+const Employee = model("Employee", employeeSchema);
+module.exports = Employee;

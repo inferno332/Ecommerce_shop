@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const Customer = require("../models/customer");
+const Category = require("../models/category");
 
 router.get("/", async (req, res) => {
   try {
-    const customers = await Customer.find();
-    res.status(200).json(customers);
+    const categories = await Category.find();
+    res.status(200).json(categories);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const customer = await Customer.findById(id);
-    res.status(200).json(customer);
+    const category = await Category.findById(id);
+    res.status(200).json(category);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -24,8 +24,8 @@ router.get("/:id", async (req, res) => {
 router.get("/find/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const customer = await Customer.find().byFirstName(name);
-    res.status(200).json(customer);
+    const category = await Category.find().byName(name);
+    res.status(200).json(category);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -34,9 +34,9 @@ router.get("/find/:name", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const data = req.body;
-    const customer = new Customer(data);
-    await customer.save();
-    res.status(200).json(customer);
+    const category = new Category(data);
+    await category.save();
+    res.status(200).json(category);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -46,7 +46,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const data = req.body;
-    await Customer.findByIdAndUpdate(id, data);
+    await Category.findByIdAndUpdate(id, data);
     res.status(200).json({ ok: true });
   } catch (error) {
     res.status(500).json(error);
@@ -56,7 +56,7 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    await Customer.findByIdAndDelete(id);
+    await Category.findByIdAndDelete(id);
     res.status(200).json({ ok: true });
   } catch (error) {
     res.status(500).json(error);
