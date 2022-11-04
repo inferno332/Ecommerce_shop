@@ -2,8 +2,6 @@ import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
-import Topbar from './pages/global/Topbar';
-import Sidebar from './pages/global/Sidebar';
 import Dashboard from './pages/dashboard';
 import Team from './pages/team';
 import Contacts from './pages/contacts';
@@ -14,6 +12,11 @@ import Categories from './pages/categories';
 // import Line from './pages/line';
 // import Pie from './pages/pie';
 // import Geography from './pages/geography';
+import MainLayout from './layouts/MainLayout';
+import Register from './pages/login/Register';
+import Index from './pages';
+import NoSideBarLayout from './layouts/NoSideBarLayout';
+import Login from './pages/login/Login';
 
 function App() {
     const [theme, colorMode] = useMode();
@@ -23,23 +26,26 @@ function App() {
             <ThemeProvider theme={theme}>
                 {/* Reset css */}
                 <CssBaseline />
-                <div className="app">
-                    <Sidebar />
-                    <main className="content">
-                        <Topbar />
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/team" element={<Team />} />
-                            <Route path="/categories" element={<Categories />} />
-                            <Route path="/contacts" element={<Contacts />} />
+                <Routes>
+                    <Route path="/" element={<Index />}>
+                        <Route element={<MainLayout />}>
+                            <Route index element={<Dashboard />} />
+                            <Route path="team" element={<Team />} />
+                            <Route path="categories" element={<Categories />} />
+                            <Route path="contacts" element={<Contacts />} />
                             {/* <Route path="/form" element={<Form />} /> */}
                             {/* <Route path="/bar" element={<Bar />} /> */}
                             {/* <Route path="/pie" element={<Pie />} /> */}
                             {/* <Route path="/line" element={<Line />} /> */}
                             {/* <Route path="/geography" element={<Geography />} /> */}
-                        </Routes>
-                    </main>
-                </div>
+                        </Route>
+
+                        <Route element={<NoSideBarLayout />}>
+                            <Route path="register" element={<Register />} />
+                            <Route path="login" element={<Login />} />
+                        </Route>
+                    </Route>
+                </Routes>
             </ThemeProvider>
         </ColorModeContext.Provider>
     );
