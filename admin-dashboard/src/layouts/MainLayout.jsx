@@ -3,14 +3,14 @@ import { Outlet } from 'react-router-dom';
 import Sidebar from '../pages/global/Sidebar';
 import Topbar from '../pages/global/Topbar';
 
-function MainLayout({children}) {
+function MainLayout(props) {
     return (
         <>
             <div className="app">
                 <Sidebar />
                 <div className="content">
                     <Topbar />
-                    {children ? children : <Outlet />}
+                    {props.children ? props.children : <Outlet />}
                 </div>
             </div>
         </>
