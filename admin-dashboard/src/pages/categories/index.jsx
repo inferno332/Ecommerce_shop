@@ -43,8 +43,7 @@ const Categories = () => {
         {
             field: 'action',
             headerName: 'Actions',
-            width: 200,
-            flex: 0.5,
+            flex: 0.85,
             renderCell: (params) => {
                 return <ActionsRow params={params} handleDelete={handleDelete} updateData={updateData} />;
             },
