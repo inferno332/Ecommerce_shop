@@ -1,14 +1,13 @@
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 
 import Dashboard from './pages/dashboard';
 import Team from './pages/team';
 import Contacts from './pages/contacts';
 import Categories from './pages/categories';
-// import Invoices from './pages/invoices';
+import Form from './pages/form';
 // import Bar from './pages/bar';
-// import Form from './pages/form';
 // import Line from './pages/line';
 // import Pie from './pages/pie';
 // import Geography from './pages/geography';
