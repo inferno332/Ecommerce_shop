@@ -13,6 +13,7 @@ import Form from './pages/form';
 // import Geography from './pages/geography';
 import MainLayout from './layouts/MainLayout';
 import Register from './pages/login/Register';
+import Index from './pages';
 import NoSideBarLayout from './layouts/NoSideBarLayout';
 import Login from './pages/login/Login';
 
@@ -25,13 +26,13 @@ function App() {
                 {/* Reset css */}
                 <CssBaseline />
                 <Routes>
-                    <Route path="/" element={<Outlet/>}>
+                    <Route path="/" element={<Index />}>
                         <Route element={<MainLayout />}>
                             <Route index element={<Dashboard />} />
                             <Route path="team" element={<Team />} />
                             <Route path="categories" element={<Categories />} />
                             <Route path="contacts" element={<Contacts />} />
-                            <Route path="form" element={<Form />} />
+                            {/* <Route path="/form" element={<Form />} /> */}
                             {/* <Route path="/bar" element={<Bar />} /> */}
                             {/* <Route path="/pie" element={<Pie />} /> */}
                             {/* <Route path="/line" element={<Line />} /> */}

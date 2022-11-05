@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { tokens } from '../../theme';
 import {
     HomeOutlined,
@@ -16,6 +16,9 @@ import {
     MapOutlined,
     TimelineOutlined,
 } from '@mui/icons-material';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../redux/apiRequests';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -34,10 +37,19 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 function Sidebar() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        logoutUser(dispatch, navigate);
+    };
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState('Dashboard');
+
+    const user = useSelector((state) => state.auth.login.currentUser);
 
     return (
         <Box
@@ -97,7 +109,7 @@ function Sidebar() {
 
                             <Box textAlign="center">
                                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" marginTop="10px">
-                                    Khoa
+                                    {user?.payload.name}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     VP Fancy Admin
@@ -187,6 +199,7 @@ function Sidebar() {
                         />
                     </Box>
                 </Menu>
+                <LogoutOutlinedIcon onClick={handleLogout} />
             </ProSidebar>
         </Box>
     );

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
 import { Box, Button, Container, Grid, Input, Typography } from '@mui/material';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 function Register() {
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(true);
     const {
         register,
         handleSubmit,
@@ -19,7 +21,11 @@ function Register() {
 
     const handleRegister = async (data) => {
         await axios.post('http://localhost:9000/auth/register', data);
-        await navigate('/login');
+        navigate('/login');
+    };
+
+    const handleShowPass = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -82,13 +88,14 @@ function Register() {
                                 </Typography>
                             )}
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ display: 'flex' }}>
                             <Input
-                                type="password"
+                                type={showPassword ? 'password' : 'text'}
                                 {...register('password', { required: true })}
                                 placeholder="* Password"
                                 fullWidth
                             />
+                            <RemoveRedEyeOutlinedIcon onClick={handleShowPass} style={{ cursor: 'pointer' }} />
                             {errors.password && (
                                 <Typography variant="subtitle2" pt={1} color="red">
                                     Please fill your password!
