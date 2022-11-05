@@ -11,6 +11,14 @@ const ActionsRow = ({ params, handleDelete }) => {
 
     const [open, setOpen] = useState(false);
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
     return (
         <Box display="flex" gap={3}>
             <Button
@@ -20,13 +28,13 @@ const ActionsRow = ({ params, handleDelete }) => {
                     ':hover': { backgroundColor: colors.greenAccent[700] },
                 }}
                 startIcon={<EditOutlined />}
-                onClick={() => setOpen(true)}
+                onClick={handleOpen}
             >
                 <Typography color={colors.grey[100]} ml="5px">
                     Edit
                 </Typography>
-                <EditCategoryModal open={open} onClose={() => setOpen(false)} />
             </Button>
+            <EditCategoryModal open={open} onClose={handleClose} />
             <Button
                 variant="contained"
                 sx={{

@@ -1,15 +1,34 @@
-import { Box, TextField,useTheme } from '@mui/material';
-import React from 'react';
+import { Box, TextField, useTheme } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import axios from 'axios';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
-const EditCategoryModal = ({ open, onClose }) => {
+const defaultInputValues = {
+    categoryId: '',
+    categoryName: '',
+    categoryDescription: '',
+};
+
+const EditCategoryModal = ({ open, onClose, editUser }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const [id,setId] = useState('');
+    const [category, setCategory] = useState(defaultInputValues);
+
+    const updateUser = (data) => {
+        axios.put(`http://localhost:9000/categories/${id}`, data).then(res => {console.log(res.data)}).catch(err => {console.log(err)});
+        console.log(data);
+    };
+
+    const handleChange = (value) => {
+        setCategory(value);
+    };
 
     const modalStyles = {
         inputFields: {
@@ -47,10 +66,6 @@ const EditCategoryModal = ({ open, onClose }) => {
         resolver: yupResolver(validationSchema),
     });
 
-    const editUser = (data) => {
-        console.log(data);
-    };
-
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields}>
@@ -62,6 +77,7 @@ const EditCategoryModal = ({ open, onClose }) => {
                     {...register('categoryId')}
                     error={errors.categoryId ? true : false}
                     helperText={errors.categoryId?.message}
+                    onChange={(e) => handleChange(()=>{setId(e.target.value)}) }
                 />
                 <TextField
                     placeholder="Category Name"
@@ -71,6 +87,7 @@ const EditCategoryModal = ({ open, onClose }) => {
                     {...register('categoryName')}
                     error={errors.categoryName ? true : false}
                     helperText={errors.categoryName?.message}
+                    onChange={(e) => handleChange({ ...category, categoryName: e.target.value })}
                 />
                 <TextField
                     placeholder="Category Description"
@@ -80,6 +97,7 @@ const EditCategoryModal = ({ open, onClose }) => {
                     {...register('categoryDescription')}
                     error={errors.categoryDescription ? true : false}
                     helperText={errors.categoryDescription?.message}
+                    onChange={(e) => handleChange({ ...category, categoryDescription: e.target.value })}
                 />
             </Box>
         );
@@ -91,7 +109,7 @@ const EditCategoryModal = ({ open, onClose }) => {
             title="Category"
             subTitle="Edit category details"
             content={getContent()}
-            onSubmit={handleSubmit(editUser)}
+            onSubmit={handleSubmit(updateUser)}
         ></BasicModal>
     );
 };

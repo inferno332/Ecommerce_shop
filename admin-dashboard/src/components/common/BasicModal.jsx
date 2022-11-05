@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Button, Modal, Typography, useTheme } from '@mui/material';
+import { Box, Button, IconButton, Modal, Typography, useTheme } from '@mui/material';
+import { CloseOutlined } from '@mui/icons-material';
 
 import { tokens } from '../../theme';
 
@@ -19,6 +19,9 @@ const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit }) => {
     return (
         <Modal open={open} onClose={onClose}>
             <Box sx={wrapper}>
+                <IconButton sx={{ position: 'absolute', top: 5, right: 5, padding: '10px  ' }} aria-label="close" onClick={onClose} >
+                    <CloseOutlined />
+                </IconButton>
                 <Typography variant="h6" component="h2">
                     {title}
                 </Typography>

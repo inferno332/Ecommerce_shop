@@ -47,7 +47,7 @@ router.put("/:id", async (req, res) => {
     const { id } = req.params;
     const data = req.body;
     await Category.findByIdAndUpdate(id, data);
-    res.status(200).json({ ok: true });
+    res.status(200).json({ ok: true, data });
   } catch (error) {
     res.status(500).json(error);
   }
