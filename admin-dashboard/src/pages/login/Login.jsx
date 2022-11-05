@@ -1,24 +1,24 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
 import { Box, Button, Container, Grid, Input, Typography } from '@mui/material';
+import { loginUser } from '../../redux/apiRequests';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
+    const [showPassword, setShowPassword] = useState(true);
 
     const onSubmit = (data) => {
-        handleLogin(data);
+        loginUser(data, dispatch, navigate);
     };
 
-    const handleLogin = async (data) => {
-        const res = await axios.post('http://localhost:9000/auth/login', data);
-        if (res.status === 200) {
-            navigate('/');
-        } else {
-        }
+    const handleShowPass = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -37,13 +37,14 @@ function Login() {
                         <Grid item xs={12}>
                             <Input {...register('username', { required: true })} placeholder="Username" fullWidth />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sx={{ display: 'flex' }}>
                             <Input
-                                type="password"
+                                type={showPassword ? 'password' : 'text'}
                                 {...register('password', { required: true })}
                                 placeholder="Password"
                                 fullWidth
                             />
+                            <RemoveRedEyeOutlinedIcon onClick={handleShowPass} style={{ cursor: 'pointer' }} />
                         </Grid>
                         <Grid item xs={12}>
                             <Button
