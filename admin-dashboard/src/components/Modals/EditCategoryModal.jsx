@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import axios from 'axios';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
@@ -13,17 +12,11 @@ const defaultInputValues = {
     description: '',
 };
 
-const EditCategoryModal = ({ open, onClose, editUser }) => {
+const EditCategoryModal = ({ open, onClose, updateData, params }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const [id,setId] = useState('');
     const [category, setCategory] = useState(defaultInputValues);
-
-    const updateUser = (data) => {
-        axios.put(`http://localhost:9000/categories/${id}`, data).then(res => {console.log(res.data)}).catch(err => {console.log(err)});
-        console.log(data);
-    };
 
     const handleChange = (value) => {
         setCategory(value);
@@ -43,14 +36,7 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
     };
 
     const validationSchema = yup.object().shape({
-        categoryId: yup
-            .string()
-            .required('Category ID is required')
-            .min(6, 'Category ID must be at least 6 characters'),
-        name: yup
-            .string()
-            .required('Category name is required')
-            .min(3, 'Category name must be at least 3 characters'),
+        name: yup.string().required('Category name is required').min(3, 'Category name must be at least 3 characters'),
         description: yup
             .string()
             .required('Category description is required')
@@ -70,13 +56,11 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
             <Box sx={modalStyles.inputFields}>
                 <TextField
                     placeholder="Category ID"
+                    disabled
                     name="categoryId"
                     label="Category ID"
-                    required
                     {...register('categoryId')}
-                    error={errors.categoryId ? true : false}
-                    helperText={errors.categoryId?.message}
-                    onChange={(e) => handleChange(()=>{setId(e.target.value)}) }
+                    value={params.row._id}
                 />
                 <TextField
                     placeholder="Category Name"
@@ -110,13 +94,13 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
             content={getContent()}
             onSubmit={handleSubmit(() => {
                 try {
-                    updateUser(category);
+                    updateData(category, params);
                     onClose();
                 } catch (error) {
                     console.log(error);
                 }
             })}
-        ></BasicModal>
+        />
     );
 };
 

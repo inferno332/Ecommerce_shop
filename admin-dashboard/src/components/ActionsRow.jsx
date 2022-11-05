@@ -4,19 +4,18 @@ import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
 import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
+import ConfirmDeleteModal from './Modals/ConfirmDeleteModal';
 
-const ActionsRow = ({ params, handleDelete }) => {
+const ActionsRow = ({ params, handleDelete, updateData }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
+    const handleConfirmDelete = () => {
+        handleDelete(params.row._id);
+        setOpenDelete(false);
     };
 
     return (
@@ -28,13 +27,13 @@ const ActionsRow = ({ params, handleDelete }) => {
                     ':hover': { backgroundColor: colors.greenAccent[700] },
                 }}
                 startIcon={<EditOutlined />}
-                onClick={handleOpen}
+                onClick={() => setOpen(true)}
             >
                 <Typography color={colors.grey[100]} ml="5px">
                     Edit
                 </Typography>
             </Button>
-            <EditCategoryModal open={open} onClose={handleClose} />
+            <EditCategoryModal open={open} onClose={() => setOpen(false)} params={params} updateData={updateData} />
             <Button
                 variant="contained"
                 sx={{
@@ -42,12 +41,13 @@ const ActionsRow = ({ params, handleDelete }) => {
                     ':hover': { backgroundColor: colors.redAccent[700] },
                 }}
                 startIcon={<DeleteOutline />}
-                onClick={() => handleDelete(params.row._id)}
+                onClick={() => setOpenDelete(true)}
             >
                 <Typography color={colors.grey[100]} ml="5px">
                     Delete
                 </Typography>
             </Button>
+            <ConfirmDeleteModal open={openDelete} onClose={() => setOpenDelete(false)} onSubmit={handleConfirmDelete} />
         </Box>
     );
 };
