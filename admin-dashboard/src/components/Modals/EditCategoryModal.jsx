@@ -9,9 +9,8 @@ import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
 const defaultInputValues = {
-    categoryId: '',
-    categoryName: '',
-    categoryDescription: '',
+    name: '',
+    description: '',
 };
 
 const EditCategoryModal = ({ open, onClose, editUser }) => {
@@ -48,11 +47,11 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
             .string()
             .required('Category ID is required')
             .min(6, 'Category ID must be at least 6 characters'),
-        categoryName: yup
+        name: yup
             .string()
             .required('Category name is required')
             .min(3, 'Category name must be at least 3 characters'),
-        categoryDescription: yup
+        description: yup
             .string()
             .required('Category description is required')
             .min(10, 'Category description must be at least 10 characters'),
@@ -81,23 +80,23 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
                 />
                 <TextField
                     placeholder="Category Name"
-                    name="categoryName"
+                    name="name"
                     label="Category Name"
                     required
-                    {...register('categoryName')}
-                    error={errors.categoryName ? true : false}
-                    helperText={errors.categoryName?.message}
-                    onChange={(e) => handleChange({ ...category, categoryName: e.target.value })}
+                    {...register('name')}
+                    error={errors.name ? true : false}
+                    helperText={errors.name?.message}
+                    onChange={(e) => handleChange({ ...category, name: e.target.value })}
                 />
                 <TextField
                     placeholder="Category Description"
-                    name="categoryDescription"
+                    name="description"
                     label="Category Description"
                     required
-                    {...register('categoryDescription')}
-                    error={errors.categoryDescription ? true : false}
-                    helperText={errors.categoryDescription?.message}
-                    onChange={(e) => handleChange({ ...category, categoryDescription: e.target.value })}
+                    {...register('description')}
+                    error={errors.description ? true : false}
+                    helperText={errors.description?.message}
+                    onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
             </Box>
         );
@@ -109,7 +108,14 @@ const EditCategoryModal = ({ open, onClose, editUser }) => {
             title="Category"
             subTitle="Edit category details"
             content={getContent()}
-            onSubmit={handleSubmit(updateUser)}
+            onSubmit={handleSubmit(() => {
+                try {
+                    updateUser(category);
+                    onClose();
+                } catch (error) {
+                    console.log(error);
+                }
+            })}
         ></BasicModal>
     );
 };
