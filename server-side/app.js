@@ -20,6 +20,7 @@ const suppliersRoute = require("./routes/suppliers");
 const customersRoute = require("./routes/customers");
 const employeesRoute = require("./routes/employees");
 const productsRoute = require("./routes/products");
+const ordersRoute = require("./routes/orders");
 
 mongoose.connect(
   "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
@@ -71,6 +72,7 @@ app.use("/suppliers", suppliersRoute);
 app.use("/customers", customersRoute);
 app.use("/employees", employeesRoute);
 app.use("/products", productsRoute);
+app.use("/orders", ordersRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
