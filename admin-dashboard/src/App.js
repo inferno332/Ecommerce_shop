@@ -8,6 +8,7 @@ import Contacts from './pages/contacts';
 import Categories from './pages/categories';
 import Customers from './pages/customers';
 import Form from './pages/form';
+import Employees from './pages/employees';
 // import Bar from './pages/bar';
 // import Line from './pages/line';
 // import Pie from './pages/pie';
@@ -34,6 +35,7 @@ function App() {
                             <Route path="categories" element={<Categories />} />
                             <Route path="customers" element={<Customers />} />
                             <Route path="contacts" element={<Contacts />} />
+                            <Route path="employees" element={<Employees />} />
                             <Route path="/form" element={<Form />} />
                             {/* <Route path="/bar" element={<Bar />} /> */}
                             {/* <Route path="/pie" element={<Pie />} /> */}

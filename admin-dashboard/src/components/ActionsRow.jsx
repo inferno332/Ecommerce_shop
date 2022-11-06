@@ -6,6 +6,7 @@ import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
 import ConfirmDeleteModal from './Modals/ConfirmDeleteModal';
 import EditCustomerModal from './Modals/EditCustomerModal';
+import EditEmployeeModal from './Modals/EditEmployeeModal';
 
 const EditModal = ({content, ...props}) => {
     switch(content) {
@@ -13,6 +14,8 @@ const EditModal = ({content, ...props}) => {
             return <EditCategoryModal {...props}/>;
         case 'Customer':
             return <EditCustomerModal {...props}/>;
+        case 'Employee':
+            return <EditEmployeeModal {...props}/>
         default:
             return null;
     }
