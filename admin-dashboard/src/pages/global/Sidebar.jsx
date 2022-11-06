@@ -16,6 +16,7 @@ import {
     MapOutlined,
     TimelineOutlined,
     LogoutOutlined,
+    AdminPanelSettingsOutlined,
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
@@ -134,7 +135,7 @@ function Sidebar() {
                         <Item
                             title="Manage Team"
                             to="/team"
-                            icon={<PeopleOutlined />}
+                            icon={<AdminPanelSettingsOutlined />}
                             selected={selected}
                             setSelected={setSelected}
                         />
@@ -149,6 +150,13 @@ function Sidebar() {
                             title="Categories"
                             to="/categories"
                             icon={<ReceiptOutlined />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Customers"
+                            to="/customers"
+                            icon={<PeopleOutlined />}
                             selected={selected}
                             setSelected={setSelected}
                         />

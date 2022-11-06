@@ -1,11 +1,12 @@
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Dashboard from './pages/dashboard';
 import Team from './pages/team';
 import Contacts from './pages/contacts';
 import Categories from './pages/categories';
+import Customers from './pages/customers';
 import Form from './pages/form';
 // import Bar from './pages/bar';
 // import Line from './pages/line';
@@ -31,8 +32,9 @@ function App() {
                             <Route index element={<Dashboard />} />
                             <Route path="team" element={<Team />} />
                             <Route path="categories" element={<Categories />} />
+                            <Route path="customers" element={<Customers />} />
                             <Route path="contacts" element={<Contacts />} />
-                            {/* <Route path="/form" element={<Form />} /> */}
+                            <Route path="/form" element={<Form />} />
                             {/* <Route path="/bar" element={<Bar />} /> */}
                             {/* <Route path="/pie" element={<Pie />} /> */}
                             {/* <Route path="/line" element={<Line />} /> */}
