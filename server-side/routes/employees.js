@@ -24,18 +24,7 @@ router.get("/:id", async (req, res) => {
 router.get("/find/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const employee = await Employee.find().byName(name);
-    res.status(200).json(employee);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const data = req.body;
-    const employee = new Employee(data);
-    await employee.save();
+    const employee = await Employee.find().byFullName(name);
     res.status(200).json(employee);
   } catch (error) {
     res.status(500).json(error);

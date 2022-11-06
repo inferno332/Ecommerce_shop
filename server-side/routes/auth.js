@@ -31,8 +31,8 @@ router.post("/login", async (req, res) => {
       if (validPassword) {
         const payload = {
           id: employee._id,
-          username: employee.username,
-          name: employee.name,
+          fullName: employee.fullName,
+          roles: employee.roles,
         };
 
         const token = jwt.sign(payload, jwtSettings.SECRET, {
@@ -40,9 +40,8 @@ router.post("/login", async (req, res) => {
           algorithm: "HS512",
         });
 
+        // res.header("Authorization", "Bearer " + token);
         res.status(200).json({
-          ok: true,
-          login: true,
           token: token,
           payload,
         });

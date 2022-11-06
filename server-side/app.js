@@ -4,6 +4,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var dotenv = require("dotenv");
 
 const { findDocument } = require("./helpers/MongoDbHelper");
 const jwt = require("jsonwebtoken");
@@ -21,8 +22,9 @@ const customersRoute = require("./routes/customers");
 const employeesRoute = require("./routes/employees");
 const productsRoute = require("./routes/products");
 
+dotenv.config();
 mongoose.connect(
-  "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
+  process.env.MONGODB_URL,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to DB");
@@ -48,7 +50,7 @@ opts.secretOrKey = jwtSettings.SECRET;
 passport.use(
   new JwtStrategy(opts, (payload, done) => {
     const _id = payload.id;
-    findDocument(_id, "users")
+    findDocument(_id, "employees")
       .then((result) => {
         if (result) {
           return done(null, result);
