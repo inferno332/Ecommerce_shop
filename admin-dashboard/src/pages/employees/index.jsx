@@ -7,14 +7,14 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 
-const Categories = () => {
-    const [categories, setCategories] = useState([]);
+const Employees = () => {
+    const [employees, setEmployees] = useState([]);
     const [refresh, setRefesh] = useState(false);
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:9000/categories/${id}`);
-            setCategories(categories.filter((category) => category._id !== id));
+            await axios.delete(`http://localhost:9000/employees/${id}`);
+            setEmployees(employees.filter((employee) => employee._id !== id));
         } catch (error) {
             console.log(error);
         }
@@ -22,7 +22,7 @@ const Categories = () => {
 
     const updateData = (data, params) => {
         try {
-            axios.put(`http://localhost:9000/categories/${params.row._id}`, data);
+            axios.put(`http://localhost:9000/employees/${params.row._id}`, data);
             setRefesh(true);
         } catch (error) {
             console.log(error);
@@ -31,30 +31,34 @@ const Categories = () => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:9000/categories')
-            .then((res) => setCategories(res.data))
+            .get('http://localhost:9000/employees')
+            .then((res) => setEmployees(res.data))
             .catch((err) => console.log(err));
     }, [refresh]);
 
     const columns = [
-        { field: '_id', headerName: 'Categories ID', width: 200 },
-        { field: 'name', headerName: 'Category', flex: 0.5, cellClassName: 'name-column--cell' },
-        { field: 'description', headerName: 'Description', flex: 1 },
+        { field: '_id', headerName: 'Employees ID', width: 180 },
+        { field: 'fullName', headerName: 'Name', flex: 0.5, cellClassName: 'name-column--cell' },
+        { field: 'email', headerName: 'Email', flex: 0.85 },
+        { field: 'phoneNumber', headerName: 'Phone', flex: 0.5 },
+        { field: 'address', headerName: 'Address' },
+        { field: 'birthday', headerName: 'Birthday',flex: 0.5 },
         {
             field: 'action',
             headerName: 'Actions',
             flex: 0.85,
+            minWidth: 150,
             renderCell: (params) => {
-                return <ActionsRow content='Category' params={params} handleDelete={handleDelete} updateData={updateData} />;
+                return <ActionsRow content='Employee' params={params} handleDelete={handleDelete} updateData={updateData} />;
             },
         },
     ];
 
     return (
         <Box m="20px">
-            <Header title="Categories" subtitle="List of Categories" />
+            <Header title="Employees" subtitle="List of Employees" />
             <DataTable
-                rows={categories}
+                rows={employees}
                 columns={columns}
                 getRowId={(row) => row._id}
                 styling
@@ -64,4 +68,4 @@ const Categories = () => {
     );
 };
 
-export default Categories;
+export default Employees;
