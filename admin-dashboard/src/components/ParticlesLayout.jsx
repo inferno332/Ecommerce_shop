@@ -1,8 +1,14 @@
 import React from 'react';
 import Particles from 'react-tsparticles';
 import { loadFull } from 'tsparticles';
+import { useTheme } from '@mui/material';
+
+import { tokens } from '../theme';
 
 function ParticlesLayout() {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     const particlesInit = async (main) => {
         await loadFull(main);
     };
@@ -23,7 +29,7 @@ function ParticlesLayout() {
                         },
                     },
                     color: {
-                        value: '#fff',
+                        value: colors.grey[100],
                     },
                     shape: {
                         type: 'circle',
@@ -64,7 +70,7 @@ function ParticlesLayout() {
                     line_linked: {
                         enable: true,
                         distance: 150,
-                        color: '#ffffff',
+                        color: colors.greenAccent[100],
                         opacity: 0.4,
                         width: 2,
                     },

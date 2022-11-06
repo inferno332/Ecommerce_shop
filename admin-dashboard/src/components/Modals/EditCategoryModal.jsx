@@ -1,5 +1,5 @@
-import { Box, TextField,useTheme } from '@mui/material';
-import React from 'react';
+import { Box, TextField, useTheme } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -7,9 +7,20 @@ import * as yup from 'yup';
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
-const EditCategoryModal = ({ open, onClose }) => {
+const defaultInputValues = {
+    name: '',
+    description: '',
+};
+
+const EditCategoryModal = ({ open, onClose, updateData, params }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const [category, setCategory] = useState(defaultInputValues);
+
+    const handleChange = (value) => {
+        setCategory(value);
+    };
 
     const modalStyles = {
         inputFields: {
@@ -25,15 +36,8 @@ const EditCategoryModal = ({ open, onClose }) => {
     };
 
     const validationSchema = yup.object().shape({
-        categoryId: yup
-            .string()
-            .required('Category ID is required')
-            .min(6, 'Category ID must be at least 6 characters'),
-        categoryName: yup
-            .string()
-            .required('Category name is required')
-            .min(3, 'Category name must be at least 3 characters'),
-        categoryDescription: yup
+        name: yup.string().required('Category name is required').min(3, 'Category name must be at least 3 characters'),
+        description: yup
             .string()
             .required('Category description is required')
             .min(10, 'Category description must be at least 10 characters'),
@@ -47,39 +51,36 @@ const EditCategoryModal = ({ open, onClose }) => {
         resolver: yupResolver(validationSchema),
     });
 
-    const editUser = (data) => {
-        console.log(data);
-    };
-
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields}>
                 <TextField
                     placeholder="Category ID"
+                    disabled
                     name="categoryId"
                     label="Category ID"
-                    required
                     {...register('categoryId')}
-                    error={errors.categoryId ? true : false}
-                    helperText={errors.categoryId?.message}
+                    value={params.row._id}
                 />
                 <TextField
                     placeholder="Category Name"
-                    name="categoryName"
+                    name="name"
                     label="Category Name"
                     required
-                    {...register('categoryName')}
-                    error={errors.categoryName ? true : false}
-                    helperText={errors.categoryName?.message}
+                    {...register('name')}
+                    error={errors.name ? true : false}
+                    helperText={errors.name?.message}
+                    onChange={(e) => handleChange({ ...category, name: e.target.value })}
                 />
                 <TextField
                     placeholder="Category Description"
-                    name="categoryDescription"
+                    name="description"
                     label="Category Description"
                     required
-                    {...register('categoryDescription')}
-                    error={errors.categoryDescription ? true : false}
-                    helperText={errors.categoryDescription?.message}
+                    {...register('description')}
+                    error={errors.description ? true : false}
+                    helperText={errors.description?.message}
+                    onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
             </Box>
         );
@@ -91,8 +92,15 @@ const EditCategoryModal = ({ open, onClose }) => {
             title="Category"
             subTitle="Edit category details"
             content={getContent()}
-            onSubmit={handleSubmit(editUser)}
-        ></BasicModal>
+            onSubmit={handleSubmit(() => {
+                try {
+                    updateData(category, params);
+                    onClose();
+                } catch (error) {
+                    console.log(error);
+                }
+            })}
+        />
     );
 };
 

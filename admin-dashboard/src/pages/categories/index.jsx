@@ -9,6 +9,7 @@ import ActionsRow from '../../components/ActionsRow';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
+    const [refresh, setRefesh] = useState(false);
 
     const handleDelete = async (id) => {
         try {
@@ -19,12 +20,21 @@ const Categories = () => {
         }
     };
 
+    const updateData = (data, params) => {
+        try {
+            axios.put(`http://localhost:9000/categories/${params.row._id}`, data);
+            setRefesh(true);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         axios
             .get('http://localhost:9000/categories')
             .then((res) => setCategories(res.data))
             .catch((err) => console.log(err));
-    }, []);
+    }, [refresh]);
 
     const columns = [
         { field: '_id', headerName: 'Categories ID', width: 200 },
@@ -33,10 +43,9 @@ const Categories = () => {
         {
             field: 'action',
             headerName: 'Actions',
-            width: 200,
-            flex: 0.5,
+            flex: 0.85,
             renderCell: (params) => {
-                return <ActionsRow params={params} handleDelete={handleDelete} />;
+                return <ActionsRow params={params} handleDelete={handleDelete} updateData={updateData} />;
             },
         },
     ];

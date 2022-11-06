@@ -4,12 +4,19 @@ import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
 import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
+import ConfirmDeleteModal from './Modals/ConfirmDeleteModal';
 
-const ActionsRow = ({ params, handleDelete }) => {
+const ActionsRow = ({ params, handleDelete, updateData }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const [open, setOpen] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+
+    const handleConfirmDelete = () => {
+        handleDelete(params.row._id);
+        setOpenDelete(false);
+    };
 
     return (
         <Box display="flex" gap={3}>
@@ -25,8 +32,8 @@ const ActionsRow = ({ params, handleDelete }) => {
                 <Typography color={colors.grey[100]} ml="5px">
                     Edit
                 </Typography>
-                <EditCategoryModal open={open} onClose={() => setOpen(false)} />
             </Button>
+            <EditCategoryModal open={open} onClose={() => setOpen(false)} params={params} updateData={updateData} />
             <Button
                 variant="contained"
                 sx={{
@@ -34,12 +41,13 @@ const ActionsRow = ({ params, handleDelete }) => {
                     ':hover': { backgroundColor: colors.redAccent[700] },
                 }}
                 startIcon={<DeleteOutline />}
-                onClick={() => handleDelete(params.row._id)}
+                onClick={() => setOpenDelete(true)}
             >
                 <Typography color={colors.grey[100]} ml="5px">
                     Delete
                 </Typography>
             </Button>
+            <ConfirmDeleteModal open={openDelete} onClose={() => setOpenDelete(false)} onSubmit={handleConfirmDelete} />
         </Box>
     );
 };
