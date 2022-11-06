@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, Divider, IconButton, Typography, useTheme } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { tokens } from '../../theme';
 import {
@@ -15,12 +15,12 @@ import {
     MenuOutlined,
     MapOutlined,
     TimelineOutlined,
+    LogoutOutlined,
 } from '@mui/icons-material';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, onClick }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -198,8 +198,16 @@ function Sidebar() {
                             setSelected={setSelected}
                         />
                     </Box>
+                    {/* Log out */}
+                    <Divider variant='middle' sx={{ my:'10px',color: colors.primary[100] }} />
+                    <MenuItem
+                        style={{ color: colors.grey[100], paddingLeft: '10%' }}
+                        onClick={handleLogout}
+                        icon={<LogoutOutlined />}
+                    >
+                        <Typography>Log out</Typography>
+                    </MenuItem>
                 </Menu>
-                <LogoutOutlinedIcon onClick={handleLogout} />
             </ProSidebar>
         </Box>
     );

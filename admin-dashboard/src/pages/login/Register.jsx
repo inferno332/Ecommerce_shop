@@ -3,10 +3,15 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
-import { Box, Button, Container, Grid, Input, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Input, Typography, useTheme } from '@mui/material';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
+import { tokens } from '../../theme';
+
 function Register() {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(true);
     const {
@@ -30,10 +35,10 @@ function Register() {
 
     return (
         <ContainerAuth>
-            <BoxAuth>
+            <BoxAuth style={{ backgroundColor: colors.primary[900] }}>
                 <div>
                     <Typography variant="h2" textAlign="center">
-                        Re<span style={{ color: '#5c6bc0' }}>gis</span>ter
+                        Re<span style={{ color: colors.blueAccent[500] }}>gis</span>ter
                     </Typography>
                     <Typography textAlign="center" variant="h5">
                         It's quick and easy.
@@ -108,14 +113,14 @@ function Register() {
                                 variant="contained"
                                 fullWidth
                                 size="large"
-                                style={{ backgroundColor: '#3b3d8b' }}
+                                style={{ backgroundColor: colors.blueAccent[500] }}
                             >
                                 Sign up
                             </Button>
                         </Grid>
                     </Grid>
                 </form>
-                <Typography color="#5c7fda" component={Link} to="/login">
+                <Typography color={colors.blueAccent[500]} component={Link} to="/login">
                     Already have an account!
                 </Typography>
             </BoxAuth>
@@ -137,7 +142,6 @@ const BoxAuth = styled(Box)({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: '#1f2a40',
     width: '25vw',
     height: '600px',
     borderRadius: '10px',
