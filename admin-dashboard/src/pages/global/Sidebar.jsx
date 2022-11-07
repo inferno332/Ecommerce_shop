@@ -16,11 +16,40 @@ import {
     MapOutlined,
     TimelineOutlined,
     LogoutOutlined,
+    AdminPanelSettingsOutlined,
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
 
-const Item = ({ title, to, icon, selected, setSelected, onClick }) => {
+const DataPage = [
+    {
+        title: 'Employees',
+        to: '/employees',
+        icon: <AdminPanelSettingsOutlined />,
+    },
+    {
+        title: 'Customers',
+        to: '/customers',
+        icon: <PeopleOutlined />,
+    },
+    {
+        title: 'Categories',
+        to: '/categories',
+        icon: <ContactsOutlined />,
+    },
+    {
+        title: 'Contacts',
+        to: '/contacts',
+        icon: <ReceiptOutlined />,  
+    },
+    {
+        title: 'Manage Team',
+        to :'/team',
+        icon: <AdminPanelSettingsOutlined />,
+    }
+];
+
+const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -131,27 +160,16 @@ function Sidebar() {
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Data
                         </Typography>
-                        <Item
-                            title="Manage Team"
-                            to="/team"
-                            icon={<PeopleOutlined />}
+                        {DataPage.map((item) => (
+                            <Item
+                            key={item.title}
+                            title={item.title}
+                            to={item.to}
+                            icon={item.icon}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Item
-                            title="Contacts Information"
-                            to="/contacts"
-                            icon={<ContactsOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Categories"
-                            to="/categories"
-                            icon={<ReceiptOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        ))}
 
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Pages
@@ -199,7 +217,7 @@ function Sidebar() {
                         />
                     </Box>
                     {/* Log out */}
-                    <Divider variant='middle' sx={{ my:'10px',color: colors.primary[100] }} />
+                    <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />
                     <MenuItem
                         style={{ color: colors.grey[100], paddingLeft: '10%' }}
                         onClick={handleLogout}
