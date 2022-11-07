@@ -1,12 +1,27 @@
 import { useState } from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
-import { DeleteOutline, EditOutlined } from '@mui/icons-material';
+import { DeleteOutline, DescriptionOutlined } from '@mui/icons-material';
 
 import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
 import ConfirmDeleteModal from './Modals/ConfirmDeleteModal';
+import EditCustomerModal from './Modals/EditCustomerModal';
+import EditEmployeeModal from './Modals/EditEmployeeModal';
 
-const ActionsRow = ({ params, handleDelete, updateData }) => {
+const EditModal = ({content, ...props}) => {
+    switch(content) {
+        case 'Category':
+            return <EditCategoryModal {...props}/>;
+        case 'Customer':
+            return <EditCustomerModal {...props}/>;
+        case 'Employee':
+            return <EditEmployeeModal {...props}/>
+        default:
+            return null;
+    }
+}
+
+const ActionsRow = ({ params, handleDelete, updateData, content }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -19,21 +34,21 @@ const ActionsRow = ({ params, handleDelete, updateData }) => {
     };
 
     return (
-        <Box display="flex" gap={3}>
+        <Box display="flex" gap={3} overflow="hidden">
             <Button
                 variant="contained"
                 sx={{
                     backgroundColor: colors.greenAccent[600],
                     ':hover': { backgroundColor: colors.greenAccent[700] },
                 }}
-                startIcon={<EditOutlined />}
+                startIcon={<DescriptionOutlined />}
                 onClick={() => setOpen(true)}
             >
-                <Typography color={colors.grey[100]} ml="5px">
+                <Typography color={colors.grey[100]}>
                     Edit
                 </Typography>
             </Button>
-            <EditCategoryModal open={open} onClose={() => setOpen(false)} params={params} updateData={updateData} />
+            <EditModal content={content} open={open} onClose={() => setOpen(false)} params={params} updateData={updateData} />
             <Button
                 variant="contained"
                 sx={{
@@ -43,7 +58,7 @@ const ActionsRow = ({ params, handleDelete, updateData }) => {
                 startIcon={<DeleteOutline />}
                 onClick={() => setOpenDelete(true)}
             >
-                <Typography color={colors.grey[100]} ml="5px">
+                <Typography color={colors.grey[100]}>
                     Delete
                 </Typography>
             </Button>

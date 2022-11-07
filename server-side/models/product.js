@@ -7,8 +7,8 @@ const productSchema = new Schema(
     price: { type: Number, required: true },
     discount:{ type: Number, required: true },
     stock: { type: Number, required: true },
-    categoryId: { type: Schema.Types.ObjectId, ref: 'Category' },
-    supplierId: { type: Schema.Types.ObjectId, ref: 'Supplier' },
+    categoryId: { type: Schema.Types.ObjectId, ref: 'category' },
+    supplierId: { type: Schema.Types.ObjectId, ref: 'supplier' },
     description: { type: String, required: true },
   },
   {

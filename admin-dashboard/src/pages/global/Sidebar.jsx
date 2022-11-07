@@ -16,11 +16,47 @@ import {
     MapOutlined,
     TimelineOutlined,
     LogoutOutlined,
+<<<<<<< HEAD
+=======
+    AdminPanelSettingsOutlined,
+>>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
 
+<<<<<<< HEAD
 const Item = ({ title, to, icon, selected, setSelected, onClick }) => {
+=======
+const DataPage = [
+    {
+        title: 'Employees',
+        to: '/employees',
+        icon: <AdminPanelSettingsOutlined />,
+    },
+    {
+        title: 'Customers',
+        to: '/customers',
+        icon: <PeopleOutlined />,
+    },
+    {
+        title: 'Categories',
+        to: '/categories',
+        icon: <ContactsOutlined />,
+    },
+    {
+        title: 'Contacts',
+        to: '/contacts',
+        icon: <ReceiptOutlined />,  
+    },
+    {
+        title: 'Manage Team',
+        to :'/team',
+        icon: <AdminPanelSettingsOutlined />,
+    }
+];
+
+const Item = ({ title, to, icon, selected, setSelected }) => {
+>>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -109,7 +145,7 @@ function Sidebar() {
 
                             <Box textAlign="center">
                                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" marginTop="10px">
-                                    {user?.payload.name}
+                                    {user?.payload.fullName}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     VP Fancy Admin
@@ -131,27 +167,16 @@ function Sidebar() {
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Data
                         </Typography>
-                        <Item
-                            title="Manage Team"
-                            to="/team"
-                            icon={<PeopleOutlined />}
+                        {DataPage.map((item) => (
+                            <Item
+                            key={item.title}
+                            title={item.title}
+                            to={item.to}
+                            icon={item.icon}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Item
-                            title="Contacts Information"
-                            to="/contacts"
-                            icon={<ContactsOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Categories"
-                            to="/categories"
-                            icon={<ReceiptOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        ))}
 
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Pages
@@ -199,7 +224,11 @@ function Sidebar() {
                         />
                     </Box>
                     {/* Log out */}
+<<<<<<< HEAD
                     <Divider variant='middle' sx={{ my:'10px',color: colors.primary[100] }} />
+=======
+                    <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />
+>>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
                     <MenuItem
                         style={{ color: colors.grey[100], paddingLeft: '10%' }}
                         onClick={handleLogout}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import axios from 'axios';
+import axiosJWT from '../../axios/axiosJWT';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -13,7 +13,7 @@ const Categories = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:9000/categories/${id}`);
+            await axiosJWT.delete(`http://localhost:9000/categories/${id}`);
             setCategories(categories.filter((category) => category._id !== id));
         } catch (error) {
             console.log(error);
@@ -22,7 +22,7 @@ const Categories = () => {
 
     const updateData = (data, params) => {
         try {
-            axios.put(`http://localhost:9000/categories/${params.row._id}`, data);
+            axiosJWT.put(`http://localhost:9000/categories/${params.row._id}`, data);
             setRefesh(true);
         } catch (error) {
             console.log(error);
@@ -30,7 +30,7 @@ const Categories = () => {
     };
 
     useEffect(() => {
-        axios
+        axiosJWT
             .get('http://localhost:9000/categories')
             .then((res) => setCategories(res.data))
             .catch((err) => console.log(err));
@@ -45,7 +45,14 @@ const Categories = () => {
             headerName: 'Actions',
             flex: 0.85,
             renderCell: (params) => {
-                return <ActionsRow params={params} handleDelete={handleDelete} updateData={updateData} />;
+                return (
+                    <ActionsRow
+                        content="Category"
+                        params={params}
+                        handleDelete={handleDelete}
+                        updateData={updateData}
+                    />
+                );
             },
         },
     ];

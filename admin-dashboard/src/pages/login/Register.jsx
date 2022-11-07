@@ -48,7 +48,7 @@ function Register() {
                     <Grid container spacing={5} paddingX={5}>
                         <Grid item xs={6}>
                             <Input
-                                {...register('name', { required: true })}
+                                {...register('fullName', { required: true })}
                                 placeholder="* Your name is ..."
                                 fullWidth
                             />
