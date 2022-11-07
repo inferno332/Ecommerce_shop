@@ -16,17 +16,11 @@ import {
     MapOutlined,
     TimelineOutlined,
     LogoutOutlined,
-<<<<<<< HEAD
-=======
     AdminPanelSettingsOutlined,
->>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
 
-<<<<<<< HEAD
-const Item = ({ title, to, icon, selected, setSelected, onClick }) => {
-=======
 const DataPage = [
     {
         title: 'Employees',
@@ -56,7 +50,6 @@ const DataPage = [
 ];
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
->>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     return (
@@ -224,11 +217,7 @@ function Sidebar() {
                         />
                     </Box>
                     {/* Log out */}
-<<<<<<< HEAD
-                    <Divider variant='middle' sx={{ my:'10px',color: colors.primary[100] }} />
-=======
                     <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />
->>>>>>> d80bce92303e7cc70633bc3c8f699e83b4c56eb6
                     <MenuItem
                         style={{ color: colors.grey[100], paddingLeft: '10%' }}
                         onClick={handleLogout}
