@@ -20,8 +20,8 @@ router.get(
 
 router.get(
   "/:id",
-  // passport.authenticate("jwt", { session: false }),
-  // allowRoles("admin", "staff"),
+  passport.authenticate("jwt", { session: false }),
+  allowRoles("admin", "staff"),
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -35,8 +35,8 @@ router.get(
 
 router.get(
   "/find/:name",
-  // passport.authenticate("jwt", { session: false }),
-  // allowRoles("admin", "staff"),
+  passport.authenticate("jwt", { session: false }),
+  allowRoles("admin", "staff"),
   async (req, res) => {
     try {
       const { name } = req.params;
@@ -50,8 +50,8 @@ router.get(
 
 router.post(
   "/",
-  // passport.authenticate("jwt", { session: false }),
-  // allowRoles("admin", "staff"),
+  passport.authenticate("jwt", { session: false }),
+  allowRoles("admin", "staff"),
   async (req, res) => {
     try {
       const data = req.body;
@@ -66,8 +66,8 @@ router.post(
 
 router.put(
   "/:id",
-  // passport.authenticate("jwt", { session: false }),
-  // allowRoles("admin"),
+  passport.authenticate("jwt", { session: false }),
+  allowRoles("admin"),
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -82,8 +82,8 @@ router.put(
 
 router.delete(
   "/:id",
-  // passport.authenticate("jwt", { session: false }),
-  // allowRoles("admin"),
+  passport.authenticate("jwt", { session: false }),
+  allowRoles("admin"),
   async (req, res) => {
     try {
       const { id } = req.params;

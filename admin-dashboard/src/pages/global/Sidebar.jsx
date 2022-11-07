@@ -138,7 +138,7 @@ function Sidebar() {
 
                             <Box textAlign="center">
                                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" marginTop="10px">
-                                    {user?.payload.name}
+                                    {user?.payload.fullName}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     VP Fancy Admin
