@@ -23,7 +23,7 @@ const employeesRoute = require("./routes/employees");
 const productsRoute = require("./routes/products");
 const ordersRoute = require("./routes/orders");
 
-dotenv.config();
+dotenv.config({ path: "local.env" });
 mongoose.connect(
   process.env.MONGODB_URL,
   { useNewUrlParser: true, useUnifiedTopology: true },
