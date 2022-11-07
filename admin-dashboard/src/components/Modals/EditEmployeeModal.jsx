@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel, TextField, useTheme } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, TextField, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,7 +14,7 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
         phoneNumber: params.row.phoneNumber,
         address: params.row.address,
         birthday: params.row.birthday,
-        roles : params.row.roles ,
+        roles: params.row.roles,
     };
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -22,14 +22,15 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
     const [employees, setEmployees] = useState(defaultInputValues);
 
     const handleCheckboxChange = (role) => {
-        const newValues =  employees.roles?.includes(role) ? employees.roles?.filter(item => item !== role) : [...employees.roles, role];
-        setEmployees({...employees, roles: newValues});
-    }
+        const newValues = employees.roles?.includes(role)
+            ? employees.roles?.filter((item) => item !== role)
+            : [...employees.roles, role];
+        setEmployees({ ...employees, roles: newValues });
+    };
 
     const handleChange = (value) => {
         setEmployees(value);
     };
-
 
     const modalStyles = {
         inputFields: {
@@ -56,7 +57,7 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
             .min(9, 'Employee phone number must be at least 9 characters'),
         address: yup.string().min(5, 'Employee address must be at least 3 characters'),
         birthday: yup.date().required('Birthday is required'),
-        roles: yup.array().of(yup.string()).required('Employee roles are required'),
+        roles: yup.array().min(1, 'Employee must have at least one role'),
     });
 
     const {
@@ -133,25 +134,30 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
                     helperText={errors.birthday?.message}
                     onChange={(e) => handleChange({ ...employees, birthday: e.target.value })}
                 />
-                {['admin','staff','manager'].map((role) => (
-                    <FormControlLabel
-                        key={role}
-                        label={role}
-                        control={
-                            <Controller 
-                                control={control}
-                                name={role}
-                                render={({ field }) => (
-                                    <Checkbox 
-                                        {...field}
-                                        checked={employees.roles?.includes(role) ? true : false}
-                                        onChange={() => handleCheckboxChange(role)}
-                                    />
-                                )}
-                            />
-                        }
-                    />
-                ))}
+                <Typography variant="h5">Roles</Typography>
+                <Box display="inline-flex">
+                    {['admin', 'staff', 'manager'].map((role) => (
+                        <FormControlLabel
+                            key={role}
+                            label={role.toUpperCase().charAt(0) + role.slice(1)}
+                            control={
+                                <Controller
+                                    control={control}
+                                    name={role}
+                                    render={({ field }) => (
+                                        <Checkbox
+                                            {...field}
+                                            checked={employees.roles?.includes(role) ? true : false}
+                                            onChange={() => handleCheckboxChange(role)}
+                                            color="info"
+                                            size='large'
+                                        />
+                                    )}
+                                />
+                            }
+                        />
+                    ))}
+                </Box>
             </Box>
         );
     };
