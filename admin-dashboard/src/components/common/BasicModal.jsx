@@ -26,7 +26,7 @@ const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit, deleteB
                 >
                     <CloseOutlined />
                 </IconButton>
-                <Typography variant="h5" component="h2">
+                <Typography variant="h4">
                     {title}
                 </Typography>
                 <Typography sx={{ mt: 2 }}>{subTitle}</Typography>
