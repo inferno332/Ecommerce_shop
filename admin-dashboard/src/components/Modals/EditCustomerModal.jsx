@@ -6,6 +6,7 @@ import * as yup from 'yup';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
+import moment from 'moment';
 
 const defaultInputValues = {
     firstName: '',
@@ -43,9 +44,12 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
         firstName: yup.string().required('First name is required').min(3, 'First name must be at least 3 characters'),
         lastName: yup.string().required('Last name is required').min(3, 'Last name must be at least 3 characters'),
         email: yup.string().required('Email is required').email('Email is invalid'),
-        phoneNumber: yup.string().required('Phone number is required').min(9, 'Phone number must be at least 9 characters'),
+        phoneNumber: yup
+            .string()
+            .required('Phone number is required')
+            .min(9, 'Phone number must be at least 9 characters'),
         address: yup.string().required('Address is required').min(10, 'Address must be at least 10 characters'),
-        birthday: yup.date().required('Birthday is required')
+        birthday: yup.date().required('Birthday is required').max(new Date(), 'Birthday must be in the past'),
     });
 
     const {
@@ -64,14 +68,15 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     disabled
                     name="customerId"
                     label="Customer ID"
+                    defaultValue={params.row._id}
                     {...register('customerId')}
-                    value={params.row._id}
                 />
                 <TextField
                     placeholder="First Name"
                     name="firstName"
                     label="First Name"
                     required
+                    defaultValue={params.row.firstName}
                     {...register('firstName')}
                     error={errors.firstName ? true : false}
                     helperText={errors.firstName?.message}
@@ -82,6 +87,7 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     name="lastName"
                     label="Last Name"
                     required
+                    defaultValue={params.row.lastName}
                     {...register('lastName')}
                     error={errors.lastName ? true : false}
                     helperText={errors.lastName?.message}
@@ -92,6 +98,7 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     name="email"
                     label="Email"
                     required
+                    defaultValue={params.row.email}
                     {...register('email')}
                     error={errors.email ? true : false}
                     helperText={errors.email?.message}
@@ -102,6 +109,7 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     name="phoneNumber"
                     label="Phone Number"
                     required
+                    defaultValue={params.row.phoneNumber}
                     {...register('phoneNumber')}
                     error={errors.phoneNumber ? true : false}
                     helperText={errors.phoneNumber?.message}
@@ -112,6 +120,7 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     name="address"
                     label="Address"
                     required
+                    defaultValue={params.row.address}
                     {...register('address')}
                     error={errors.address ? true : false}
                     helperText={errors.address?.message}
@@ -119,8 +128,9 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                 />
                 <TextField
                     name="birthday"
-                    type='date'
+                    type="date"
                     required
+                    defaultValue={moment(params.row.birthday).format('YYYY-MM-DD')}
                     {...register('birthday')}
                     error={errors.birthday ? true : false}
                     helperText={errors.birthday?.message}
