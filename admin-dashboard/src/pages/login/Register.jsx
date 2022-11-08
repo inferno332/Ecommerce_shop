@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
 import { Box, Button, Container, Grid, Input, Typography, useTheme } from '@mui/material';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { tokens } from '../../theme';
 
@@ -17,6 +18,7 @@ function Register() {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm();
 
@@ -25,8 +27,29 @@ function Register() {
     };
 
     const handleRegister = async (data) => {
-        await axios.post('http://localhost:9000/auth/register', data);
-        navigate('/login');
+        await axios
+            .post('http://localhost:9000/auth/register', data)
+            .then((res) => toast.success('Successfully toasted!'))
+            .then((res) =>
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1500),
+            )
+            .catch((error) => {
+                const errors = error.response.data;
+                if (errors.keyPattern.email) {
+                    setError('email', {
+                        type: 'server',
+                        message: 'Email already exist',
+                    });
+                }
+                if (errors.keyPattern.username) {
+                    setError('username', {
+                        type: 'server',
+                        message: 'Username already exist',
+                    });
+                }
+            });
     };
 
     const handleShowPass = () => {
@@ -35,6 +58,7 @@ function Register() {
 
     return (
         <ContainerAuth>
+            <Toaster position="top-center" reverseOrder={false} />
             <BoxAuth style={{ backgroundColor: colors.primary[900] }}>
                 <div>
                     <Typography variant="h2" textAlign="center">
@@ -46,35 +70,40 @@ function Register() {
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Grid container spacing={5} paddingX={5}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Input
                                 {...register('fullName', { required: true })}
                                 placeholder="* Your name is ..."
                                 fullWidth
                             />
-                            {errors.name && (
+                            {errors.fullName && (
                                 <Typography variant="subtitle2" pt={1} color="red">
                                     Please fill your name!
                                 </Typography>
                             )}
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Input
                                 type="email"
                                 {...register('email', { required: true })}
                                 placeholder="* Email ..."
                                 fullWidth
                             />
-                            {errors.email && (
+                            {errors.email?.type === 'required' && (
                                 <Typography variant="subtitle2" pt={1} color="red">
                                     Please fill your email!
                                 </Typography>
                             )}
+                            {errors.email && (
+                                <Typography variant="subtitle2" pt={1} color="red">
+                                    {errors.email.message}
+                                </Typography>
+                            )}
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Input type="number" {...register('phoneNumber')} placeholder="Phone Number" fullWidth />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Input type="date" {...register('birthday')} fullWidth />
                         </Grid>
                         <Grid item xs={12}>
@@ -87,26 +116,39 @@ function Register() {
                         </Grid>
                         <Grid item xs={12}>
                             <Input {...register('username', { required: true })} placeholder="* Username" fullWidth />
-                            {errors.username && (
+                            {errors.username?.type === 'required' && (
                                 <Typography variant="subtitle2" pt={1} color="red">
                                     Please fill your username!
                                 </Typography>
                             )}
-                        </Grid>
-                        <Grid item xs={12} sx={{ display: 'flex' }}>
-                            <Input
-                                type={showPassword ? 'password' : 'text'}
-                                {...register('password', { required: true })}
-                                placeholder="* Password"
-                                fullWidth
-                            />
-                            <RemoveRedEyeOutlinedIcon onClick={handleShowPass} style={{ cursor: 'pointer' }} />
-                            {errors.password && (
+                            {errors.username && (
                                 <Typography variant="subtitle2" pt={1} color="red">
-                                    Please fill your password!
+                                    {errors.username.message}
                                 </Typography>
                             )}
                         </Grid>
+                        <Grid item xs={12} sx={{ display: 'flex', position: 'relative' }}>
+                            <Input
+                                type={showPassword ? 'password' : 'text'}
+                                {...register('password', { required: true, minLength: 6 })}
+                                placeholder="* Password"
+                                fullWidth
+                            />
+                            <RemoveRedEyeOutlinedIcon
+                                onClick={handleShowPass}
+                                sx={{ position: 'absolute', right: 0, cursor: 'pointer' }}
+                            />
+                        </Grid>
+                        {errors.password?.type === 'required' && (
+                            <Typography variant="subtitle2" pt={1} pl={5} color="red">
+                                Please fill your password!
+                            </Typography>
+                        )}
+                        {errors.password?.type === 'minLength' && (
+                            <Typography variant="subtitle2" pt={1} pl={5} color="red">
+                                At least 6 characters
+                            </Typography>
+                        )}
                         <Grid item xs={12}>
                             <Button
                                 type="submit"
@@ -142,8 +184,8 @@ const BoxAuth = styled(Box)({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     flexDirection: 'column',
-    width: '25vw',
-    height: '600px',
+    minWidth: '25vw',
+    minHeight: '600px',
     borderRadius: '10px',
     borderTop: '10px solid #79a6fe',
     borderBottom: '10px solid #8BD17C',
