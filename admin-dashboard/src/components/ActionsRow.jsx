@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, Typography, useTheme } from '@mui/material';
 import { DeleteOutline, DescriptionOutlined } from '@mui/icons-material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
@@ -28,6 +29,8 @@ const ActionsRow = ({ params, handleDelete, updateData, content }) => {
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
 
+    const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
     const handleConfirmDelete = () => {
         handleDelete(params.row._id);
         setOpenDelete(false);
@@ -44,9 +47,9 @@ const ActionsRow = ({ params, handleDelete, updateData, content }) => {
                 startIcon={<DescriptionOutlined />}
                 onClick={() => setOpen(true)}
             >
-                <Typography color={colors.grey[100]}>
+                {!mdDown && <Typography color={colors.grey[100]}>
                     Edit
-                </Typography>
+                </Typography>}
             </Button>
             <EditModal content={content} open={open} onClose={() => setOpen(false)} params={params} updateData={updateData} />
             <Button
@@ -54,13 +57,14 @@ const ActionsRow = ({ params, handleDelete, updateData, content }) => {
                 sx={{
                     backgroundColor: colors.redAccent[600],
                     ':hover': { backgroundColor: colors.redAccent[700] },
+                    
                 }}
                 startIcon={<DeleteOutline />}
                 onClick={() => setOpenDelete(true)}
             >
-                <Typography color={colors.grey[100]}>
+                {!mdDown && <Typography color={colors.grey[100]}>
                     Delete
-                </Typography>
+                </Typography>}
             </Button>
             <ConfirmDeleteModal open={openDelete} onClose={() => setOpenDelete(false)} onSubmit={handleConfirmDelete} />
         </Box>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import moment from 'moment'
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -23,7 +24,6 @@ const Employees = () => {
     const updateData = (data, params) => {
         try {
             axiosJWT.patch(`http://localhost:9000/employees/${params.row._id}`, data);
-            console.log(params.row._id);
             setRefesh(true);
         } catch (error) {
             console.log(error);
@@ -31,10 +31,16 @@ const Employees = () => {
     };
 
     useEffect(() => {
-        axiosJWT
-            .get('http://localhost:9000/employees')
-            .then((res) => setEmployees(res.data))
-            .catch((err) => console.log(err));
+        const fetchData = async() => {
+            try {
+                const res = await axiosJWT.get('http://localhost:9000/employees')
+                setEmployees(res.data)
+                console.log(employees);
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchData()
     }, [refresh]);
 
     const columns = [
