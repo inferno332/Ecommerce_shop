@@ -8,4 +8,16 @@ axiosJWT.interceptors.request.use((config) => {
     return config;
 });
 
+axiosJWT.interceptors.response.use(
+    (res) => {
+        return Promise.resolve(res);
+    },
+    (error) => {
+        if (error.response.status === 401) {
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    },
+);
+
 export default axiosJWT;
