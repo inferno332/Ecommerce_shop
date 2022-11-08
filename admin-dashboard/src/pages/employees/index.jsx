@@ -1,11 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import axios from 'axios';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import axiosJWT from '../../axios/axiosJWT';
 
 const Employees = () => {
     const [employees, setEmployees] = useState([]);
@@ -13,7 +13,7 @@ const Employees = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:9000/employees/${id}`);
+            await axiosJWT.delete(`http://localhost:9000/employees/${id}`);
             setEmployees(employees.filter((employee) => employee._id !== id));
         } catch (error) {
             console.log(error);
@@ -22,7 +22,8 @@ const Employees = () => {
 
     const updateData = (data, params) => {
         try {
-            axios.put(`http://localhost:9000/employees/${params.row._id}`, data);
+            axiosJWT.patch(`http://localhost:9000/employees/${params.row._id}`, data);
+            console.log(params.row._id);
             setRefesh(true);
         } catch (error) {
             console.log(error);
@@ -30,7 +31,7 @@ const Employees = () => {
     };
 
     useEffect(() => {
-        axios
+        axiosJWT
             .get('http://localhost:9000/employees')
             .then((res) => setEmployees(res.data))
             .catch((err) => console.log(err));
