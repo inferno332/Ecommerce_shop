@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import moment from 'moment'
+import moment from 'moment';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -31,32 +31,44 @@ const Employees = () => {
     };
 
     useEffect(() => {
-        const fetchData = async() => {
+        const fetchData = async () => {
             try {
-                const res = await axiosJWT.get('http://localhost:9000/employees')
-                setEmployees(res.data)
+                const res = await axiosJWT.get('http://localhost:9000/employees');
+                setEmployees(res.data);
                 console.log(employees);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
-        }
-        fetchData()
+        };
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
     const columns = [
         { field: '_id', headerName: 'Employees ID', width: 180 },
         { field: 'fullName', headerName: 'Name', flex: 0.5, cellClassName: 'name-column--cell' },
-        { field: 'email', headerName: 'Email', flex: 0.85 },
+        { field: 'email', headerName: 'Email', flex: 0.6 },
         { field: 'phoneNumber', headerName: 'Phone', flex: 0.5 },
         { field: 'address', headerName: 'Address' },
-        { field: 'birthday', headerName: 'Birthday',flex: 0.5 },
+        {
+            field: 'birthday',
+            headerName: 'Birthday',
+            renderCell: (params) => moment(params.row.birthday).format('DD-MM-YYYY'),
+        },
         {
             field: 'action',
             headerName: 'Actions',
             flex: 0.85,
             minWidth: 150,
             renderCell: (params) => {
-                return <ActionsRow content='Employee' params={params} handleDelete={handleDelete} updateData={updateData} />;
+                return (
+                    <ActionsRow
+                        content="Employee"
+                        params={params}
+                        handleDelete={handleDelete}
+                        updateData={updateData}
+                    />
+                );
             },
         },
     ];
@@ -64,13 +76,7 @@ const Employees = () => {
     return (
         <Box m="20px">
             <Header title="Employees" subtitle="List of Employees" />
-            <DataTable
-                rows={employees}
-                columns={columns}
-                getRowId={(row) => row._id}
-                styling
-                disableSelectionOnClick
-            />
+            <DataTable rows={employees} columns={columns} getRowId={(row) => row._id} styling disableSelectionOnClick />
         </Box>
     );
 };

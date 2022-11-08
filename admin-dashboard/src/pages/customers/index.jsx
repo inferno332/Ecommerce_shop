@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import axios from 'axios';
+import moment from 'moment';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -39,10 +40,12 @@ const Customers = () => {
     const columns = [
         { field: '_id', headerName: 'Customers ID', width: 180 },
         { field: 'firstName', headerName: 'Customer', flex: 0.5, cellClassName: 'name-column--cell' },
-        { field: 'email', headerName: 'Email', flex: 0.85 },
+        { field: 'email', headerName: 'Email', flex: 0.5 },
         { field: 'phoneNumber', headerName: 'Phone', flex: 0.5 },
-        { field: 'address', headerName: 'Address' },
-        { field: 'birthday', headerName: 'Birthday',flex: 0.5 },
+        { field: 'address', headerName: 'Address',flex: 1 },
+        { field: 'birthday',
+        headerName: 'Birthday',
+        renderCell: (params) => moment(params.row.birthday).format('DD-MM-YYYY'), },
         {
             field: 'action',
             headerName: 'Actions',
