@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, IconButton, useTheme } from '@mui/material';
 import { DeleteOutline, DescriptionOutlined } from '@mui/icons-material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { tokens } from '../theme';
 import EditCategoryModal from './Modals/EditCategoryModal';
@@ -27,6 +28,8 @@ const ActionsRow = ({ params, handleDelete, updateData, content }) => {
 
     const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
+
+    const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleConfirmDelete = () => {
         handleDelete(params.row._id);
@@ -55,6 +58,7 @@ const ActionsRow = ({ params, handleDelete, updateData, content }) => {
                 sx={{
                     backgroundColor: colors.redAccent[600],
                     ':hover': { backgroundColor: colors.redAccent[700] },
+                    
                 }}
                 onClick={() => setOpenDelete(true)}
             >

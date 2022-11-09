@@ -27,29 +27,27 @@ function Register() {
     };
 
     const handleRegister = async (data) => {
-        await axios
-            .post('http://localhost:9000/auth/register', data)
-            .then((res) => toast.success('Successfully toasted!'))
-            .then((res) =>
-                setTimeout(() => {
-                    navigate('/login');
-                }, 1500),
-            )
-            .catch((error) => {
-                const errors = error.response.data;
-                if (errors.keyPattern.email) {
-                    setError('email', {
-                        type: 'server',
-                        message: 'Email already exist',
-                    });
-                }
-                if (errors.keyPattern.username) {
-                    setError('username', {
-                        type: 'server',
-                        message: 'Username already exist',
-                    });
-                }
-            });
+        try {
+            await axios.post('http://localhost:9000/auth/register', data);
+            toast.success('Successfully toasted!');
+            setTimeout(() => {
+                navigate('/login');
+            }, 1500);
+        } catch (error) {
+            const errors = error.response.data;
+            if (errors.keyPattern.email) {
+                setError('email', {
+                    type: 'server',
+                    message: 'Email already exist',
+                });
+            }
+            if (errors.keyPattern.username) {
+                setError('username', {
+                    type: 'server',
+                    message: 'Username already exist',
+                });
+            }
+        }
     };
 
     const handleShowPass = () => {

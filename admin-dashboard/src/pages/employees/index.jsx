@@ -88,12 +88,12 @@ const Employees = () => {
         { field: 'email', headerName: 'Email', flex: 0.6 },
         { field: 'phoneNumber', headerName: 'Phone' },
         { field: 'address', headerName: 'Address', flex: 0.6 },
+
         {
             field: 'birthday',
             headerName: 'Birthday',
             renderCell: (params) => moment(params.row.birthday).format('DD-MM-YYYY'),
         },
-
         {
             field: 'action',
             headerName: 'Actions',
