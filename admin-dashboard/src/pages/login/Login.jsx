@@ -103,10 +103,13 @@ function Login() {
 export default Login;
 
 const ContainerAuth = styled(Container)({
-    display: 'flex',
-    height: '100vh',
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 500,
+    boxShadow: 24,
+    p: 4,
 });
 
 const BoxAuth = styled(Box)({

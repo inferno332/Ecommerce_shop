@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import moment from 'moment';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
@@ -56,7 +57,7 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
             .required('Employee phone number is required')
             .min(9, 'Employee phone number must be at least 9 characters'),
         address: yup.string().min(5, 'Employee address must be at least 3 characters'),
-        birthday: yup.date().required('Birthday is required'),
+        birthday: yup.date().required('Birthday is required').max(new Date(), 'Birthday must be in the past'),
         roles: yup.array().min(1, 'Employee must have at least one role'),
     });
 
@@ -127,7 +128,7 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
                 <TextField
                     name="birthday"
                     type="date"
-                    defaultValue={params.row.birthday}
+                    defaultValue={moment(params.row.birthday).format('YYYY-MM-DD')}
                     required
                     {...register('birthday')}
                     error={errors.birthday ? true : false}
@@ -150,7 +151,7 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
                                             checked={employees.roles?.includes(role) ? true : false}
                                             onChange={() => handleCheckboxChange(role)}
                                             color="info"
-                                            size='large'
+                                            size="large"
                                         />
                                     )}
                                 />
@@ -170,7 +171,6 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
             content={getContent()}
             onSubmit={handleSubmit(() => {
                 try {
-                    console.log(employees);
                     updateData(employees, params);
                     onClose();
                 } catch (error) {
