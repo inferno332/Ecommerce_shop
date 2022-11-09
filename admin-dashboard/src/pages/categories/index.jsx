@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import axiosJWT from '../../axios/axiosJWT';
+import toast, { Toaster } from 'react-hot-toast';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -20,11 +21,13 @@ const Categories = () => {
         }
     };
 
-    const updateData = (data, params) => {
+    const updateData = async (data, params) => {
         try {
-            axiosJWT.put(`http://localhost:9000/categories/${params.row._id}`, data);
-            setRefesh(true);
+            await axiosJWT.put(`http://localhost:9000/categories/${params.row._id}`, data);
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
         } catch (error) {
+            toast.error('Can not update!');
             console.log(error);
         }
     };
@@ -59,6 +62,7 @@ const Categories = () => {
 
     return (
         <Box m="20px">
+            <Toaster position="top-center" reverseOrder={false} />
             <Header title="Categories" subtitle="List of Categories" />
             <DataTable
                 rows={categories}
