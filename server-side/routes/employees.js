@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Employee = require("../models/employee");
 const passport = require("passport");
-const allowRoles = require("./middlewareAllowRoles");
+const allowRoles = require("../middleware/allowRoles");
 
 router.get(
   "/",

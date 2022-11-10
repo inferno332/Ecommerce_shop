@@ -1,66 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const Customer = require("../models/customer");
 
-router.get("/", async (req, res) => {
-  try {
-    const customers = await Customer.find();
-    res.status(200).json(customers);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+const {
+  getAllCustomers,
+  getCustomerById,
+  getCustomerByName,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer,
+} = require("../controllers/customers");
+const allowRoles = require("../middleware/allowRoles");
+const auth = require("../middleware/auth");
 
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const customer = await Customer.findById(id);
-    res.status(200).json(customer);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.get("/find/:name", async (req, res) => {
-  try {
-    const { name } = req.params;
-    const customer = await Customer.find().byFirstName(name);
-    res.status(200).json(customer);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const data = req.body;
-    const customer = new Customer(data);
-    await customer.save();
-    res.status(200).json(customer);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.put("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = req.body;
-    await Customer.findByIdAndUpdate(id, data);
-    res.status(200).json({ ok: true });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    await Customer.findByIdAndDelete(id);
-    res.status(200).json({ ok: true });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+router.get("/", auth, allowRoles("admin", "staff"), getAllCustomers);
+router.get("/:id", auth, allowRoles("admin", "staff"), getCustomerById);
+router.get("/find/:name", auth, allowRoles("admin", "staff"), getCustomerByName);
+router.post("/", auth, allowRoles("admin"), createCustomer);
+router.put("/:id", auth, allowRoles("admin"), updateCustomer);
+router.delete("/:id", auth, allowRoles("admin"), deleteCustomer);
 
 module.exports = router;

@@ -20,7 +20,7 @@ const allowRoles = (...roles) => {
         if (user && user.roles) {
           let ok = false;
           user.roles.forEach((role) => {
-            if (roles.includes(role)) {
+            if (roles?.includes(role)) {
               ok = true;
               return;
             }
@@ -36,7 +36,7 @@ const allowRoles = (...roles) => {
       })
       .catch(() => {
         response.sendStatus(500);
-      });
+      })
   };
 };
 
