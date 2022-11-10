@@ -16,6 +16,7 @@ const Categories = () => {
         try {
             await axiosJWT.delete(`http://localhost:9000/categories/${id}`);
             setCategories(categories.filter((category) => category._id !== id));
+            toast.success('Successfully deleted!');
         } catch (error) {
             console.log(error);
         }
@@ -68,6 +69,7 @@ const Categories = () => {
                 rows={categories}
                 columns={columns}
                 getRowId={(row) => row._id}
+                loading={categories.length === 0}
                 styling
                 disableSelectionOnClick
             />

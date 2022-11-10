@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import { AdminPanelSettingsOutlined, WorkOutlineRounded, ManageAccountsOutlined } from '@mui/icons-material';
 import moment from 'moment';
+import toast, { Toaster } from 'react-hot-toast';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -21,15 +22,17 @@ const Employees = () => {
         try {
             await axiosJWT.delete(`http://localhost:9000/employees/${id}`);
             setEmployees(employees.filter((employee) => employee._id !== id));
+            toast.success('Successfully deleted!');
         } catch (error) {
             console.log(error);
         }
     };
 
-    const updateData = (data, params) => {
+    const updateData = async (data, params) => {
         try {
-            axiosJWT.patch(`http://localhost:9000/employees/${params.row._id}`, data);
+            await axiosJWT.patch(`http://localhost:9000/employees/${params.row._id}`, data);
             setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
         } catch (error) {
             console.log(error);
         }
@@ -113,8 +116,9 @@ const Employees = () => {
 
     return (
         <Box m="20px">
+            <Toaster position="top-center" reverseOrder={false} />
             <Header title="Employees" subtitle="List of Employees" />
-            <DataTable rows={employees} columns={columns} getRowId={(row) => row._id} styling disableSelectionOnClick />
+            <DataTable rows={employees} columns={columns} getRowId={(row) => row._id} loading={employees.length === 0} styling disableSelectionOnClick />
         </Box>
     );
 };
