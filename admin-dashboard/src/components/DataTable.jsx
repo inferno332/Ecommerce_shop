@@ -21,6 +21,7 @@ const DataTable = ({styling = false, ...passProps }) => {
                 '& .MuiDataGrid-footerContainer': { backgroundColor: colors.blueAccent[700], borderTop: 'none' },
                 '& .MuiDataGrid-virtualScroller': { backgroundColor: colors.primary[400] },
                 '& .MuiDataGrid-toolbarContainer .MuiButton-text': { color: `${colors.grey[100]} !important` },
+                '& .MuiCircularProgress-root': { color: colors.grey[100] },
             }}
         >
             <DataGrid {...props}  />

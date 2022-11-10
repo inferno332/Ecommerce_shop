@@ -68,7 +68,7 @@ passport.use(
 
 //ROUTES
 app.use("/upload", uploadRoute);
-app.use("/login", loginRoute);
+app.use("/auth", loginRoute);
 app.use("/categories", categoriesRoute);
 app.use("/suppliers", suppliersRoute);
 app.use("/customers", customersRoute);
