@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import axios from 'axios';
+import axiosJWT from '../../axios/axiosJWT';
 import moment from 'moment';
+import toast, { Toaster } from 'react-hot-toast';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -14,24 +15,26 @@ const Customers = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:9000/customers/${id}`);
+            await axiosJWT.delete(`http://localhost:9000/customers/${id}`);
             setCustomers(customers.filter((customer) => customer._id !== id));
+            toast.success('Successfully deleted!');
         } catch (error) {
             console.log(error);
         }
     };
 
-    const updateData = (data, params) => {
+    const updateData = async (data, params) => {
         try {
-            axios.put(`http://localhost:9000/customers/${params.row._id}`, data);
+            await axiosJWT.put(`http://localhost:9000/customers/${params.row._id}`, data);
             setRefesh(true);
+            toast.success('Successfully updated!');
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
-        axios
+        axiosJWT
             .get('http://localhost:9000/customers')
             .then((res) => setCustomers(res.data))
             .catch((err) => console.log(err));
@@ -67,8 +70,9 @@ const Customers = () => {
 
     return (
         <Box m="20px">
+            <Toaster position="top-center" reverseOrder={false} />
             <Header title="Customers" subtitle="List of Customers" />
-            <DataTable rows={customers} columns={columns} getRowId={(row) => row._id} styling disableSelectionOnClick />
+            <DataTable rows={customers} columns={columns} getRowId={(row) => row._id} loading={customers.length === 0} styling disableSelectionOnClick />
         </Box>
     );
 };
