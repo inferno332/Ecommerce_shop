@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Divider, IconButton, Typography, useTheme } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
 import { tokens } from '../../theme';
 import {
     HomeOutlined,
@@ -15,7 +15,39 @@ import {
     MenuOutlined,
     MapOutlined,
     TimelineOutlined,
+    LogoutOutlined,
+    AdminPanelSettingsOutlined,
 } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../redux/apiRequests';
+
+const DataPage = [
+    {
+        title: 'Employees',
+        to: '/employees',
+        icon: <AdminPanelSettingsOutlined />,
+    },
+    {
+        title: 'Customers',
+        to: '/customers',
+        icon: <PeopleOutlined />,
+    },
+    {
+        title: 'Categories',
+        to: '/categories',
+        icon: <ContactsOutlined />,
+    },
+    {
+        title: 'Contacts',
+        to: '/contacts',
+        icon: <ReceiptOutlined />,  
+    },
+    {
+        title: 'Manage Team',
+        to :'/team',
+        icon: <AdminPanelSettingsOutlined />,
+    }
+];
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -34,10 +66,19 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 };
 
 function Sidebar() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        logoutUser(dispatch, navigate);
+    };
+
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState('Dashboard');
+
+    const user = useSelector((state) => state.auth.login.currentUser);
 
     return (
         <Box
@@ -97,7 +138,7 @@ function Sidebar() {
 
                             <Box textAlign="center">
                                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" marginTop="10px">
-                                    Khoa
+                                    {user?.payload.fullName}
                                 </Typography>
                                 <Typography variant="h5" color={colors.greenAccent[500]}>
                                     VP Fancy Admin
@@ -119,27 +160,16 @@ function Sidebar() {
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Data
                         </Typography>
-                        <Item
-                            title="Manage Team"
-                            to="/team"
-                            icon={<PeopleOutlined />}
+                        {DataPage.map((item) => (
+                            <Item
+                            key={item.title}
+                            title={item.title}
+                            to={item.to}
+                            icon={item.icon}
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Item
-                            title="Contacts Information"
-                            to="/contacts"
-                            icon={<ContactsOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Categories"
-                            to="/categories"
-                            icon={<ReceiptOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                        ))}
 
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Pages
@@ -186,6 +216,15 @@ function Sidebar() {
                             setSelected={setSelected}
                         />
                     </Box>
+                    {/* Log out */}
+                    <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />
+                    <MenuItem
+                        style={{ color: colors.grey[100], paddingLeft: '10%' }}
+                        onClick={handleLogout}
+                        icon={<LogoutOutlined />}
+                    >
+                        <Typography>Log out</Typography>
+                    </MenuItem>
                 </Menu>
             </ProSidebar>
         </Box>

@@ -4,6 +4,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var dotenv = require("dotenv");
 
 const { findDocument } = require("./helpers/MongoDbHelper");
 const jwt = require("jsonwebtoken");
@@ -14,14 +15,17 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const uploadRoute = require("./routes/upload");
-const authRoute = require("./routes/auth");
+const loginRoute = require("./routes/login");
 const categoriesRoute = require("./routes/categories");
 const suppliersRoute = require("./routes/suppliers");
 const customersRoute = require("./routes/customers");
 const employeesRoute = require("./routes/employees");
+const productsRoute = require("./routes/products");
+const ordersRoute = require("./routes/orders");
 
+dotenv.config({ path: ".env" });
 mongoose.connect(
-  "mongodb+srv://inferno332:khoapro1@cluster1.cllwm65.mongodb.net/Shoes_Online",
+  process.env.MONGODB_URL,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to DB");
@@ -47,7 +51,7 @@ opts.secretOrKey = jwtSettings.SECRET;
 passport.use(
   new JwtStrategy(opts, (payload, done) => {
     const _id = payload.id;
-    findDocument(_id, "users")
+    findDocument(_id, "employees")
       .then((result) => {
         if (result) {
           return done(null, result);
@@ -64,11 +68,13 @@ passport.use(
 
 //ROUTES
 app.use("/upload", uploadRoute);
-app.use("/auth", authRoute);
+app.use("/auth", loginRoute);
 app.use("/categories", categoriesRoute);
 app.use("/suppliers", suppliersRoute);
 app.use("/customers", customersRoute);
 app.use("/employees", employeesRoute);
+app.use("/products", productsRoute);
+app.use("/orders", ordersRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
