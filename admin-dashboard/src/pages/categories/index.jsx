@@ -12,6 +12,17 @@ const Categories = () => {
     const [categories, setCategories] = useState([]);
     const [refresh, setRefesh] = useState(false);
 
+    const handleUpload = async(params,e) => {
+        const formData = new FormData();
+        formData.append('files', e.target.files[0]);
+        await axiosJWT.post(`http://localhost:9000/upload/categories/${params.row._id}`, formData)
+        .then(res => {
+            setRefesh((prev) => !prev);
+            toast.success('Successfully uploaded!');
+        }).catch(err => console.log(err))
+        console.log(formData);
+    }
+
     const handleDelete = async (id) => {
         try {
             await axiosJWT.delete(`http://localhost:9000/categories/${id}`);
@@ -41,7 +52,18 @@ const Categories = () => {
     }, [refresh]);
 
     const columns = [
-        { field: '_id', headerName: 'Categories ID', width: 200 },
+        {
+            field: 'imageURL',
+            headerName: 'Image',
+            width: 200,
+            renderCell: (params) => (
+                <img
+                    style={{ width: 60, height: 60, objectFit: 'contain', borderRadius: '10px' }}
+                    src={`http://localhost:9000/${params.row.imageURL}`}
+                    alt=""
+                />
+            ),
+        },
         { field: 'name', headerName: 'Category', flex: 0.5, cellClassName: 'name-column--cell' },
         { field: 'description', headerName: 'Description', flex: 1 },
         {
@@ -55,6 +77,7 @@ const Categories = () => {
                         params={params}
                         handleDelete={handleDelete}
                         updateData={updateData}
+                        handleUpload={handleUpload}
                     />
                 );
             },
