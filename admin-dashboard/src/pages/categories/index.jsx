@@ -14,13 +14,12 @@ const Categories = () => {
 
     const handleUpload = async(params,e) => {
         const formData = new FormData();
-        formData.append('files', e.target.files[0]);
-        await axiosJWT.post(`http://localhost:9000/upload/categories/${params.row._id}`, formData)
-        .then(res => {
+        formData.append('file', e.target.files[0]);
+        await axiosJWT.post(`http://localhost:9000/upload/single/${params.row._id}`, formData)
+        .then(() => {
             setRefesh((prev) => !prev);
             toast.success('Successfully uploaded!');
         }).catch(err => console.log(err))
-        console.log(formData);
     }
 
     const handleDelete = async (id) => {
@@ -59,7 +58,7 @@ const Categories = () => {
             renderCell: (params) => (
                 <img
                     style={{ width: 60, height: 60, objectFit: 'contain', borderRadius: '10px' }}
-                    src={`http://localhost:9000/${params.row.imageURL}`}
+                    src={`http://localhost:9000${params.row.imageUrl}`}
                     alt=""
                 />
             ),

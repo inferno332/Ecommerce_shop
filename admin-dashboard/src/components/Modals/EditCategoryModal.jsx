@@ -6,8 +6,6 @@ import * as yup from 'yup';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
-import axiosJWT from '../../axios/axiosJWT';
-import toast from 'react-hot-toast';
 
 const defaultInputValues = {
     name: '',
@@ -19,8 +17,6 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
     const colors = tokens(theme.palette.mode);
 
     const [category, setCategory] = useState(defaultInputValues);
-
-
 
     const handleChange = (value) => {
         setCategory(value);
@@ -94,15 +90,22 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                     value={params.row.description}
                     onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
-                <input type="file" name="uploadImg" {...register('uploadImg')} accept='image/png, image/jpeg' multiple onChange={(e)=>handleUpload(params,e)} />
-                <ImageList variant="masonry" cols={3} gap={6} rowHeight={150} sx={{ width: 600, height: 350 }}>
-                    {params.row.imageURL.map((item) => (
-                        <ImageListItem key={item} cols={1} rows={1}>
-                            <img src={`http://localhost:9000/${item}`} alt="" loading="lazy" />
-                            <ImageListItemBar title={item} position="bottom" />
+                <input
+                    type="file"
+                    name="uploadImg"
+                    {...register('uploadImg')}
+                    accept="image/png, image/jpeg"
+                    multiple
+                    onChange={(e) => handleUpload(params, e)}
+                />
+                {params.row.imageUrl && (
+                    <ImageList variant="masonry" cols={3} gap={6} rowHeight={150} sx={{ width: 600, height: 200 }}>
+                        <ImageListItem cols={1} rows={1}>
+                            <img src={`http://localhost:9000/${params.row.imageUrl}`} alt="" loading="lazy" />
+                            <ImageListItemBar title={params.row.name} position="bottom" />
                         </ImageListItem>
-                    ))}
-                </ImageList>
+                    </ImageList>
+                )}
             </Box>
         );
     };
