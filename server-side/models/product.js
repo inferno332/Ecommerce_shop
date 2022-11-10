@@ -10,6 +10,7 @@ const productSchema = new Schema(
     categoryId: { type: Schema.Types.ObjectId, ref: 'category' },
     supplierId: { type: Schema.Types.ObjectId, ref: 'supplier' },
     description: { type: String, required: true },
+    imageURL: {type: Array, default: []},
   },
   {
     query: {
@@ -19,12 +20,6 @@ const productSchema = new Schema(
     },
   },
 );
-// Include virtuals
-productSchema.set('toObject', { virtuals: true });
-productSchema.set('toJSON', { virtuals: true });
-
-// validateBeforeSave
-productSchema.set('validateBeforeSave', true);
 
 const Product = model('Product', productSchema);
 module.exports = Product;

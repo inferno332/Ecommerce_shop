@@ -1,8 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { uploadCategoryImage } = require("../controllers/upload");
+const {
+  uploadMultipleImage,
+  uploadSingleImage,
+} = require("../controllers/upload");
 
-router.post("/categories/:id", uploadCategoryImage);
+router.post("/multiple/:id", uploadMultipleImage);
+router.post("/single/:id", uploadSingleImage);
 
 module.exports = router;
