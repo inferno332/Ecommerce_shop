@@ -15,7 +15,7 @@ const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 
 const uploadRoute = require("./routes/upload");
-const authRoute = require("./routes/auth");
+const loginRoute = require("./routes/login");
 const categoriesRoute = require("./routes/categories");
 const suppliersRoute = require("./routes/suppliers");
 const customersRoute = require("./routes/customers");
@@ -68,7 +68,7 @@ passport.use(
 
 //ROUTES
 app.use("/upload", uploadRoute);
-app.use("/auth", authRoute);
+app.use("/login", loginRoute);
 app.use("/categories", categoriesRoute);
 app.use("/suppliers", suppliersRoute);
 app.use("/customers", customersRoute);
