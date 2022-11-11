@@ -7,7 +7,6 @@ import { tokens } from '../../theme';
 import {
     HomeOutlined,
     PeopleOutlined,
-    ContactsOutlined,
     ReceiptOutlined,
     PersonOutlined,
     BarChartOutlined,
@@ -17,6 +16,8 @@ import {
     TimelineOutlined,
     LogoutOutlined,
     AdminPanelSettingsOutlined,
+    CategoryOutlined,
+    WidgetsOutlined,
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/apiRequests';
@@ -35,7 +36,12 @@ const DataPage = [
     {
         title: 'Categories',
         to: '/categories',
-        icon: <ContactsOutlined />,
+        icon: <CategoryOutlined />,
+    },
+    {
+        title: 'Products',
+        to: '/products',
+        icon: <WidgetsOutlined />
     },
     {
         title: 'Contacts',
@@ -114,7 +120,7 @@ function Sidebar() {
                         {!isCollapsed && (
                             <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px">
                                 <Typography variant="h3" color={colors.grey[100]}>
-                                    ADMINIS
+                                    QẢN LÍ
                                 </Typography>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                                     <MenuOutlined />
