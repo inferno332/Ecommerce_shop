@@ -75,6 +75,7 @@ app.use("/customers", customersRoute);
 app.use("/employees", employeesRoute);
 app.use("/products", productsRoute);
 app.use("/orders", ordersRoute);
+app.use("/public", express.static("public"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
