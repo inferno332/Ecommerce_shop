@@ -76,7 +76,7 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                     {...register('name')}
                     error={errors.name ? true : false}
                     helperText={errors.name?.message}
-                    value={params.row.name}
+                    defaultValue={params.row.name}
                     onChange={(e) => handleChange({ ...category, name: e.target.value })}
                 />
                 <TextField
@@ -87,7 +87,7 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                     {...register('description')}
                     error={errors.description ? true : false}
                     helperText={errors.description?.message}
-                    value={params.row.description}
+                    defaultValue={params.row.description}
                     onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
                 <input
