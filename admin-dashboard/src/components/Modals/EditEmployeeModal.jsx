@@ -43,6 +43,9 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
+            '.Mui-focused': {
+                color: colors.greenAccent[500],
+            },
         },
     };
 

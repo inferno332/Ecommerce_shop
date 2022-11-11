@@ -47,6 +47,7 @@ const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit, deleteB
                             sx={{ bgcolor: colors.blueAccent[600], '&:hover': { bgcolor: colors.blueAccent[500] } }}
                             variant="contained"
                             onClick={onSubmit}
+                            type="submit"
                         >
                             <Typography variant="h6" color={colors.grey[100]}>
                                 Submit

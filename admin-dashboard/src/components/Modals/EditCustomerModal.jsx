@@ -8,18 +8,18 @@ import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 import moment from 'moment';
 
-const defaultInputValues = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    address: '',
-    birthday: '',
-};
-
 const EditCustomerModal = ({ open, onClose, updateData, params }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const defaultInputValues = {
+        firstName: params.row.firstName,
+        lastName: params.row.lastName,
+        email: params.row.email,
+        phoneNumber: params.row.phoneNumber,
+        address: params.row.address,
+        birthday: moment(params.row.birthday).format('YYYY-MM-DD'),
+    };
 
     const [customer, setCustomer] = useState(defaultInputValues);
 
@@ -36,6 +36,9 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
             marginBottom: '15px',
             '.MuiFormControl-root': {
                 marginBottom: '20px',
+            },
+            '.Mui-focused': {
+                color: colors.greenAccent[500],
             },
         },
     };
@@ -69,7 +72,6 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
                     name="customerId"
                     label="Customer ID"
                     defaultValue={params.row._id}
-                    {...register('customerId')}
                 />
                 <TextField
                     placeholder="First Name"

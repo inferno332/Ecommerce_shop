@@ -9,6 +9,7 @@ import Categories from './pages/categories';
 import Customers from './pages/customers';
 import Form from './pages/form';
 import Employees from './pages/employees';
+import Products from './pages/products';
 // import Bar from './pages/bar';
 // import Line from './pages/line';
 // import Pie from './pages/pie';
@@ -36,6 +37,7 @@ function App() {
                             <Route path="customers" element={<Customers />} />
                             <Route path="contacts" element={<Contacts />} />
                             <Route path="employees" element={<Employees />} />
+                            <Route path="products" element={<Products />} />
                             <Route path="/form" element={<Form />} />
                             {/* <Route path="/bar" element={<Bar />} /> */}
                             {/* <Route path="/pie" element={<Pie />} /> */}
