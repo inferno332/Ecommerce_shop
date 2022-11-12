@@ -26,9 +26,11 @@ const Customers = () => {
     const updateData = async (data, params) => {
         try {
             await axiosJWT.put(`http://localhost:9000/customers/${params.row._id}`, data);
-            setRefesh(true);
+            setRefesh(prev => !prev);
+            console.log(data);
             toast.success('Successfully updated!');
         } catch (error) {
+            toast.error('Can not update!');
             console.log(error);
         }
     };
