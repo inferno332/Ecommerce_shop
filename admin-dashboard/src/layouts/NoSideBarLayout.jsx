@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import ParticlesLayout from '../components/ParticlesLayout';
+import ParticlesLayout from './ParticlesLayout';
 
 function NoSideBarLayout(props) {
     return (
