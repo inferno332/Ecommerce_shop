@@ -7,13 +7,14 @@ import * as yup from 'yup';
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
-const CreateCategoryModal = ({ open, onClose, createData}) => {
+const CreateCategoryModal = ({ open, onClose, createData }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const defaultInputValues = {
         name: '',
         description: '',
+        imageUrl: '',
     };
 
     const [category, setCategory] = useState(defaultInputValues);
@@ -44,6 +45,7 @@ const CreateCategoryModal = ({ open, onClose, createData}) => {
             .string()
             .required('Category description is required')
             .min(10, 'Category description must be at least 10 characters'),
+        imageUrl: yup.string().required('Category image is required'),
     });
 
     const {
@@ -58,14 +60,6 @@ const CreateCategoryModal = ({ open, onClose, createData}) => {
         return (
             <Box sx={modalStyles.inputFields}>
                 <TextField
-                    placeholder="Category ID"
-                    disabled
-                    name="categoryId"
-                    label="Category ID"
-                    {...register('categoryId')}
-                    defaultValue=''
-                />
-                <TextField
                     placeholder="Category Name"
                     name="name"
                     label="Category Name"
@@ -73,7 +67,7 @@ const CreateCategoryModal = ({ open, onClose, createData}) => {
                     {...register('name')}
                     error={errors.name ? true : false}
                     helperText={errors.name?.message}
-                    defaultValue=''
+                    defaultValue=""
                     onChange={(e) => handleChange({ ...category, name: e.target.value })}
                 />
                 <TextField
@@ -84,9 +78,10 @@ const CreateCategoryModal = ({ open, onClose, createData}) => {
                     {...register('description')}
                     error={errors.description ? true : false}
                     helperText={errors.description?.message}
-                    defaultValue=''
+                    defaultValue=""
                     onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
+                <input type="file" name="image" required {...register('imageUrl')}></input>
             </Box>
         );
     };

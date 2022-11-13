@@ -1,7 +1,7 @@
+import { useState } from 'react';
 import { AddCircleOutline } from '@mui/icons-material';
 import { Box, Typography, useTheme } from '@mui/material';
 import { GridFooter, GridFooterContainer } from '@mui/x-data-grid';
-import { useState } from 'react';
 
 import { tokens } from '../theme';
 import CreateCategoryModal from './Modals/CreateCategoryModal';
@@ -22,6 +22,13 @@ const FooterCreateButton = ({ createData, content, ...props }) => {
 
     return (
         <GridFooterContainer>
+            <CreateModal
+                content='Category'
+                open={open}
+                onClose={() => setOpen(false)}
+                createData={createData}
+                {...props}
+            />
             <Box
                 sx={{
                     display: 'flex',
@@ -34,13 +41,6 @@ const FooterCreateButton = ({ createData, content, ...props }) => {
                 }}
                 onClick={() => setOpen(true)}
             >
-                <CreateModal
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    content={content}
-                    createData={createData}
-                    {...props}
-                />
                 <AddCircleOutline fontSize="large" />
                 <Typography fontSize="16px">Create</Typography>
             </Box>
