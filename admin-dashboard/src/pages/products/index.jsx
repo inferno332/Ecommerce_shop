@@ -7,11 +7,13 @@ import toast, { Toaster } from 'react-hot-toast';
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
     const handleUpload = async (params, e) => {
@@ -79,12 +81,22 @@ const Products = () => {
     }, [refresh]);
 
     const columns = [
-        { field: 'name', headerName: 'Name', flex: 1 },
-        { field: 'price', headerName: 'Price' },
-        { field: 'discount', headerName: 'Discount (%)' },
-        { field: 'stock', headerName: 'Stock' },
-        { field: 'categoryName', headerName: 'Category', valueGetter: (params) => params.row.category?.name },
-        { field: 'supplierName', headerName: 'Supplier', valueGetter: (params) => params.row.supplier?.name },
+        { field: 'name', headerName: 'Name', flex: 0.7 },
+        { field: 'price', headerName: 'Price', flex: 0.3 },
+        { field: 'discount', headerName: 'Discount (%)', flex: 0.3 },
+        { field: 'stock', headerName: 'Stock', flex: 0.3 },
+        {
+            field: 'categoryName',
+            headerName: 'Category',
+            valueGetter: (params) => params.row.category?.name,
+            flex: 0.3,
+        },
+        {
+            field: 'supplierName',
+            headerName: 'Supplier',
+            valueGetter: (params) => params.row.supplier?.name,
+            flex: 0.3,
+        },
         {
             field: 'action',
             headerName: 'Actions',
@@ -133,6 +145,10 @@ const Products = () => {
                 loading={products.length === 0}
                 styling
                 disableSelectionOnClick
+                components={{ Toolbar: GridToolbar }}
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
             />
         </Box>
     );

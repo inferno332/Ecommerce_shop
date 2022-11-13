@@ -7,9 +7,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
     const handleUpload = async(params,e) => {
@@ -57,7 +59,7 @@ const Categories = () => {
             width: 200,
             renderCell: (params) => (
                 <img
-                    style={{ width: 60, height: 60, objectFit: 'contain', borderRadius: '10px' }}
+                    style={{ width: 90, height: 90, objectFit: 'fill', borderRadius: '10px' }}
                     src={`http://localhost:9000${params.row.imageUrl}`}
                     alt=""
                 />
@@ -93,7 +95,12 @@ const Categories = () => {
                 getRowId={(row) => row._id}
                 loading={categories.length === 0}
                 styling
+                rowHeight={100}
                 disableSelectionOnClick
+                components={{ Toolbar: GridToolbar }}
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
             />
         </Box>
     );

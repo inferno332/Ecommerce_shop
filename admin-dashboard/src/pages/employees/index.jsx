@@ -10,12 +10,14 @@ import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import axiosJWT from '../../axios/axiosJWT';
 import { tokens } from '../../theme';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Employees = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const [employees, setEmployees] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
     const handleDelete = async (id) => {
@@ -56,10 +58,10 @@ const Employees = () => {
             field: 'roles',
             headerName: 'Roles',
             flex: 1,
-            renderCell: (params) => {
+            renderCell: ({row: {roles}}) => {
                 return (
                     <Box width="30%" display="flex" gap={1} flex="1">
-                        {params.row.roles.map((role) => (
+                        {roles.sort().map((role) => (
                             <Box
                                 key={role}
                                 minWidth="82px"
@@ -118,7 +120,18 @@ const Employees = () => {
         <Box m="20px">
             <Toaster position="top-center" reverseOrder={false} />
             <Header title="Employees" subtitle="List of Employees" />
-            <DataTable rows={employees} columns={columns} getRowId={(row) => row._id} loading={employees.length === 0} styling disableSelectionOnClick />
+            <DataTable
+                rows={employees}
+                columns={columns}
+                getRowId={(row) => row._id}
+                loading={employees.length === 0}
+                styling
+                disableSelectionOnClick
+                components={{ Toolbar: GridToolbar }}
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+            />
         </Box>
     );
 };
