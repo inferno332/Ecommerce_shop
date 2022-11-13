@@ -8,11 +8,23 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import { GridToolbar } from '@mui/x-data-grid';
+import axios from 'axios';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
+
+    const createData = async (data) => {
+        try {
+            await axios.post('http://localhost:9000/categories', data)
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
+        } catch (error) {
+            toast.error('Can not update!');
+            console.log(error);
+        }
+    }
 
     const handleUpload = async(params,e) => {
         const formData = new FormData();
@@ -101,6 +113,7 @@ const Categories = () => {
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                createData={createData}
             />
         </Box>
     );
