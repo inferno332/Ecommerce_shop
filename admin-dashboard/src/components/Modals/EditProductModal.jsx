@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
-const EditProductModal = ({ open, onClose, updateData, params, suppliers, categories }) => {
+const EditProductModal = ({ open, onClose, updateData, params, suppliers, categories, handleUpload }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -165,9 +165,18 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                         ))}
                     </TextField>
                 </Box>
+                <input
+                    type="file"
+                    name="uploadImg"
+                    {...register('uploadImg')}
+                    accept="image/png, image/jpeg"
+                    multiple
+                    onChange={(e) => handleUpload(params, e)}
+                />
             </Box>
         );
     };
+    
     return (
         <BasicModal
             open={open}

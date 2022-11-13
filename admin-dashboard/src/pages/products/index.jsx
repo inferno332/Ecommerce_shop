@@ -14,6 +14,18 @@ const Products = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [refresh, setRefesh] = useState(false);
 
+    const handleUpload = async (params, e) => {
+        const formData = new FormData();
+        formData.append('files', e.target.files[0]);
+        await axiosJWT
+            .post(`http://localhost:9000/upload/multiple/${params.row._id}`, formData)
+            .then(() => {
+                setRefesh((prev) => !prev);
+                toast.success('Successfully uploaded!');
+            })
+            .catch((err) => console.log(err));
+    };
+
     const handleDelete = async (id) => {
         try {
             await axiosJWT.delete(`http://localhost:9000/products/${id}`);
@@ -67,7 +79,7 @@ const Products = () => {
     }, [refresh]);
 
     const columns = [
-        { field: 'name', headerName: 'Name',flex:1 },
+        { field: 'name', headerName: 'Name', flex: 1 },
         { field: 'price', headerName: 'Price' },
         { field: 'discount', headerName: 'Discount (%)' },
         { field: 'stock', headerName: 'Stock' },
@@ -76,7 +88,7 @@ const Products = () => {
         {
             field: 'action',
             headerName: 'Actions',
-            flex: 0.85,
+            flex: 0.5,
             renderCell: (params) => {
                 return (
                     <ActionsRow
@@ -84,10 +96,28 @@ const Products = () => {
                         params={params}
                         handleDelete={handleDelete}
                         updateData={updateData}
+                        handleUpload={handleUpload}
                         categories={categories}
                         suppliers={suppliers}
                     />
                 );
+            },
+        },
+        {
+            field: 'imageURL',
+            headerName: 'Image',
+            flex: 1,
+            renderCell: (params) => {
+                return params.row.imageURL.map((image, index) => {
+                    return (
+                        <img
+                            key={index}
+                            style={{ paddingLeft: '10px', width: 60, objectFit: 'contain', borderRadius: '10px' }}
+                            src={`http://localhost:9000${image}`}
+                            alt=""
+                        />
+                    );
+                });
             },
         },
     ];
