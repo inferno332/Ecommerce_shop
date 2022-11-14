@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  uploadMultipleImage,
-  uploadSingleImage,
+  uploadProductImage,
+  uploadCategoryImage,
 } = require("../controllers/upload");
 
-router.post("/multiple/:id", uploadMultipleImage);
-router.post("/single/:id", uploadSingleImage);
+router.post("/category/:id", uploadCategoryImage);
+router.post("/product/:id", uploadProductImage);
 
 module.exports = router;
