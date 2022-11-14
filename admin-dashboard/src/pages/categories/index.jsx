@@ -17,24 +17,26 @@ const Categories = () => {
 
     const createData = async (data) => {
         try {
-            await axios.post('http://localhost:9000/categories', data)
+            await axiosJWT.post('http://localhost:9000/categories', data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
             toast.error('Can not update!');
             console.log(error);
         }
-    }
+    };
 
-    const handleUpload = async(params,e) => {
+    const handleUpload = async (params, e) => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        await axiosJWT.post(`http://localhost:9000/upload/single/${params.row._id}`, formData)
-        .then(() => {
-            setRefesh((prev) => !prev);
-            toast.success('Successfully uploaded!');
-        }).catch(err => console.log(err))
-    }
+        await axiosJWT
+            .post(`http://localhost:9000/upload/category/${params.row._id}`, formData)
+            .then(() => {
+                setRefesh((prev) => !prev);
+                toast.success('Successfully uploaded!');
+            })
+            .catch((err) => console.log(err));
+    };
 
     const handleDelete = async (id) => {
         try {
