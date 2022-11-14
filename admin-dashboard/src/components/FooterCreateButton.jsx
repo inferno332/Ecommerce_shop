@@ -10,6 +10,12 @@ const CreateModal = ({ content, ...props }) => {
     switch (content) {
         case 'Category':
             return <CreateCategoryModal {...props} />;
+        // case 'Product':
+        //     return <CreateProductModal {...props} />;
+        // case 'Employee':
+        //     return <CreateEmployeeModal {...props} />;
+        // case 'Customer':
+        //     return <CreateCustomerModal {...props} />;
         default:
             return null;
     }
@@ -23,7 +29,7 @@ const FooterCreateButton = ({ createData, content, ...props }) => {
     return (
         <GridFooterContainer>
             <CreateModal
-                content='Category'
+                content={content}
                 open={open}
                 onClose={() => setOpen(false)}
                 createData={createData}

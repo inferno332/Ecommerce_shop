@@ -5,7 +5,7 @@ import { tokens } from '../theme';
 
 import FooterCreateButton from './FooterCreateButton';
 
-const DataTable = ({ styling = false, createData, ...passProps }) => {
+const DataTable = ({ styling = false, createData, content, ...passProps }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -27,7 +27,10 @@ const DataTable = ({ styling = false, createData, ...passProps }) => {
                 '& .MuiCircularProgress-root': { color: colors.grey[100] },
             }}
         >
-            <DataGrid {...passProps} components={{ Footer: () => <FooterCreateButton createData={createData} /> }} />
+            <DataGrid
+                {...passProps}
+                components={{ Footer: () => <FooterCreateButton createData={createData} content={content} /> }}
+            />
         </Box>
     ) : (
         <Box m="40px 0 0 0" height="75vh">
