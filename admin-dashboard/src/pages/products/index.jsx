@@ -20,7 +20,7 @@ const Products = () => {
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
         await axiosJWT
-            .post(`http://localhost:9000/upload/multiple/${params.row._id}`, formData)
+            .post(`http://localhost:9000/upload/product/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -124,7 +124,13 @@ const Products = () => {
                     return (
                         <img
                             key={index}
-                            style={{ paddingLeft: '10px', width: 60, objectFit: 'contain', borderRadius: '10px' }}
+                            style={{
+                                width: 60,
+                                height: 60,
+                                objectFit: 'fill',
+                                borderRadius: '20%',
+                                marginRight: '10px',
+                            }}
                             src={`http://localhost:9000${image}`}
                             alt=""
                         />
@@ -144,6 +150,7 @@ const Products = () => {
                 getRowId={(row) => row._id}
                 loading={products.length === 0}
                 styling
+                rowHeight={70}
                 disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
                 pageSize={pageSize}
