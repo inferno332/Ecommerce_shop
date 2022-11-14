@@ -5,11 +5,11 @@ import { tokens } from '../theme';
 
 import FooterCreateButton from './FooterCreateButton';
 
-const DataTable = ({ styling = false, createData, content, ...passProps }) => {
+const DataTable = ({ createData, content, categories, suppliers, ...passProps }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    return styling ? (
+    return (
         <Box
             m="40px 0 0 0"
             height="75vh"
@@ -29,12 +29,17 @@ const DataTable = ({ styling = false, createData, content, ...passProps }) => {
         >
             <DataGrid
                 {...passProps}
-                components={{ Footer: () => <FooterCreateButton createData={createData} content={content} /> }}
+                components={{
+                    Footer: () => (
+                        <FooterCreateButton
+                            categories={categories}
+                            suppliers={suppliers}
+                            createData={createData}
+                            content={content}
+                        />
+                    ),
+                }}
             />
-        </Box>
-    ) : (
-        <Box m="40px 0 0 0" height="75vh">
-            <DataGrid {...passProps} />
         </Box>
     );
 };
