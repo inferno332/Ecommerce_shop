@@ -18,7 +18,7 @@ const storage = multer.diskStorage({
     }
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+    cb(null, file.originalname);
   },
 });
 
@@ -54,7 +54,7 @@ const uploadProductImage = tryCatch((req, res, next) => {
       const product = await Product.findById(id);
       const imageURL = req.files.map((file) => {
         return `/uploads/${id}/${file.originalname}`;
-      })
+      });
       product.imageURL.push(...imageURL);
       await product.save();
       res.status(200).json({ ok: true, body: req.files });

@@ -5,13 +5,14 @@ import { GridFooter, GridFooterContainer } from '@mui/x-data-grid';
 
 import { tokens } from '../theme';
 import CreateCategoryModal from './Modals/CreateCategoryModal';
+import CreateProductModal from './Modals/CreateProductModal';
 
 const CreateModal = ({ content, ...props }) => {
     switch (content) {
         case 'Category':
             return <CreateCategoryModal {...props} />;
-        // case 'Product':
-        //     return <CreateProductModal {...props} />;
+        case 'Product':
+            return <CreateProductModal {...props} />;
         // case 'Employee':
         //     return <CreateEmployeeModal {...props} />;
         // case 'Customer':

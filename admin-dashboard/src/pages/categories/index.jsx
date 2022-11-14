@@ -106,14 +106,15 @@ const Categories = () => {
                 rows={categories}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={categories.length === 0}
-                styling
-                rowHeight={100}
-                disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                loading={categories.length === 0}
+                rowHeight={100}
+
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                
                 createData={createData}
                 content="Category"
             />
