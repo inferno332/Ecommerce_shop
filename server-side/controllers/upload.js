@@ -6,15 +6,21 @@ const Category = require("../models/category");
 
 //MULTER UPLOAD
 const multer = require("multer");
-const imagePath = ".public/uploads/";
+
+//CHỈ ĐỊNH THƯ MỰC MÀ ẢNH UPLOAD VÀO
+const UPLOAD_DIRECTORY = "./public/uploads/";
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    const uid = req.params.id;
+    const PATH = UPLOAD_DIRECTORY + uid;
+
     //NẾU CHƯA CÓ FOLDER THÌ SẼ TẠO 1 FOLDER MỚI
-    if (!fs.existsSync(imagePath)) {
-      fs.mkdirSync(imagePath, { recursive: true });
+    if (!fs.existsSync(PATH)) {
+      fs.mkdirSync(PATH, { recursive: true });
       cb(null, PATH);
     } else {
-      cb(null, imagePath);
+      cb(null, PATH);
     }
   },
   filename: (req, file, cb) => {
