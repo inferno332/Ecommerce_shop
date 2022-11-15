@@ -16,6 +16,17 @@ const Products = () => {
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
+    const createData = async (data) => {
+        try {
+            await axiosJWT.post('http://localhost:9000/products', data);
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
+        } catch (error) {
+            toast.error('Can not update!');
+            console.log(error);
+        }
+    };
+
     const handleUpload = async (params, e) => {
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
@@ -148,14 +159,19 @@ const Products = () => {
                 rows={products}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={products.length === 0}
-                styling
-                rowHeight={70}
-                disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                rowHeight={70}
+                loading={products.length === 0}
+
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                
+                categories={categories}
+                suppliers={suppliers}
+                createData={createData}
+                content="Product"
             />
         </Box>
     );
