@@ -39,7 +39,7 @@ const getProductById = tryCatch(async (req, res) => {
 
 const getProductByName = tryCatch(async (req, res) => {
   const { name } = req.params;
-  const product = await Product.find().byFirstName(name);
+  const product = await Product.find().byName(name);
   res.status(200).json(product);
 });
 
