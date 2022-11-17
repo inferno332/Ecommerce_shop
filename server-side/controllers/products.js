@@ -63,6 +63,11 @@ const deleteProduct = tryCatch(async (req, res) => {
   res.status(200).json({ ok: true });
 });
 
+const stockProduct = tryCatch(async (req, res) => {
+  const result = await Product.find({ stock: { $lte: 50 } });
+  res.status(200).json(result);
+});
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -70,4 +75,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  stockProduct,
 };
