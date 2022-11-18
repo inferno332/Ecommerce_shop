@@ -38,6 +38,42 @@ const deleteOrder = tryCatch(async (req, res) => {
   res.status(200).json({ ok: true });
 });
 
+//Hiển thị tất cả các mặt hàng được bán trong hôm nay
+const getSoldOrder = tryCatch(async (req, res) => {
+  const eqDay = {
+    $eq: [{ $dayOfMonth: "$createdAt" }, { $dayOfMonth: new Date() }],
+  };
+  const eqMonth = { $eq: [{ $month: "$createdAt" }, { $month: new Date() }] };
+  const aggregate = [
+    {
+      $match: {
+        $expr: {
+          $and: [eqDay, eqMonth],
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "products",
+        localField: "orderDetails.productId",
+        foreignField: "_id",
+        as: "products",
+      },
+    },
+    {
+      $unwind: {
+        path: "$products",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $project: { _id: 0, products: 1, createdAt: 1 },
+    },
+  ];
+  const result = await Order.aggregate(aggregate);
+  res.status(200).json(result);
+});
+
 module.exports = {
   getAllOrders,
   getOrderById,
@@ -45,4 +81,5 @@ module.exports = {
   createOrder,
   updateOrder,
   deleteOrder,
+  getSoldOrder,
 };
