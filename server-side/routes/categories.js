@@ -7,7 +7,7 @@ const {
   getCategoryByName,
   createCategory,
   updateCategory,
-  deleteCategory,
+  deleteCategory, getCategoryWithProductsByName
 } = require("../controllers/categories");
 const allowRoles = require("../middleware/allowRoles");
 const auth = require("../middleware/auth");
@@ -23,5 +23,13 @@ router.get(
 router.post("/", auth, allowRoles("admin"), createCategory);
 router.put("/:id", auth, allowRoles("admin"), updateCategory);
 router.delete("/:id", auth, allowRoles("admin"), deleteCategory);
+
+// Hiển thị Category với tất cả Product có trong Cate
+router.get(
+  "/search/:name",
+  auth,
+  allowRoles("admin", "staff"),
+  getCategoryWithProductsByName
+);
 
 module.exports = router;
