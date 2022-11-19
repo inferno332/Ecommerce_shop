@@ -14,7 +14,6 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
     const defaultInputValues = {
         name: '',
         description: '',
-        imageUrl: '',
     };
 
     const [category, setCategory] = useState(defaultInputValues);
@@ -45,7 +44,6 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
             .string()
             .required('Category description is required')
             .min(10, 'Category description must be at least 10 characters'),
-        imageUrl: yup.string().required('Category image is required'),
     });
 
     const {
@@ -81,7 +79,6 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
                     defaultValue=""
                     onChange={(e) => handleChange({ ...category, description: e.target.value })}
                 />
-                <input type="file" name="image" required {...register('imageUrl')}></input>
             </Box>
         );
     };
@@ -90,7 +87,7 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
             open={open}
             onClose={onClose}
             title="Category"
-            subTitle="Edit category details"
+            subTitle="Add category"
             content={getContent()}
             onSubmit={handleSubmit(() => {
                 try {

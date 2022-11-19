@@ -16,11 +16,22 @@ const Products = () => {
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
+    const createData = async (data) => {
+        try {
+            await axiosJWT.post('http://localhost:9000/products', data);
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
+        } catch (error) {
+            toast.error('Can not update!');
+            console.log(error);
+        }
+    };
+
     const handleUpload = async (params, e) => {
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
         await axiosJWT
-            .post(`http://localhost:9000/upload/multiple/${params.row._id}`, formData)
+            .post(`http://localhost:9000/upload/product/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -124,7 +135,13 @@ const Products = () => {
                     return (
                         <img
                             key={index}
-                            style={{ paddingLeft: '10px', width: 60, objectFit: 'contain', borderRadius: '10px' }}
+                            style={{
+                                width: 60,
+                                height: 60,
+                                objectFit: 'fill',
+                                borderRadius: '20%',
+                                marginRight: '10px',
+                            }}
                             src={`http://localhost:9000${image}`}
                             alt=""
                         />
@@ -142,13 +159,19 @@ const Products = () => {
                 rows={products}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={products.length === 0}
-                styling
-                disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                rowHeight={70}
+                loading={products.length === 0}
+
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                
+                categories={categories}
+                suppliers={suppliers}
+                createData={createData}
+                content="Product"
             />
         </Box>
     );

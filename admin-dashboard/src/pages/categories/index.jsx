@@ -17,24 +17,26 @@ const Categories = () => {
 
     const createData = async (data) => {
         try {
-            await axios.post('http://localhost:9000/categories', data)
+            await axiosJWT.post('http://localhost:9000/categories', data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
             toast.error('Can not update!');
             console.log(error);
         }
-    }
+    };
 
-    const handleUpload = async(params,e) => {
+    const handleUpload = async (params, e) => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        await axiosJWT.post(`http://localhost:9000/upload/single/${params.row._id}`, formData)
-        .then(() => {
-            setRefesh((prev) => !prev);
-            toast.success('Successfully uploaded!');
-        }).catch(err => console.log(err))
-    }
+        await axiosJWT
+            .post(`http://localhost:9000/upload/category/${params.row._id}`, formData)
+            .then(() => {
+                setRefesh((prev) => !prev);
+                toast.success('Successfully uploaded!');
+            })
+            .catch((err) => console.log(err));
+    };
 
     const handleDelete = async (id) => {
         try {
@@ -105,15 +107,17 @@ const Categories = () => {
                 rows={categories}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={categories.length === 0}
-                styling
-                rowHeight={100}
-                disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                loading={categories.length === 0}
+                rowHeight={100}
+
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                
                 createData={createData}
+                content="Category"
             />
         </Box>
     );

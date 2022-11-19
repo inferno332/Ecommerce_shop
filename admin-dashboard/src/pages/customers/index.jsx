@@ -80,10 +80,9 @@ const Customers = () => {
                 rows={customers}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={customers.length === 0}
-                styling
-                disableSelectionOnClick
                 components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                loading={customers.length === 0}
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
