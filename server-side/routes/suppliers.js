@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
-const {getAllSuppliers,
+const {
+  getAllSuppliers,
   getSupplierById,
   getSupplierByName,
   createSupplier,
@@ -9,11 +11,17 @@ const {getAllSuppliers,
   deleteSupplier,
 } = require("../controllers/suppliers");
 const allowRoles = require("../middleware/allowRoles");
-const auth = require("../middleware/auth");
+
+const auth = passport.authenticate("jwt", { session: false });
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllSuppliers);
 router.get("/:id", auth, allowRoles("admin", "staff"), getSupplierById);
-router.get("/find/:name", auth, allowRoles("admin", "staff"), getSupplierByName);
+router.get(
+  "/find/:name",
+  auth,
+  allowRoles("admin", "staff"),
+  getSupplierByName
+);
 router.post("/", auth, allowRoles("admin"), createSupplier);
 router.put("/:id", auth, allowRoles("admin"), updateSupplier);
 router.delete("/:id", auth, allowRoles("admin"), deleteSupplier);
