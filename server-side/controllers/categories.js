@@ -43,7 +43,7 @@ const getCategoryWithProductsByName = tryCatch(async (req, res) => {
   const { name } = req.params;
   const aggregate = [
     {
-      $match: { name: name },
+      $match: { name: new RegExp("^" + name + "$", "i") },
     },
     {
       $lookup: {
