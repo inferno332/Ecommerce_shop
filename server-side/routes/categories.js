@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
 
 const {
   getAllCategories,
@@ -12,8 +11,8 @@ const {
   getCategoryWithProductsByName,
 } = require("../controllers/categories");
 const allowRoles = require("../middleware/allowRoles");
+const auth = require('../middleware/auth');
 
-const auth = passport.authenticate("jwt", { session: false });
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllCategories);
 router.get("/:id", auth, allowRoles("admin", "staff"), getCategoryById);
