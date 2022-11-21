@@ -8,9 +8,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Customers = () => {
     const [customers, setCustomers] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
     const handleDelete = async (id) => {
@@ -26,9 +28,11 @@ const Customers = () => {
     const updateData = async (data, params) => {
         try {
             await axiosJWT.put(`http://localhost:9000/customers/${params.row._id}`, data);
-            setRefesh(true);
+            setRefesh((prev) => !prev);
+            console.log(data);
             toast.success('Successfully updated!');
         } catch (error) {
+            toast.error('Can not update!');
             console.log(error);
         }
     };
@@ -72,7 +76,17 @@ const Customers = () => {
         <Box m="20px">
             <Toaster position="top-center" reverseOrder={false} />
             <Header title="Customers" subtitle="List of Customers" />
-            <DataTable rows={customers} columns={columns} getRowId={(row) => row._id} loading={customers.length === 0} styling disableSelectionOnClick />
+            <DataTable
+                rows={customers}
+                columns={columns}
+                getRowId={(row) => row._id}
+                components={{ Toolbar: GridToolbar }}
+                disableSelectionOnClick
+                loading={customers.length === 0}
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+            />
         </Box>
     );
 };

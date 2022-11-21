@@ -7,20 +7,35 @@ import toast, { Toaster } from 'react-hot-toast';
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
-    const handleUpload = async(params,e) => {
+    const createData = async (data) => {
+        try {
+            await axiosJWT.post('http://localhost:9000/categories', data);
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
+        } catch (error) {
+            toast.error('Can not update!');
+            console.log(error);
+        }
+    };
+
+    const handleUpload = async (params, e) => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
-        await axiosJWT.post(`http://localhost:9000/upload/single/${params.row._id}`, formData)
-        .then(() => {
-            setRefesh((prev) => !prev);
-            toast.success('Successfully uploaded!');
-        }).catch(err => console.log(err))
-    }
+        await axiosJWT
+            .post(`http://localhost:9000/upload/category/${params.row._id}`, formData)
+            .then(() => {
+                setRefesh((prev) => !prev);
+                toast.success('Successfully uploaded!');
+            })
+            .catch((err) => console.log(err));
+    };
 
     const handleDelete = async (id) => {
         try {
@@ -57,7 +72,7 @@ const Categories = () => {
             width: 200,
             renderCell: (params) => (
                 <img
-                    style={{ width: 60, height: 60, objectFit: 'contain', borderRadius: '10px' }}
+                    style={{ width: 90, height: 90, objectFit: 'fill', borderRadius: '10px' }}
                     src={`http://localhost:9000${params.row.imageUrl}`}
                     alt=""
                 />
@@ -91,9 +106,17 @@ const Categories = () => {
                 rows={categories}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={categories.length === 0}
-                styling
+                components={{ Toolbar: GridToolbar }}
                 disableSelectionOnClick
+                loading={categories.length === 0}
+                rowHeight={100}
+
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+                
+                createData={createData}
+                content="Category"
             />
         </Box>
     );

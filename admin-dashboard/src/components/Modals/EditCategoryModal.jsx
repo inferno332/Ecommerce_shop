@@ -7,14 +7,14 @@ import * as yup from 'yup';
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
 
-const defaultInputValues = {
-    name: '',
-    description: '',
-};
-
 const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+
+    const defaultInputValues = {
+        name: params.row.name,
+        description: params.row.description,
+    };
 
     const [category, setCategory] = useState(defaultInputValues);
 
@@ -32,6 +32,9 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
+            '.Mui-focused': {
+                color: colors.greenAccent[500],
+            },
         },
     };
 
@@ -41,12 +44,6 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
             .string()
             .required('Category description is required')
             .min(10, 'Category description must be at least 10 characters'),
-        uploadImg: yup.mixed().test('type', 'Only image files are allowed', (value) => {
-            if (value) {
-                return value[0].type.includes('image');
-            }
-            return true;
-        }),
     });
 
     const {
@@ -66,7 +63,7 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                     name="categoryId"
                     label="Category ID"
                     {...register('categoryId')}
-                    value={params.row._id}
+                    defaultValue={params.row._id}
                 />
                 <TextField
                     placeholder="Category Name"
