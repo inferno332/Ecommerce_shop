@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
 
 const {
   getAllOrders,
@@ -12,7 +13,8 @@ const {
   getSoldOrderByMonth,
 } = require("../controllers/orders");
 const allowRoles = require("../middleware/allowRoles");
-const auth = require("../middleware/auth");
+
+const auth = passport.authenticate("jwt", { session: false });
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllOrders);
 router.get("/:id", auth, allowRoles("admin", "staff"), getOrderById);
