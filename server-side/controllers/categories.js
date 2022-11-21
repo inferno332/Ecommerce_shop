@@ -38,13 +38,12 @@ const deleteCategory = tryCatch(async (req, res) => {
   res.status(200).json(category);
 });
 
-
 // Hiển thị Category với tất cả Product có trong Cate
 const getCategoryWithProductsByName = tryCatch(async (req, res) => {
   const { name } = req.params;
   const aggregate = [
     {
-      $match: { name: new RegExp(name, 'i')},
+      $match: { name: new RegExp("^" + name + "$", "i") },
     },
     {
       $lookup: {
@@ -61,7 +60,7 @@ const getCategoryWithProductsByName = tryCatch(async (req, res) => {
       },
     },
   ];
-  const category = await Category.aggregate(aggregate).sort('1');
+  const category = await Category.aggregate(aggregate).sort("1");
   res.status(200).json(category);
 });
 
@@ -71,5 +70,6 @@ module.exports = {
   getCategoryByName,
   createCategory,
   updateCategory,
-  deleteCategory, getCategoryWithProductsByName
+  deleteCategory,
+  getCategoryWithProductsByName,
 };
