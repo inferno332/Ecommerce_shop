@@ -81,14 +81,14 @@ const getSoldOrderByDay = tryCatch(async (req, res) => {
 
 //Hiển thị tất cả các mặt hàng được bán trong tuần nay
 const getSoldOrderByWeek = tryCatch(async (req, res) => {
-  let BeginOfWeek = moment().startOf("week").day(-7).toDate();
-  let weekend = moment().startOf("week").toDate();
+  let lastWeekend = moment().startOf("week").toDate();
+  let today = moment().toDate();
   const aggregate = [
     {
       $match: {
         createdAt: {
-          $gt: BeginOfWeek,
-          $lt: weekend,
+          $gt: lastWeekend,
+          $lt: today,
         },
       },
     },
@@ -98,12 +98,6 @@ const getSoldOrderByWeek = tryCatch(async (req, res) => {
         localField: "orderDetails.productId",
         foreignField: "_id",
         as: "products",
-      },
-    },
-    {
-      $unwind: {
-        path: "$products",
-        preserveNullAndEmptyArrays: true,
       },
     },
     {
@@ -140,12 +134,6 @@ const getSoldOrderByMonth = tryCatch(async (req, res) => {
       },
     },
     {
-      $unwind: {
-        path: "$products",
-        preserveNullAndEmptyArrays: true,
-      },
-    },
-    {
       $project: {
         _id: 0,
         products: { name: 1, price: 1, discount: 1 },
@@ -166,5 +154,5 @@ module.exports = {
   deleteOrder,
   getSoldOrderByDay,
   getSoldOrderByWeek,
-  getSoldOrderByMonth
+  getSoldOrderByMonth,
 };
