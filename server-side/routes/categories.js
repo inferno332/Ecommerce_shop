@@ -7,10 +7,12 @@ const {
   getCategoryByName,
   createCategory,
   updateCategory,
-  deleteCategory, getCategoryWithProductsByName
+  deleteCategory,
+  getCategoryWithProductsByName,
 } = require("../controllers/categories");
 const allowRoles = require("../middleware/allowRoles");
-const auth = require("../middleware/auth");
+const auth = require('../middleware/auth');
+
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllCategories);
 router.get("/:id", auth, allowRoles("admin", "staff"), getCategoryById);
