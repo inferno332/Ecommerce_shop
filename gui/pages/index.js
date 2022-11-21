@@ -1,5 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
+import Benefit from "../components/Benefit";
+import Sliders from "../components/Sliders";
 
 export default function Home() {
   return (
@@ -11,9 +12,8 @@ export default function Home() {
       </Head>
 
       <main>
-        <p className="text-6xl">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </p>
+        <Sliders />
+        <Benefit />
       </main>
     </div>
   );
