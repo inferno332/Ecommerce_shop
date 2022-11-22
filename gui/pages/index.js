@@ -1,9 +1,12 @@
+import axios from "axios";
+
 import Head from "next/head";
 import Benefit from "../components/Benefit";
 import Sliders from "../components/Sliders";
 import Header from "../components/Header";
+import Categories from "../components/Categories";
 
-export default function Home() {
+export default function Home({ categories }) {
   return (
     <div>
       <Head>
@@ -16,7 +19,19 @@ export default function Home() {
       <main>
         <Sliders />
         <Benefit />
+        <Categories categories={categories} />
       </main>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await axios.get("http://localhost:9000/categories/v1");
+  const categories = await res.data;
+
+  return {
+    props: {
+      categories,
+    },
+  };
 }
