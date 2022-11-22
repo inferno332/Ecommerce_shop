@@ -40,7 +40,7 @@ function Sliders() {
         clickable: true,
       }}
       modules={[Pagination, Autoplay]}
-      className="flex items-center max-h-[500px] bg-[#faebd7]"
+      className="flex items-center max-h-[500px] bg-[#faebd7] !z-[-1]"
     >
       {Slider.map((slider) => {
         return (
