@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "framer-motion": "^7.6.7",
     "next": "13.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "swiper": "^8.4.4",
-    "react-icons": "^4.6.0"
+    "react-icons": "^4.6.0",
+    "swiper": "^8.4.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
