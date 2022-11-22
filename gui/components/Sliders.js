@@ -6,14 +6,14 @@ import "swiper/css/pagination";
 import Image from "next/image";
 
 import slider1 from "../public/images/slider-removebg-preview.png";
-import slider2 from "../public/images/slider2-removebg-preview.png";
+import slider2 from "../public/images/slider.png";
 import slider3 from "../public/images/slider4-removebg-preview.png";
 
 const Slider = [
   {
     title: "test",
     description: "test",
-    image: slider1,
+    image: slider3,
   },
   {
     title: "test",
@@ -23,7 +23,7 @@ const Slider = [
   {
     title: "test",
     description: "test",
-    image: slider3,
+    image: slider1,
   },
 ];
 
@@ -39,25 +39,26 @@ function Sliders() {
       pagination={{
         clickable: true,
       }}
-      modules={[Pagination, Autoplay]}
-      className="flex items-center max-h-[500px] bg-[#faebd7]"
+      // modules={[Pagination, Autoplay]}
+      className="container m-auto max-h-[500px] bg-[#faebd7]"
     >
-      {Slider.map((slider) => {
+      {Slider.map((slider, index) => {
         return (
-          <SwiperSlide className="flex justify-center items-center">
-            <div className="">
+          <SwiperSlide
+            key={index}
+            className="relative flex justify-center items-center"
+          >
+            <div className="absolute z-10 left-12">
               <h1 className=" text-3xl font-medium">{slider.title}</h1>
-              <p>{slider.description}</p>
-              <button className=" bg-black rounded-md text-white px-4 py-2 hover:opacity-80 ">
+              <p className="mb-5 mt-2">{slider.description}</p>
+              <button className=" bg-black rounded-md w-32 text-white px-4 py-2 hover:opacity-80 ">
                 SHOP NOW
               </button>
             </div>
             <Image
               src={slider.image}
               alt=""
-              width="100%"
-              height="100%"
-              className=""
+              className="w-[100%] h-[100%] object-contain opacity-40"
             />
           </SwiperSlide>
         );
