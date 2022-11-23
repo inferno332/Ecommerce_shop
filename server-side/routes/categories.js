@@ -15,6 +15,7 @@ const auth = require('../middleware/auth');
 
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllCategories);
+router.get("/v1", getAllCategories);
 router.get("/:id", auth, allowRoles("admin", "staff"), getCategoryById);
 router.get(
   "/find/:name",
