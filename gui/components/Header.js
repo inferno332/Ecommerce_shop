@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { FiSearch } from 'react-icons/fi';
 import { FiUser, FiShoppingCart, FiMenu } from 'react-icons/fi';
+import DropDownMenu from './DropDownMenu';
 
 import SelectMenu from './SelectMenu';
 
@@ -21,8 +22,10 @@ const Header = () => {
                         <div className='border hover:border-orange-700 focus-within:border-orange-700 rounded-full flex items-center h-[44px] max-w-[670px] w-full min-w-fit hover:cursor-text truncate'>
                             <FiSearch className='text-[#BDBDBD] text-[20px] mx-[16px]' />
                             <input className='flex-1 h-full' placeholder='Search...' />
-                            {/* Dropdown Menu */}
+
+                            {/* Select Menu */}
                             <SelectMenu />
+
                             <div className='bg-[#F2F2F2] w-fit h-fit hover:cursor-pointer'></div>
                         </div>
 
@@ -39,7 +42,10 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className='flex justify-between'>Bottom nav</div>
+                    <div className='flex justify-between w-full'>
+                            <DropDownMenu/>
+                            <div>Navbar</div>
+                    </div>
                 </div>
             </div>
         </header>
