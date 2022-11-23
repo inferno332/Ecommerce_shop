@@ -1,11 +1,10 @@
 import React from "react";
 
 const Categories = ({ categories }) => {
-  console.log(categories);
   return (
     <div className="container m-auto">
       <h1 className=" text-center font-bold text-3xl mb-5">CATEGORIES</h1>
-      <div className="grid grid-cols-1 px-5 gap-5 sm:grid-cols-3">
+      <div className="grid grid-cols-1 px-5 sm:px-0 gap-5 sm:grid-cols-3">
         {categories.map((category) => {
           return (
             <div
