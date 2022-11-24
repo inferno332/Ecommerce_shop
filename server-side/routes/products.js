@@ -10,6 +10,7 @@ const {
   updateProduct,
   deleteProduct,
   stockProduct,
+  searchProductByCategory,
 } = require("../controllers/products");
 const allowRoles = require("../middleware/allowRoles");
 
@@ -24,5 +25,6 @@ router.put("/:id", auth, allowRoles("admin"), updateProduct);
 router.delete("/:id", auth, allowRoles("admin"), deleteProduct);
 
 router.get("/stock/find", auth, allowRoles("admin", "staff"), stockProduct);
+router.get('/search/category/:categoryId', searchProductByCategory);
 
 module.exports = router;
