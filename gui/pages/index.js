@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Categories from '../components/Categories';
 import Products from '../components/Products';
 import Brands from '../components/Brands';
+import Footer from '../components/Footer';
 
 export default function Home({ sliders, categories, products, suppliers }) {
     return (
@@ -18,13 +19,14 @@ export default function Home({ sliders, categories, products, suppliers }) {
             </Head>
 
             <Header />
-            <main>
+            <main className='container mx-auto'>
                 <Sliders sliders={sliders} />
                 <Benefit />
                 <Categories categories={categories} />
                 <Products products={products} />
                 <Brands suppliers={suppliers} />
             </main>
+            <Footer />
         </div>
     );
 }

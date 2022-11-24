@@ -42,7 +42,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className='flex justify-between w-full mb-2'>
+                    <div className='hidden md:flex justify-between w-full mb-2'>
                         <DropDownMenu />
                         <div>Navbar</div>
                     </div>
