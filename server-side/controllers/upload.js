@@ -3,6 +3,8 @@ const fs = require("fs");
 const tryCatch = require("./utils/tryCatch");
 const Product = require("../models/product");
 const Category = require("../models/category");
+const Slider = require("../models/slider");
+const Supplier = require("../models/supplier");
 
 //MULTER UPLOAD
 const multer = require("multer");
@@ -49,6 +51,38 @@ const uploadCategoryImage = tryCatch((req, res, next) => {
   });
 });
 
+const uploadSliderImage = tryCatch((req, res, next) => {
+  upload.single("file")(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      res.status(500).json(err);
+    } else if (err) {
+      res.status(500).json(err);
+    } else {
+      const { id } = req.params;
+      const slider = await Slider.findById(id);
+      slider.imageUrl = `/uploads/${id}/${req.file.originalname}`;
+      await slider.save();
+      res.status(200).json({ ok: true, body: req.file });
+    }
+  });
+});
+
+const uploadSupplierImage = tryCatch((req, res, next) => {
+  upload.single("file")(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      res.status(500).json(err);
+    } else if (err) {
+      res.status(500).json(err);
+    } else {
+      const { id } = req.params;
+      const supplier = await Supplier.findById(id);
+      supplier.imageUrl = `/uploads/${id}/${req.file.originalname}`;
+      await supplier.save();
+      res.status(200).json({ ok: true, body: req.file });
+    }
+  });
+});
+
 const uploadProductImage = tryCatch((req, res, next) => {
   upload.array("files", 10)(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
@@ -71,4 +105,6 @@ const uploadProductImage = tryCatch((req, res, next) => {
 module.exports = {
   uploadProductImage,
   uploadCategoryImage,
+  uploadSliderImage,
+  uploadSupplierImage
 };
