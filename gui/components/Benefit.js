@@ -28,7 +28,7 @@ const Benefit = () => {
     ];
 
     return (
-        <div className='container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5 bg-white'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 my-10 gap-5 bg-white'>
             {benefits.map((benefit, index) => {
                 return (
                     <div

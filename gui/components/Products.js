@@ -18,8 +18,8 @@ const Products = ({ products }) => {
     //END
 
     return (
-        <div className='container mx-auto mt-10'>
-            <div className='flex justify-between items-center mb-4'>
+        <div className='mt-10'>
+            <div className='flex justify-between items-center mb-5'>
                 <h1 className='font-bold text-xl'>Recommend For You</h1>
                 <div className='flex items-center gap-2 cursor-pointer border-dashed border-b border-gray-300 duration-300 sm:hover:scale-[1.1]'>
                     More products

@@ -40,10 +40,12 @@ const deleteCategory = tryCatch(async (req, res) => {
 
 // Hiển thị Category với tất cả Product có trong Cate
 const getCategoryWithProductsByName = tryCatch(async (req, res) => {
-  const { name } = req.params;
+  const { name } = req.query;
   const aggregate = [
     {
-      $match: { name: new RegExp("^" + name + "$", "i") },
+      $match: {
+        name: new RegExp("^" + name + "$", "i"),
+      },
     },
     {
       $lookup: {
