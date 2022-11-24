@@ -19,7 +19,7 @@ const Header = () => {
                             className='hidden md:block h-[44px]'
                         />
 
-                        <div className='border hover:border-orange-700 focus-within:border-orange-700 rounded-full flex items-center h-[44px] max-w-[670px] w-full hover:cursor-text truncate'>
+                        <div className='border-gray-300 border hover:border-orange-700 focus-within:border-orange-700 rounded-full flex items-center h-[44px] max-w-[670px] w-full hover:cursor-text truncate'>
                             <FiSearch className='text-[#BDBDBD] text-[20px] mx-[16px]' />
                             <input className='flex-1 h-full' placeholder='Search...' />
 
@@ -42,7 +42,7 @@ const Header = () => {
                         </div>
                     </div>
 
-                    <div className='flex justify-between w-full'>
+                    <div className='flex justify-between w-full mb-2'>
                         <DropDownMenu />
                         <div>Navbar</div>
                     </div>

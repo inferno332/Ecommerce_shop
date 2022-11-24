@@ -8,7 +8,7 @@ export default function SelectMenu() {
     const [selected, setSelected] = useState(CategoryMenu[0]);
 
     return (
-        <div className='bg-[#F2F2F2] w-40 h-fit hover:cursor-pointer z-[2]'>
+        <div className='bg-[#F2F2F2] w-40 h-fit hover:cursor-pointer z-[2] border-l border-gray-300'>
             <Listbox value={selected} onChange={setSelected}>
                 <Listbox.Button className='relative py-3 w-36'>
                     <p>{selected.name}</p>
