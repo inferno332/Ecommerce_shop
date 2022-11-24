@@ -2,14 +2,14 @@ import React from 'react';
 
 const Categories = ({ categories }) => {
     return (
-        <div className='container m-auto'>
-            <h1 className=' text-center font-bold text-3xl mb-5'>CATEGORIES</h1>
+        <div>
+            <h1 className='font-bold text-xl mb-5'>CATEGORIES</h1>
             <div className='grid grid-cols-1 gap-5 sm:grid-cols-3'>
                 {categories.map((category) => {
                     return (
                         <div
                             key={category._id}
-                            className='relative group duration-300 sm:cursor-pointer sm:hover:opacity-90'
+                            className='relative group duration-300 sm:cursor-pointer sm:hover:opacity-90 sm:hover:shadow-2xl'
                         >
                             <img
                                 src={`http://localhost:9000${category.imageUrl}`}

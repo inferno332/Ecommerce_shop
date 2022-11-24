@@ -18,7 +18,7 @@ function Sliders({ sliders }) {
                 clickable: true,
             }}
             modules={[Pagination, Autoplay]}
-            className='container m-auto h-[400px] lg:h-[600px] !z-[-1]'
+            className='h-[400px] lg:h-[600px]'
         >
             {sliders.map((slider, index) => {
                 return (
