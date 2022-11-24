@@ -41,7 +41,7 @@ function Sliders() {
         clickable: true,
       }}
       modules={[Pagination, Autoplay]}
-      className="container m-auto h-[400px] md:h-[600px] !z-[-1]"
+      className="container m-auto h-[400px] md:h-[600px]"
     >
       {Slider.map((slider, index) => {
         return (
