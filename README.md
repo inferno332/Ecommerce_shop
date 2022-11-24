@@ -1,7 +1,53 @@
 # Shoes_Online_Shop
 
+## 	:bookmark_tabs:SLIDER
+### :cyclone:API: GET ALL SLIDERS
+#### REQUEST:
+- URL: http://localhost:9000/sliders
+- Method: GET
+
+#### RESPONSE:
+
+------------------------------------------------
+### :cyclone:API: CREATE A SLIDER
+#### REQUEST:
+- URL: http://localhost:9000/sliders/
+- Method: POST
+
+#### RESPONSE:
+
+------------------------------------------------
+### :cyclone:API: UPDATE A SLIDER
+#### REQUEST:
+- URL: http://localhost:9000/sliders/:id
+- Method: PUT
+- Params:
+
+#### RESPONSE:
+
+------------------------------------------------
+### :cyclone:API: DELETE A SLIDER
+#### REQUEST:
+- URL: http://localhost:9000/sliders/:id
+- Method: DELETE
+- Params:
+
+#### RESPONSE:
+
+------------------------------------------------
+
 ## 	:bookmark_tabs:CATEGORY
-### :cyclone:API: GET ALL CATEGORIES
+### :cyclone:API: GET ALL CATEGORIES 
+#### REQUEST:
+- URL: http://localhost:9000/categories/v1
+- Method: GET
+- Authorization: none
+- Allow Role: none
+
+#### RESPONSE:
+
+-----------------------------------------------
+### :cyclone:API: GET ALL CATEGORIES WITH AUTHORIZATION
 #### REQUEST:
 - URL: http://localhost:9000/categories
 - Method: GET
@@ -303,6 +349,14 @@
 ## 	:bookmark_tabs:PRODUCT
 ### :cyclone:API: GET ALL PRODUCTS
 #### REQUEST:
+- URL: http://localhost:9000/products/v1
+- Method: GET
+
+#### RESPONSE:
+
+-----------------------------------------------
+### :cyclone:API: GET ALL PRODUCTS WITH AUTHORIZATION
+#### REQUEST:
 - URL: http://localhost:9000/products
 - Method: GET
 - Authorization: Bearer Token 
@@ -445,6 +499,15 @@
 ### :cyclone:API: UPLOAD IMAGE FOR CATEGORY
 #### REQUEST:
 - URL: http://localhost:9000/upload/category/:id
+- Method: POST
+- Params:
+
+#### RESPONSE:
+
+-----------------------------------------------
+### :cyclone:API: UPLOAD IMAGE FOR SLIDER
+#### REQUEST:
+- URL: http://localhost:9000/upload/slider/:id
 - Method: POST
 - Params:
 
