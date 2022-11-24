@@ -10,9 +10,10 @@ const {
   deleteSupplier,
 } = require("../controllers/suppliers");
 const allowRoles = require("../middleware/allowRoles");
-const auth = require('../middleware/auth');
+const auth = require("../middleware/auth");
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllSuppliers);
+router.get("/v1", getAllSuppliers);
 router.get("/:id", auth, allowRoles("admin", "staff"), getSupplierById);
 router.get(
   "/find/:name",
