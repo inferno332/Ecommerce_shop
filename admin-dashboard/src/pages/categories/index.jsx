@@ -8,7 +8,6 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import { GridToolbar } from '@mui/x-data-grid';
-import axios from 'axios';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
