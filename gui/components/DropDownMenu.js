@@ -1,21 +1,18 @@
-import { useState } from 'react';
 import { Menu } from '@headlessui/react';
 import { MdCategory, MdKeyboardArrowRight } from 'react-icons/md';
 import { motion } from 'framer-motion';
 
 const CategoryMenu = [{ name: 'All categories' }, { name: 'Men' }, { name: 'Women' }, { name: 'Accessories' }];
 const DropDownMenu = () => {
-    const [open, setOpen] = useState(false);
-
     const subMenuAnimate = {
-        open: {
+        expanded: {
             opacity: 1,
             transition: {
                 duration: 0.25,
                 ease: 'easeIn',
             },
         },
-        closed: {
+        collapsed: {
             opacity: 0,
             transition: {
                 duration: 0.25,
@@ -27,10 +24,7 @@ const DropDownMenu = () => {
         <Menu as='div' className='relative inline-block bg-gray-300 rounded-md w-[278px] h-[40px] z-[2]'>
             {({ open }) => (
                 <>
-                    <Menu.Button
-                        className='w-full text-left px-2 py-2 flex items-center font-bold opacity-70 relative'
-                        onClick={() => setOpen((prev) => !prev)}
-                    >
+                    <Menu.Button className='w-full text-left px-2 py-2 flex items-center font-bold opacity-70 relative'>
                         <span className='mr-3'>
                             <MdCategory />
                         </span>
@@ -43,27 +37,25 @@ const DropDownMenu = () => {
                             <MdKeyboardArrowRight />
                         </motion.span>
                     </Menu.Button>
-                    {open && (
-                        <motion.div animate={open ? 'open' : 'closed'} variants={subMenuAnimate}>
-                            <Menu.Items className='absolute left-0 mt-2 w-full origin-center divide-y divide-gray-100 rounded-sm bg-white shadow-xl'>
-                                <div className='py-1'>
-                                    {CategoryMenu.map((item) => (
-                                        <Menu.Item key={item.name}>
-                                            {({ active }) => (
-                                                <p
-                                                    className={`${
-                                                        active ? 'bg-gray-100' : ''
-                                                    } block px-4 py-2 cursor-pointer`}
-                                                >
-                                                    {item.name}
-                                                </p>
-                                            )}
-                                        </Menu.Item>
-                                    ))}
-                                </div>
-                            </Menu.Items>
-                        </motion.div>
-                    )}
+                    <motion.div initial='collapsed' animate={open ? 'expanded' : 'collapsed'} variants={subMenuAnimate}>
+                        <Menu.Items className='absolute left-0 mt-2 w-full origin-center divide-y divide-gray-100 rounded-sm bg-white shadow-xl'>
+                            <div className='py-1'>
+                                {CategoryMenu.map((item) => (
+                                    <Menu.Item key={item.name}>
+                                        {({ active }) => (
+                                            <p
+                                                className={`${
+                                                    active ? 'bg-gray-100' : ''
+                                                } block px-4 py-2 cursor-pointer`}
+                                            >
+                                                {item.name}
+                                            </p>
+                                        )}
+                                    </Menu.Item>
+                                ))}
+                            </div>
+                        </Menu.Items>
+                    </motion.div>
                 </>
             )}
         </Menu>

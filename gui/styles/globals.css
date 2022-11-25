@@ -24,4 +24,12 @@ input {
   outline: none;
 }
 
+.productBg {
+  background-color:#e6eef7;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
