@@ -69,6 +69,15 @@ const stockProduct = tryCatch(async (req, res) => {
   res.status(200).json(result);
 });
 
+const searchProductByCategory = tryCatch(async (req, res) => {
+  const { categoryId } = req.params;
+  const { name } = req.query;
+  const result = await Product.find({
+    $and: [{ categoryId: categoryId }, { name: new RegExp(name, "i") }],
+  });
+  res.status(200).json(result);
+});
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -77,4 +86,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   stockProduct,
+  searchProductByCategory,
 };
