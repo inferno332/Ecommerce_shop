@@ -14,14 +14,14 @@ const Header = () => {
                         <Image
                             src='/ss-logo.svg'
                             alt='logo'
-                            width='60'
-                            height='40'
-                            className='hidden md:block h-[44px]'
+                            width='100'
+                            height='100'
+                            className='hidden md:block h-fit'
                         />
 
                         <div className='border-gray-300 border hover:border-orange-700 focus-within:border-orange-700 rounded-full flex items-center h-[44px] max-w-[670px] w-full hover:cursor-text truncate'>
                             <FiSearch className='text-[#BDBDBD] text-[20px] mx-[16px]' />
-                            <input className='flex-1 h-full' placeholder='Search...' />
+                            <input className='flex-1 min-w-0  h-full' placeholder='Search...' />
 
                             {/* Select Menu */}
                             <SelectMenu />
