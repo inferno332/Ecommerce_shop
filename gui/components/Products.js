@@ -60,18 +60,11 @@ const Products = ({ products }) => {
                         return (
                             <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
                                 <div className='relative h-[600px] sm:h-[400px]'>
-                                    {product.imageURL
-                                        .map((image, index) => {
-                                            return (
-                                                <img
-                                                    key={index}
-                                                    src={`http://localhost:9000${image}`}
-                                                    alt={product.name}
-                                                    className='w-[100%] h-[100%] object-fill'
-                                                />
-                                            );
-                                        })
-                                        .slice(0, 1)}
+                                    <img
+                                        src={`http://localhost:9000${product.imageURL[0]}`}
+                                        alt={product.name}
+                                        className='w-[100%] h-[100%] object-fill'
+                                    />
                                 </div>
                                 <i className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'>
                                     <BsCart2 />

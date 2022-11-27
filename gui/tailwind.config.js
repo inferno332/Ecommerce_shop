@@ -21,6 +21,9 @@ module.exports = {
                 slowfade: 'slowfade 2.2s ease-in-out',
                 pulse: 'pulse 1s infinite;',
                 wiggle: 'wiggle 2s ease-in-out infinite',
+                rotateRight: 'rotateRight 0.5s',
+                rotateLeft: 'rotateLeft 0.5s',
+                marquee: 'marquee 15s linear infinite',
             },
             keyframes: {
                 slowfade: {
@@ -62,6 +65,20 @@ module.exports = {
                     '100%': {
                         transform: 'scale(1)',
                     },
+                },
+                rotateRight: {
+                    '100%': {
+                        transform: 'rotate(180deg)',
+                    },
+                },
+                rotateLeft: {
+                    '100%': {
+                        transform: 'rotate(-180deg)',
+                    },
+                },
+                marquee: {
+                    from: { transform: 'translateX(0)' },
+                    to: { transform: 'translateX(-50%)' },
                 },
             },
         },

@@ -26,6 +26,6 @@ router.delete("/:id", auth, allowRoles("admin"), deleteProduct);
 
 //Hiển thị tất cả mặt hàng có tồn kho dưới 50
 router.get("/stock/find", auth, allowRoles("admin", "staff"), stockProduct);
-router.get('/search/category/:categoryId', searchProductByCategory);
+router.get("/search/category/:categoryId", searchProductByCategory);
 
 module.exports = router;
