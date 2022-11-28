@@ -2,33 +2,22 @@ const Product = require("../models/product");
 const tryCatch = require("./utils/tryCatch");
 
 const getAllProducts = tryCatch(async (req, res) => {
-  const lookupCategory = {
-    $lookup: {
-      from: "categories",
-      localField: "categoryId",
-      foreignField: "_id",
-      as: "category",
-    },
-  };
-  const lookupSupplier = {
-    $lookup: {
-      from: "suppliers",
-      localField: "supplierId",
-      foreignField: "_id",
-      as: "supplier",
-    },
-  };
-  const products = await Product.aggregate([
-    lookupCategory,
-    lookupSupplier,
-    {
-      $addFields: {
-        category: { $first: "$category" },
-        supplier: { $first: "$supplier" },
-      },
-    },
-  ]);
-  res.status(200).json(products);
+  const page = req.query.page;
+  const productsPerPage = 12;
+
+  if (page) {
+    const products = await Product.find()
+      .skip(page * productsPerPage)
+      .limit(productsPerPage)
+      .populate("categoryId")
+      .populate("supplierId");
+    res.status(200).json(products);
+  } else {
+    const products = await Product.find()
+      .populate("categoryId")
+      .populate("supplierId");
+    res.status(200).json(products);
+  }
 });
 
 const getProductById = tryCatch(async (req, res) => {
@@ -63,9 +52,29 @@ const deleteProduct = tryCatch(async (req, res) => {
   res.status(200).json({ ok: true });
 });
 
+//Hiển thị tất cả mặt hàng có tồn kho dưới 50
 const stockProduct = tryCatch(async (req, res) => {
   const result = await Product.find({ stock: { $lte: 50 } });
   res.status(200).json(result);
+});
+
+const searchProductByCategory = tryCatch(async (req, res) => {
+  const { categoryId } = req.params;
+  const { name } = req.query;
+  const result = await Product.find({
+    $and: [{ categoryId: categoryId }, { name: new RegExp(name, "i") }],
+  });
+  res.status(200).json(result);
+});
+
+const filterProduct = tryCatch(async (req, res) => {
+  const { w, m, a } = req.query;
+
+  const result = await Product.find({
+    $and: [
+      
+    ],
+  });
 });
 
 module.exports = {
@@ -76,4 +85,6 @@ module.exports = {
   updateProduct,
   deleteProduct,
   stockProduct,
+  searchProductByCategory,
+  filterProduct,
 };

@@ -7,6 +7,7 @@ const supplierSchema = new Schema(
     email: { type: String, required: true, unique: true },
     phoneNumber: String,
     address: { type: String, required: true },
+    imageUrl: String,
   },
   {
     query: {

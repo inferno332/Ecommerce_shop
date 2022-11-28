@@ -22,6 +22,7 @@ const customersRoute = require("./routes/customers");
 const employeesRoute = require("./routes/employees");
 const productsRoute = require("./routes/products");
 const ordersRoute = require("./routes/orders");
+const slidersRoute = require("./routes/sliders");
 
 dotenv.config({ path: ".env" });
 mongoose.connect(
@@ -75,6 +76,7 @@ app.use("/customers", customersRoute);
 app.use("/employees", employeesRoute);
 app.use("/products", productsRoute);
 app.use("/orders", ordersRoute);
+app.use("/sliders", slidersRoute);
 app.use("/public", express.static("public"));
 
 // catch 404 and forward to error handler
