@@ -6,9 +6,9 @@ import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
 import { Autoplay, Navigation, Thumbs, FreeMode, Scrollbar } from 'swiper';
-import httpRequest from '../../ultis/axios';
+import httpRequest from '../../../ultis/axios';
 
-const Product = ({ product }) => {
+const Product = ({ product, products }) => {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const SizeSelect = [
         { value: '40', available: true },
@@ -112,7 +112,7 @@ const Product = ({ product }) => {
                 </div>
             </div>
             {/* Related Products */}
-            <div className='h-96 md:h-[300px] w-full'>
+            <div className='w-full'>
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={10}
@@ -120,26 +120,39 @@ const Product = ({ product }) => {
                     scrollbar={{ draggable: true, dragSize: 100 }}
                     modules={[FreeMode, Scrollbar]}
                     className='h-full'>
-                    <SwiperSlide>Slide 1</SwiperSlide>
-                    <SwiperSlide>Slide 2</SwiperSlide>
-                    <SwiperSlide>Slide 3</SwiperSlide>
-                    <SwiperSlide>Slide 4</SwiperSlide>
-                    <SwiperSlide>Slide 5</SwiperSlide>
-                    <SwiperSlide>Slide 6</SwiperSlide>
-                    <SwiperSlide>Slide 7</SwiperSlide>
-                    <SwiperSlide>Slide 8</SwiperSlide>
-                    <SwiperSlide>Slide 9</SwiperSlide>
+                    {products.map((product) => (
+                        <SwiperSlide key={product._id}>
+                            <div className='flex flex-col mb-10'>
+                                <img
+                                    src={`http://localhost:9000${product.imageURL[0]}`}
+                                    alt={product.name}
+                                    className='w-96 h-96 object-cover rounded-xl overflow-hidden'
+                                />
+                                <h3 className='text-lg text-gray-700 font-semibold mt-2 text-left'>{product.name}</h3>
+                                <h4>
+                                    {product.categoryId === '635f9e383c3d25b35278f650'
+                                        ? "Women's Shoes"
+                                        : product.categoryId === '6365e30a668ae24012c1dabf'
+                                        ? "Men's Shoes"
+                                        : 'Accessories'}
+                                </h4>
+                                <span className='text-lg text-gray-700'>$ {product.price}</span>
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </div>
         </div>
     );
 };
 export async function getServerSideProps(context) {
-    const { productId } = context.query;
+    const { productId } = context.params;
     const product = await httpRequest.get(`/products/v2/${productId}`);
+    const resProducts = await httpRequest.get('/products/v1');
     return {
         props: {
             product: product.data,
+            products: resProducts.data,
         },
     };
 }

@@ -78,6 +78,16 @@ const searchProductByCategory = tryCatch(async (req, res) => {
   res.status(200).json(result);
 });
 
+const filterProduct = tryCatch(async (req, res) => {
+  const { w, m, a } = req.query;
+
+  const result = await Product.find({
+    $and: [
+      
+    ],
+  });
+});
+
 module.exports = {
   getAllProducts,
   getProductById,
@@ -87,4 +97,5 @@ module.exports = {
   deleteProduct,
   stockProduct,
   searchProductByCategory,
+  filterProduct,
 };
