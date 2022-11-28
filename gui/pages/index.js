@@ -1,11 +1,11 @@
 import httpRequest from '../ultis/axios';
 
 import Head from 'next/head';
-import Benefit from '../components/Benefit';
-import Sliders from '../components/Sliders';
-import Categories from '../components/Categories';
-import Products from '../components/Products';
-import Brands from '../components/Brands';
+import Benefit from '../components/Home/Benefit';
+import Sliders from '../components/Home/Sliders';
+import Categories from '../components/Home/Categories';
+import Products from '../components/Home/Products';
+import Brands from '../components/Home/Brands';
 
 export default function Home({ sliders, categories, products, suppliers }) {
     return (
@@ -25,7 +25,7 @@ export default function Home({ sliders, categories, products, suppliers }) {
     );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const resSlider = await httpRequest.get('/sliders');
     const sliders = await resSlider.data;
 
