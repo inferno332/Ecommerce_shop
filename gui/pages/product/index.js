@@ -6,7 +6,6 @@ import HeaderProduct from '../../components/Products/HeaderProduct';
 
 const Products = ({ categories, suppliers, products, page }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(false);
-    console.log(categoriesSearch);
     return (
         <div>
             <div className='relative sm:sticky sm:top-0 z-10'>
