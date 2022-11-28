@@ -11,7 +11,7 @@ const Brands = ({ suppliers }) => {
                             key={supplier._id}
                             src={`http://localhost:9000${supplier.imageUrl}`}
                             alt={supplier.name}
-                            className='w-[100%] h-[100%] max-h-[100px] object-contain p-5 border'
+                            className='w-[100%] h-[100%] max-h-[100px] object-contain p-5 border sm:border-0'
                         />
                     );
                 })}

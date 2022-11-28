@@ -2,33 +2,22 @@ const Product = require("../models/product");
 const tryCatch = require("./utils/tryCatch");
 
 const getAllProducts = tryCatch(async (req, res) => {
-  const lookupCategory = {
-    $lookup: {
-      from: "categories",
-      localField: "categoryId",
-      foreignField: "_id",
-      as: "category",
-    },
-  };
-  const lookupSupplier = {
-    $lookup: {
-      from: "suppliers",
-      localField: "supplierId",
-      foreignField: "_id",
-      as: "supplier",
-    },
-  };
-  const products = await Product.aggregate([
-    lookupCategory,
-    lookupSupplier,
-    {
-      $addFields: {
-        category: { $first: "$category" },
-        supplier: { $first: "$supplier" },
-      },
-    },
-  ]);
-  res.status(200).json(products);
+  const page = req.query.page;
+  const productsPerPage = 12;
+
+  if (page) {
+    const products = await Product.find()
+      .skip(page * productsPerPage)
+      .limit(productsPerPage)
+      .populate("categoryId")
+      .populate("supplierId");
+    res.status(200).json(products);
+  } else {
+    const products = await Product.find()
+      .populate("categoryId")
+      .populate("supplierId");
+    res.status(200).json(products);
+  }
 });
 
 const getProductById = tryCatch(async (req, res) => {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { BsArrowRight, BsCart2 } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
@@ -22,7 +23,7 @@ const Products = ({ products }) => {
             <div className='flex justify-between items-center mb-5'>
                 <h1 className='font-bold text-xl'>Recommend For You</h1>
                 <div className='flex items-center gap-2 cursor-pointer border-dashed border-b border-gray-300 duration-300 sm:hover:scale-[1.1]'>
-                    More products
+                    <Link href='/product'>More products</Link>
                     <BsArrowRight className='text-xs' />
                 </div>
             </div>
@@ -60,18 +61,11 @@ const Products = ({ products }) => {
                         return (
                             <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
                                 <div className='relative h-[600px] sm:h-[400px]'>
-                                    {product.imageURL
-                                        .map((image, index) => {
-                                            return (
-                                                <img
-                                                    key={index}
-                                                    src={`http://localhost:9000${image}`}
-                                                    alt={product.name}
-                                                    className='w-[100%] h-[100%] object-fill'
-                                                />
-                                            );
-                                        })
-                                        .slice(0, 1)}
+                                    <img
+                                        src={`http://localhost:9000${product.imageURL[0]}`}
+                                        alt={product.name}
+                                        className='w-[100%] h-[100%] object-fill'
+                                    />
                                 </div>
                                 <i className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'>
                                     <BsCart2 />
