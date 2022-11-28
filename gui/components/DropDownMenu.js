@@ -21,7 +21,7 @@ const DropDownMenu = () => {
         },
     };
     return (
-        <Menu as='div' className='relative inline-block bg-gray-300 rounded-md w-[278px] h-[40px] z-[2]'>
+        <Menu as='div' className='relative inline-block border rounded-md w-[278px] h-[40px] z-[2] hover:bg-[#f3f3f3]'>
             {({ open }) => (
                 <>
                     <Menu.Button className='w-full text-left px-2 py-2 flex items-center font-bold opacity-70 relative'>
