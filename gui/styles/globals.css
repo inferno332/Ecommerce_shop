@@ -24,4 +24,16 @@ input {
   outline: none;
 }
 
+.productBg {
+  background-color:#e6eef7;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.swiper-slide-thumb-active {
+  border: 1px solid rgb(235, 46, 46);
+}
+
 
