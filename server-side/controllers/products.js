@@ -3,7 +3,7 @@ const tryCatch = require("./utils/tryCatch");
 
 const getAllProducts = tryCatch(async (req, res) => {
   const page = req.query.page;
-  const productsPerPage = 5;
+  const productsPerPage = 12;
 
   if (page) {
     const products = await Product.find()
