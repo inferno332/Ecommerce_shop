@@ -68,20 +68,36 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 });
 
 const filterProduct = tryCatch(async (req, res) => {
-  const { filter } = req.params;
-  const { option } = req.query;
-  const array1 = filter.split(" ");
+  const { category, supplier, option } = req.query;
+  const categoryArray = category.split("-");
+  const supplierArray = supplier.split("-");
   const listQuery = [
     {
-      $and: [{ categoryId: { $in: array1 } }, { supplierId: { $in: array1 } }],
+      $lookup: {
+        from: "categories",
+        localField: "categoryId",
+        foreignField: "_id",
+        as: "category",
+      },
     },
     {
-      $or: [{ categoryId: { $in: array1 } }, { supplierId: { $in: array1 } }],
+      $unwind: {
+        path: "$category",
+        preserveNullAndEmptyArrays: true,
+      },
+    },
+    {
+      $match: {
+        "category.name": { $in: categoryArray }
+      },
     },
   ];
   if (option === "option1") {
-    let query = listQuery[0];
-    const result = await Product.find(query);
+    const result = await Product.aggregate({
+      $match: {
+        "category.name": { $in: categoryArray }
+      },
+    },).populate('categoryId');
     res.status(200).json(result);
   } else if (option === "option2") {
     let query = listQuery[1];

@@ -48,9 +48,8 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
 };
 
 export async function getServerSideProps(context) {
-    const { categoryId } = context.params;
-    const { option } = context.query;
-    const resProduct = await httpRequest.get(`products/filter/get/${categoryId}?option=${option}`);
+    const { categoryId, supplierName, option } = context.query;
+    const resProduct = await httpRequest.get(`products/filter?category=${categoryId}&supplier=${supplierName}&option=${option}`);
     const product = await resProduct.data;
 
     const resCate = await httpRequest.get('/categories/v1');
