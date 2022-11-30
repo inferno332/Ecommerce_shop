@@ -31,4 +31,5 @@ router.get("/stock/find", auth, allowRoles("admin", "staff"), stockProduct);
 router.get("/search/category/:categoryId", searchProductByCategory);
 router.get("/filter/get", filterProduct);
 
+
 module.exports = router;

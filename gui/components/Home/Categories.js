@@ -9,16 +9,17 @@ const Categories = ({ categories }) => {
                     return (
                         <div
                             key={category._id}
-                            className='relative group duration-300 sm:cursor-pointer sm:hover:opacity-90 sm:hover:shadow-2xl'
+                            className='relative duration-300 sm:cursor-pointer sm:hover:shadow-2xl sm:hover:scale-[1.01]'
                         >
                             <img
                                 src={`http://localhost:9000${category.imageUrl}`}
                                 alt={category.name}
-                                className='h-[450px] w-[100%] sm:h-[500px] object-cover rounded-md duration-300 sm:group-hover:scale-[1.01]'
+                                className='h-[450px] w-[100%] sm:h-[500px] object-cover rounded-md'
                             />
-                            <div className='absolute bottom-0 right-0 left-0 duration-300 flex flex-col justify-center items-center text-white h-20 bg-[rgba(0,0,0,0.3)] lg:opacity-0 lg:group-hover:opacity-90'>
-                                <h2 className='font-semibold text-2xl tracking-widest sm:text-lg'>{category.name}</h2>
-                                <p className='text-neutral-200 sm:text-sm sm:text-center'>{category.description}</p>
+                            <div className='absolute bottom-5 left-5 bg-white rounded-xl p-3'>
+                                <h2 className='font-medium text-2xl text-[#555] tracking-wide sm:text-lg'>
+                                    {category.name}
+                                </h2>
                             </div>
                         </div>
                     );

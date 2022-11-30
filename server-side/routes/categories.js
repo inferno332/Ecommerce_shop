@@ -27,6 +27,6 @@ router.put("/:id", auth, allowRoles("admin"), updateCategory);
 router.delete("/:id", auth, allowRoles("admin"), deleteCategory);
 
 // Hiển thị Category với tất cả Product có trong Cate
-router.get("/search/products", getCategoryWithProductsByName);
+router.get("/v1/search", getCategoryWithProductsByName);
 
 module.exports = router;
