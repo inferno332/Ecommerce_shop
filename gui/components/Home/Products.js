@@ -54,19 +54,20 @@ const Products = ({ products }) => {
                     '--swiper-navigation-size': '20px',
                     '--swiper-navigation-color': 'black',
                 }}
-                className='[&_.swiper-button-prev]:w-[50px] [&_.swiper-button-prev]:h-[50px] [&_.swiper-button-prev]:border [&_.swiper-button-prev]:border-[#999] [&_.swiper-button-prev]:rounded-full [&_.swiper-button-next]:w-[50px] [&_.swiper-button-next]:h-[50px] [&_.swiper-button-next]:border [&_.swiper-button-next]:border-[#999] [&_.swiper-button-next]:rounded-full rounded-xl'
-            >
+                className='[&_.swiper-button-prev]:w-[50px] [&_.swiper-button-prev]:h-[50px] [&_.swiper-button-prev]:border [&_.swiper-button-prev]:border-[#999] [&_.swiper-button-prev]:rounded-full [&_.swiper-button-next]:w-[50px] [&_.swiper-button-next]:h-[50px] [&_.swiper-button-next]:border [&_.swiper-button-next]:border-[#999] [&_.swiper-button-next]:rounded-full rounded-xl'>
                 {products
                     .map((product) => {
                         return (
                             <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
-                                <div className='relative h-[600px] sm:h-[400px]'>
-                                    <img
-                                        src={`http://localhost:9000${product.imageURL[0]}`}
-                                        alt={product.name}
-                                        className='w-[100%] h-[100%] object-fill'
-                                    />
-                                </div>
+                                <Link href={`/product/details/${product._id}`}>
+                                    <div className='relative h-[450px] sm:h-[300px] bg-[#f6f6f6]'>
+                                        <img
+                                            src={`http://localhost:9000${product.imageURL[0]}`}
+                                            alt={product.name}
+                                            className='w-[100%] h-[100%] object-contain'
+                                        />
+                                    </div>
+                                </Link>
                                 <i className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'>
                                     <BsCart2 />
                                 </i>

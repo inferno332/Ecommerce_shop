@@ -68,13 +68,26 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 });
 
 const filterProduct = tryCatch(async (req, res) => {
-  const { w, m, a } = req.query;
-
-  const result = await Product.find({
-    $and: [
-      
-    ],
-  });
+  const { filter } = req.params;
+  const { option } = req.query;
+  const array1 = filter.split(" ");
+  const listQuery = [
+    {
+      $and: [{ categoryId: { $in: array1 } }, { supplierId: { $in: array1 } }],
+    },
+    {
+      $or: [{ categoryId: { $in: array1 } }, { supplierId: { $in: array1 } }],
+    },
+  ];
+  if (option === "option1") {
+    let query = listQuery[0];
+    const result = await Product.find(query);
+    res.status(200).json(result);
+  } else if (option === "option2") {
+    let query = listQuery[1];
+    const result = await Product.find(query);
+    res.status(200).json(result);
+  }
 });
 
 module.exports = {
