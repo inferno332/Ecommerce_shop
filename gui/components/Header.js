@@ -10,7 +10,7 @@ const Header = () => {
         <header>
             <div className='container m-auto'>
                 <div className='flex flex-col justify-center items-center m-auto'>
-                    <div className='flex justify-between items-center h-[80px] w-full gap-6'>
+                    <div className='flex justify-between items-center h-[80px] w-full gap-2 md:gap-6'>
                         <Image
                             src='/ss-logo.svg'
                             alt='logo'
@@ -30,13 +30,13 @@ const Header = () => {
                         </div>
 
                         <div className='flex gap-6'>
-                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse'>
+                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse border-gray-300 border'>
                                 <FiUser />
                             </div>
-                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse'>
+                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse border-gray-300 border'>
                                 <FiShoppingCart />
                             </div>
-                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer block md:hidden'>
+                            <div className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer block md:hidden border-gray-300 border'>
                                 <FiMenu />
                             </div>
                         </div>
