@@ -8,22 +8,12 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const router = useRouter();
     const { query } = router;
     console.log(query);
-    let CategoryName;
-    let SupplierName;
+    let CategoryName = query.category?.split('-') || [];
+    let SupplierName = query.supplier?.split('-') || [];
     let filter = {
-        categoryName: [],
-        supplierName: [],
+        categoryName: CategoryName,
+        supplierName: SupplierName,
     };
-    if (query.categoryId) {
-        CategoryName = query.categoryId?.split('-');
-        SupplierName = query.supplierId?.split('-');
-        filter.categoryId = query.categoryId?.split('-');
-        filter.supplierId = query.supplierId?.split('-');
-    } else {
-        CategoryName = false;
-        SupplierName = false;
-    }
-    console.log(CategoryName);
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
         open: { width: '200px', height: '85vh', opacity: 1, transition: { duration: 0.5 } },
