@@ -3,22 +3,18 @@ import httpRequest from '../../ultis/axios';
 
 import AllProducts from '../../components/Products/AllProducts';
 import HeaderProduct from '../../components/Products/HeaderProduct';
+import Sidebar from '../../components/Products/Sidebar';
 
 const Products = ({ categories, suppliers, products, page }) => {
-    const [isOpenFilter, setIsOpenFilter] = useState(false);
+    const [isOpenFilter, setIsOpenFilter] = useState(true);
     return (
         <div>
             <div className='relative sm:sticky sm:top-0 z-10'>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
-            <div>
-                <AllProducts
-                    isOpenFilter={isOpenFilter}
-                    categories={categories}
-                    suppliers={suppliers}
-                    products={products}
-                    page={page}
-                />
+            <div className='sm:flex'>
+                <Sidebar isOpenFilter={isOpenFilter} categories={categories} suppliers={suppliers} />
+                <AllProducts products={products} page={page} />
             </div>
         </div>
     );
