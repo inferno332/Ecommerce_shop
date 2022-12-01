@@ -66,17 +66,18 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 });
 
 const filterProduct = tryCatch(async (req, res) => {
-    const { category, supplier, option, price } = req.query;
+    const { category, supplier, price } = req.query;
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
     let priceDefault = {
         $and: [{ price: { $gte: 0 } }, { price: { $lte: 1000000000 } }],
     };
-    price &&
-        (priceDefault = {
-            $and: [{ price: { $gte: Number(price.gte) } }, { price: { $lte: Number(price.lte) } }],
-        });
-    console.log(req.query);
+    if (price) {
+        let priceFilter = JSON.parse(price);
+        priceDefault = {
+            $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
+        };
+    }
     const aggegrate = [
         {
             $lookup: {
@@ -118,7 +119,7 @@ const filterProduct = tryCatch(async (req, res) => {
             },
         },
     ];
-    if (option === 'option1' && categoryArray.length > 0 && supplierArray.length > 0) {
+    if (categoryArray.length > 0 && supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate).append({
             $match: {
                 $and: [

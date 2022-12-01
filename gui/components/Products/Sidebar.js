@@ -2,16 +2,37 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 
-const prices = ['under $100', '$100 - $200', 'above $200'];
+const prices = [
+    {
+        label: 'under $100',
+        gte: 0,
+        lte: 100,
+    },
+    {
+        label: '$100 - $200',
+        gte: 100,
+        lte: 200,
+    },
+    {
+        label: 'above $200',
+        gte: 200,
+        lte: 100000,
+    },
+];
 
 const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
+    const [checkPrice, setCheckPrice] = React.useState({
+        gte: 0,
+        lte: 1000000,
+    });
     const router = useRouter();
     const { query } = router;
+    console.log(query.price);
     let CategoryName = query.category?.split('-') || [];
     let SupplierName = query.supplier?.split('-') || [];
     let filter = {
-        categoryName: query.category?.split('-') || [],
-        supplierName: query.supplier?.split('-') || [],
+        categoryName: CategoryName,
+        supplierName: SupplierName,
     };
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
@@ -28,32 +49,47 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const handleCheckSupplier = (e, name) => {
         if (e.target.checked === true) {
             filter.supplierName.push(name);
+            console.log(filter.supplierName.length);
         } else {
             filter.supplierName = filter.supplierName.filter((item) => item !== name);
         }
     };
-
-    const handleRouterPush = () => {
+    const handleCheckPrice = (e, value) => {
+        e.preventDefault();
+        if (e.target.checked) {
+            setCheckPrice({ ...checkPrice, gte: value.gte, lte: value.lte });
+        } else {
+            setCheckPrice({ ...checkPrice, gte: 0, lte: 100000 });
+        }
+        console.log(checkPrice);
+    };
+    const handleRouterPush = (e) => {
+        e.preventDefault();
         if (filter.categoryName.length > 0 && filter.supplierName.length > 0) {
-            console.log('option1');
+            console.log('a');
             router.push({
-                pathname: '/product/filter',
+                pathname: `/product/filter`,
                 query: {
                     category: filter.categoryName.join('-'),
                     supplier: filter.supplierName.join('-'),
-                    option: 'option1',
+                    // price: JSON.stringify(checkPrice),
                 },
             });
-        } else if (filter.categoryName.length > 0 && filter.supplierName.length === 0) {
+        } else if (filter.categoryName.length > 0) {
             router.push({
                 pathname: '/product/filter',
-                query: { category: filter.categoryName.join('-'), option: 'option2' },
+                query: { category: filter.categoryName.join('-') },
+                // price: JSON.stringify(checkPrice),
             });
         } else if (filter.supplierName.length > 0 && filter.categoryName.length === 0) {
+            console.log('b');
             router.push({
                 pathname: '/product/filter',
-                query: { supplier: filter.supplierName.join('-'), option: 'option2' },
+                query: { supplier: filter.supplierName.join('-') },
+                price: 0,
             });
+        } else {
+            console.log('cc');
         }
     };
 
@@ -108,13 +144,18 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                     {prices.map((price, index) => {
                         return (
                             <div key={index} className='flex gap-2 py-1'>
-                                <input type='checkbox' className='w-5' />
-                                <label>{price}</label>
+                                <input
+                                    type='checkbox'
+                                    className='w-5'
+                                    value={price}
+                                    onChange={(e) => handleCheckPrice(e, price)}
+                                />
+                                <label>{price.label}</label>
                             </div>
                         );
                     })}
                 </div>
-                <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={handleRouterPush}>
+                <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={(e) => handleRouterPush(e)}>
                     Click
                 </button>
             </div>
