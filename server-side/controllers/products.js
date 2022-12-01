@@ -69,6 +69,8 @@ const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, option } = req.query;
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
+    console.log(categoryArray, supplierArray);
+    console.log(req.query);
     const aggegrate = [
         {
             $lookup: {
@@ -117,17 +119,15 @@ const filterProduct = tryCatch(async (req, res) => {
             },
         });
         res.status(200).json(result);
-    } else if (option === 'option2' && categoryArray.length > 0 && supplierArray.length === 0) {
+    } else if (option === 'option2' && categoryArray.length > 0 && supplierArray.includes('undefined')) {
         const result = await Product.aggregate(aggegrate).append({
             $match: { categoryName: { $in: categoryArray } },
         });
-        console.log('th2');
         res.status(200).json(result);
-    } else if (option === 'option2' && categoryArray.length === 0 && supplierArray.length > 0) {
+    } else if (option === 'option2' && categoryArray.includes('undefined') && supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate).append({
             $match: { supplierName: { $in: supplierArray } },
         });
-        console.log('th3');
         res.status(200).json(result);
     } else {
         res.status(400).json({ message: 'Bad request' });
