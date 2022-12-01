@@ -7,12 +7,11 @@ const prices = ['under $100', '$100 - $200', 'above $200'];
 const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const router = useRouter();
     const { query } = router;
-    console.log(query);
     let CategoryName = query.category?.split('-') || [];
     let SupplierName = query.supplier?.split('-') || [];
     let filter = {
-        categoryName: CategoryName,
-        supplierName: SupplierName,
+        categoryName: query.category?.split('-') || [],
+        supplierName: query.supplier?.split('-') || [],
     };
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
@@ -25,8 +24,6 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
         } else {
             filter.categoryName = filter.categoryName.filter((item) => item !== name);
         }
-
-        console.log(filter.categoryName);
     };
     const handleCheckSupplier = (e, name) => {
         if (e.target.checked === true) {
@@ -34,7 +31,6 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
         } else {
             filter.supplierName = filter.supplierName.filter((item) => item !== name);
         }
-        console.log(filter.supplierName);
     };
 
     const handleRouterPush = () => {
@@ -48,12 +44,12 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                     option: 'option1',
                 },
             });
-        } else if (filter.categoryName.length > 0) {
+        } else if (filter.categoryName.length > 0 && filter.supplierName.length === 0) {
             router.push({
                 pathname: '/product/filter',
                 query: { category: filter.categoryName.join('-'), option: 'option2' },
             });
-        } else if (filter.supplierName.length > 0) {
+        } else if (filter.supplierName.length > 0 && filter.categoryName.length === 0) {
             router.push({
                 pathname: '/product/filter',
                 query: { supplier: filter.supplierName.join('-'), option: 'option2' },
@@ -78,7 +74,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                                         value={category.name}
                                         className='w-5'
                                         onChange={(e) => handleCheckCategory(e, category.name)}
-                                        defaultChecked={category.name === CategoryName[index] ? true : false}
+                                        defaultChecked={CategoryName.includes(category.name) ? true : false}
                                     />
                                     <label>{category.name}</label>
                                 </div>
@@ -98,7 +94,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                                         value={supplier.name}
                                         className='w-5'
                                         onChange={(e) => handleCheckSupplier(e, supplier.name)}
-                                        defaultChecked={supplier.name === SupplierName[index] ? true : false}
+                                        defaultChecked={SupplierName.includes(supplier.name) ? true : false}
                                     />
                                     <label>{supplier.name}</label>
                                 </div>
