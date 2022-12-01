@@ -8,7 +8,7 @@ import Sidebar from '../../components/Products/Sidebar';
 
 const ProductWithCate = ({ product, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
-
+    console.log(product);
     return (
         <div>
             <div className='relative sm:sticky sm:top-0 z-10'>
@@ -48,9 +48,10 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
 };
 
 export async function getServerSideProps(context) {
-    const { categoryId } = context.params;
-    const { option } = context.query;
-    const resProduct = await httpRequest.get(`products/filter/get/${categoryId}?option=${option}`);
+    const { category, supplier, option } = context.query;
+    const resProduct = await httpRequest.get(
+        `products/filter?category=${category}&supplier=${supplier}&option=${option}`,
+    );
     const product = await resProduct.data;
 
     const resCate = await httpRequest.get('/categories/v1');
