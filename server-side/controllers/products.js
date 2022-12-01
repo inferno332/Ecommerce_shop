@@ -66,10 +66,16 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 });
 
 const filterProduct = tryCatch(async (req, res) => {
-    const { category, supplier, option } = req.query;
+    const { category, supplier, option, price } = req.query;
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
-    console.log(categoryArray, supplierArray);
+    let priceDefault = {
+        $and: [{ price: { $gte: 0 } }, { price: { $lte: 1000000000 } }],
+    };
+    price &&
+        (priceDefault = {
+            $and: [{ price: { $gte: Number(price.gte) } }, { price: { $lte: Number(price.lte) } }],
+        });
     console.log(req.query);
     const aggegrate = [
         {
@@ -115,18 +121,26 @@ const filterProduct = tryCatch(async (req, res) => {
     if (option === 'option1' && categoryArray.length > 0 && supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate).append({
             $match: {
-                $and: [{ categoryName: { $in: categoryArray } }, { supplierName: { $in: supplierArray } }],
+                $and: [
+                    { categoryName: { $in: categoryArray } },
+                    { supplierName: { $in: supplierArray } },
+                    priceDefault,
+                ],
             },
         });
         res.status(200).json(result);
-    } else if (option === 'option2' && categoryArray.length > 0 && supplierArray.includes('undefined')) {
+    } else if (categoryArray.length > 0) {
         const result = await Product.aggregate(aggegrate).append({
-            $match: { categoryName: { $in: categoryArray } },
+            $match: {
+                $and: [{ categoryName: { $in: categoryArray } }, priceDefault],
+            },
         });
         res.status(200).json(result);
-    } else if (option === 'option2' && categoryArray.includes('undefined') && supplierArray.length > 0) {
+    } else if (supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate).append({
-            $match: { supplierName: { $in: supplierArray } },
+            $match: {
+                $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
+            },
         });
         res.status(200).json(result);
     } else {
