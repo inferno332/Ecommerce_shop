@@ -72,8 +72,9 @@ const filterProduct = tryCatch(async (req, res) => {
     let priceDefault = {
         $and: [{ price: { $gte: 0 } }, { price: { $lte: 1000000000 } }],
     };
+    let priceFilter;
     if (price) {
-        let priceFilter = JSON.parse(price);
+        priceFilter = JSON.parse(price);
         priceDefault = {
             $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
         };
@@ -141,6 +142,13 @@ const filterProduct = tryCatch(async (req, res) => {
         const result = await Product.aggregate(aggegrate).append({
             $match: {
                 $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
+            },
+        });
+        res.status(200).json(result);
+    } else if (price) {
+        const result = await Product.aggregate(aggegrate).append({
+            $match: {
+                $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
             },
         });
         res.status(200).json(result);

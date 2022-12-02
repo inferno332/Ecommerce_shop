@@ -6,9 +6,9 @@ import RangeSlider from '../RangeSlider';
 const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const router = useRouter();
     const { query } = router;
-    console.log(query.price);
     let CategoryNames = query.category?.split('-') || [];
     let SupplierNames = query.supplier?.split('-') || [];
+    let PriceRange = query.price && JSON.parse(query.price);
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
         open: { width: '200px', height: '85vh', opacity: 1, transition: { duration: 0.5 } },
@@ -29,6 +29,10 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
             SupplierNames = SupplierNames.filter((item) => item !== name);
         }
     };
+    const handlePriceChange = (value) => {
+        PriceRange = { gte: value.min, lte: value.max };
+        console.log(PriceRange);
+    };
     const handleRouterPush = () => {
         if (CategoryNames.length > 0 && SupplierNames.length > 0) {
             console.log('a');
@@ -37,21 +41,27 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 query: {
                     category: CategoryNames.join('-'),
                     supplier: SupplierNames.join('-'),
+                    price: JSON.stringify(PriceRange),
                 },
             });
         } else if (CategoryNames.length > 0) {
             router.push({
                 pathname: '/product/filter',
-                query: { category: CategoryNames.join('-') },
+                query: { category: CategoryNames.join('-'), price: JSON.stringify(PriceRange) },
             });
-        } else if (SupplierNames.length > 0 && CategoryNames.length === 0) {
+        } else if (SupplierNames.length > 0) {
             console.log('b');
             router.push({
                 pathname: '/product/filter',
-                query: { supplier: SupplierNames.join('-') },
+                query: { supplier: SupplierNames.join('-'), price: JSON.stringify(PriceRange) },
+            });
+        } else if (PriceRange) {
+            router.push({
+                pathname: '/product/filter',
+                query: { price: JSON.stringify(PriceRange) },
             });
         } else {
-            console.log('cc');
+            router.push('/product/filter');
         }
     };
 
@@ -102,6 +112,13 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 </div>
 
                 <div className='border-b py-3'>
+                <p className='font-medium pb-2 mb-2'>Prices</p>
+                    <RangeSlider
+                        min='0'
+                        max='300'
+                        onChange={(e) => handlePriceChange(e)}
+                        defaultValue={[PriceRange?.gte || 0, PriceRange?.lte || 100]}
+                    />
                 </div>
                 <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={handleRouterPush}>
                     Click
