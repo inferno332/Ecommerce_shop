@@ -17,6 +17,7 @@ const allowRoles = require("../middleware/allowRoles");
 
 const auth = passport.authenticate("jwt", { session: false });
 
+router.get("/filter", filterProduct);
 router.get("/", auth, allowRoles("admin", "staff"), getAllProducts);
 router.get("/v1", getAllProducts);
 router.get("/:id", auth, allowRoles("admin", "staff"), getProductById);
@@ -29,6 +30,5 @@ router.delete("/:id", auth, allowRoles("admin"), deleteProduct);
 //Hiển thị tất cả mặt hàng có tồn kho dưới 50
 router.get("/stock/find", auth, allowRoles("admin", "staff"), stockProduct);
 router.get("/search/category/:categoryId", searchProductByCategory);
-router.get("/filter/get/:filter", filterProduct);
 
 module.exports = router;

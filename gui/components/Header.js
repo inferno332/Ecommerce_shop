@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FiSearch } from 'react-icons/fi';
 import { FiUser, FiShoppingCart, FiMenu } from 'react-icons/fi';
 import DropDownMenu from './DropDownMenu';
@@ -11,13 +12,15 @@ const Header = () => {
             <div className='container m-auto'>
                 <div className='flex flex-col justify-center items-center m-auto'>
                     <div className='flex justify-between items-center h-[80px] w-full gap-2 md:gap-6'>
-                        <Image
-                            src='/ss-logo.svg'
-                            alt='logo'
-                            width='100'
-                            height='100'
-                            className='hidden md:block h-fit'
-                        />
+                        <Link href='/'>
+                            <Image
+                                src='/ss-logo.svg'
+                                alt='logo'
+                                width='100'
+                                height='100'
+                                className='hidden md:block h-fit'
+                            />
+                        </Link>
 
                         <div className='border-gray-300 border hover:border-orange-700 focus-within:border-orange-700 rounded-full flex items-center h-[44px] max-w-[670px] w-full hover:cursor-text truncate'>
                             <FiSearch className='text-[#BDBDBD] text-[20px] mx-[16px]' />

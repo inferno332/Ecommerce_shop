@@ -6,48 +6,54 @@ const prices = ['under $100', '$100 - $200', 'above $200'];
 
 const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const router = useRouter();
+    const { query } = router;
+    let CategoryName = query.category?.split('-') || [];
+    let SupplierName = query.supplier?.split('-') || [];
+    let filter = {
+        categoryName: query.category?.split('-') || [],
+        supplierName: query.supplier?.split('-') || [],
+    };
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
         open: { width: '200px', height: '85vh', opacity: 1, transition: { duration: 0.5 } },
     };
 
-    let filter = {
-        categoryId: [],
-        supplierId: [],
-    };
-    const handleCheckCategoryId = (e, id) => {
-        if (e.target.checked === true) {
-            filter.categoryId.push(id);
+    const handleCheckCategory = (e, name) => {
+        if (e.target.checked) {
+            filter.categoryName.push(name);
         } else {
-            let index = filter.categoryId.indexOf(id);
-            if (index > -1) {
-                filter.categoryId.splice(index, 1);
-            }
+            filter.categoryName = filter.categoryName.filter((item) => item !== name);
         }
-        console.log(filter.categoryId);
     };
-    const handleCheckSupplierId = (e, id) => {
+    const handleCheckSupplier = (e, name) => {
         if (e.target.checked === true) {
-            filter.supplierId.push(id);
+            filter.supplierName.push(name);
         } else {
-            let index = filter.supplierId.indexOf(id);
-            if (index > -1) {
-                filter.supplierId.splice(index, 1);
-            }
+            filter.supplierName = filter.supplierName.filter((item) => item !== name);
         }
-        console.log(filter.supplierId);
     };
 
     const handleRouterPush = () => {
-        if (filter.categoryId.length > 0 && filter.supplierId.length > 0) {
+        if (filter.categoryName.length > 0 && filter.supplierName.length > 0) {
             console.log('option1');
-            const arr = [];
-            arr.push(...filter.categoryId, ...filter.supplierId);
-            router.push(`/product/${String(arr).replace(',', '%20')}?option=option1`);
-        } else if (filter.categoryId.length > 0) {
-            router.push(`/product/${String(filter.categoryId).replace(',', '%20')}?option=option2`);
-        } else if (filter.supplierId.length > 0) {
-            router.push(`/product/${String(filter.supplierId).replace(',', '%20')}?option=option2`);
+            router.push({
+                pathname: '/product/filter',
+                query: {
+                    category: filter.categoryName.join('-'),
+                    supplier: filter.supplierName.join('-'),
+                    option: 'option1',
+                },
+            });
+        } else if (filter.categoryName.length > 0 && filter.supplierName.length === 0) {
+            router.push({
+                pathname: '/product/filter',
+                query: { category: filter.categoryName.join('-'), option: 'option2' },
+            });
+        } else if (filter.supplierName.length > 0 && filter.categoryName.length === 0) {
+            router.push({
+                pathname: '/product/filter',
+                query: { supplier: filter.supplierName.join('-'), option: 'option2' },
+            });
         }
     };
 
@@ -60,14 +66,15 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 <div className='border-b pb-3'>
                     <p className='font-medium pb-2'>Categories</p>
                     <div>
-                        {categories.map((category) => {
+                        {categories.map((category, index) => {
                             return (
                                 <div key={category._id} className='flex gap-2 py-1'>
                                     <input
                                         type='checkbox'
-                                        value={category._id}
+                                        value={category.name}
                                         className='w-5'
-                                        onChange={(e) => handleCheckCategoryId(e, category._id)}
+                                        onChange={(e) => handleCheckCategory(e, category.name)}
+                                        defaultChecked={CategoryName.includes(category.name) ? true : false}
                                     />
                                     <label>{category.name}</label>
                                 </div>
@@ -79,14 +86,15 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 <div className='border-b py-3'>
                     <p className='font-medium pb-2'>Brands</p>
                     <div>
-                        {suppliers.map((supplier) => {
+                        {suppliers.map((supplier, index) => {
                             return (
                                 <div key={supplier._id} className='flex gap-2 py-1'>
                                     <input
                                         type='checkbox'
                                         value={supplier.name}
                                         className='w-5'
-                                        onChange={(e) => handleCheckSupplierId(e, supplier._id)}
+                                        onChange={(e) => handleCheckSupplier(e, supplier.name)}
+                                        defaultChecked={SupplierName.includes(supplier.name) ? true : false}
                                     />
                                     <label>{supplier.name}</label>
                                 </div>
