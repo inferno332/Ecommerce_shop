@@ -5,7 +5,10 @@ import { useRouter } from 'next/router';
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 
+import { useCart } from '../../zustand/useCart';
+
 const AllProducts = ({ products, page }) => {
+    const { add } = useCart((state) => state);
     const router = useRouter();
     return (
         <div className='flex flex-col w-full gap-5'>
@@ -22,8 +25,15 @@ const AllProducts = ({ products, page }) => {
                                     />
                                 </Link>
                                 <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
-                                    <AiOutlineShoppingCart className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110' />
-                                    <AiOutlineEye className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 bg-white  duration-200 hover:scale-110' />
+                                    <AiOutlineShoppingCart
+                                        className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
+                                        onClick={() => {
+                                            add({ product: product, quantity: 1 });
+                                        }}
+                                    />
+                                    <Link href={`/product/details/${product._id}`}>
+                                        <AiOutlineEye className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 bg-white  duration-200 hover:scale-110' />
+                                    </Link>
                                 </div>
                             </div>
                             <div className='flex flex-col sm:flex-row justify-between items-start gap-5 py-2 sm:py-5 px-1'>

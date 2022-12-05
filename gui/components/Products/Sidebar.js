@@ -61,7 +61,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 query: { price: JSON.stringify(PriceRange) },
             });
         } else {
-            router.push('/product/filter');
+            router.push('/product');
         }
     };
 

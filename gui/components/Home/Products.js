@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BsArrowRight, BsCart2 } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+import { BsArrowRight, BsCart2 } from 'react-icons/bs';
+
+import { useCart } from '../../zustand/useCart';
+
 const Products = ({ products }) => {
+    const { add } = useCart((state) => state);
     //Fix Next.js “Text content does not match server-rendered HTML” React hydration error
     const [hydrated, setHydrated] = useState(false);
 
@@ -68,7 +72,9 @@ const Products = ({ products }) => {
                                         />
                                     </div>
                                 </Link>
-                                <i className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'>
+                                <i
+                                    className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'
+                                    onClick={() => add({ product: product, quantity: 1 })}>
                                     <BsCart2 />
                                 </i>
                                 <div className='flex items-center justify-between py-5 px-2'>
