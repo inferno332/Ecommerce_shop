@@ -18,6 +18,7 @@ const allowRoles = require("../middleware/allowRoles");
 const auth = passport.authenticate("jwt", { session: false });
 
 router.get("/filter", filterProduct);
+router.get("/search/:name", getProductByName);
 router.get("/", auth, allowRoles("admin", "staff"), getAllProducts);
 router.get("/v1", getAllProducts);
 router.get("/:id", auth, allowRoles("admin", "staff"), getProductById);

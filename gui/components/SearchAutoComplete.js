@@ -1,37 +1,29 @@
-import React from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import httpRequest from '../ultis/axios'
+import { useState } from 'react'
+import axios from 'axios'
 
-const SearchAutoComplete = () => {
+const SearchAutoComplete = ({products}) => {
   // note: the id field is mandatory
-  const items = [
-    {
-      id: 0,
-      name: 'Cobol'
-    },
-    {
-      id: 1,
-      name: 'JavaScript'
-    },
-    {
-      id: 2,
-      name: 'Basic'
-    },
-    {
-      id: 3,
-      name: 'PHP'
-    },
-    {
-      id: 4,
-      name: 'Java'
-    }
-  ]
+  const [searchResult, setSearchResult] = useState([])
+  
 
-  const handleOnSearch = (string, results) => {
+  const handleOnSearch = async(string, results) => {
     // onSearch will have as the first callback parameter
     // the string searched and for the second the results.
-    console.log(string, results)
+    console.log(string,results);
+    if (string.length > 0) {
+      try {
+        const res = await axios.get(`${process.env.BASE_URL}/products/search/${string}`)
+        let data = res.data.map(({_id, name}) => ({id: _id, name}))
+        results = data
+        setSearchResult(results)
+        console.log(results);
+      } catch (error) {
+        
+      }
+    }
   }
-
 
   const handleOnSelect = (item) => {
     // the item selected
@@ -41,8 +33,8 @@ const SearchAutoComplete = () => {
   const formatResult = (item) => {
     return (
       <>
-        <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
+        {/* <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span> */}
+        <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
       </>
     )
   }
@@ -50,10 +42,11 @@ const SearchAutoComplete = () => {
   return (
         <div className='w-full md:w-[180px] focus-within:w-full duration-500 z-10'>
           <ReactSearchAutocomplete
-            items={items}
+            items={searchResult}
             onSearch={handleOnSearch}
             onSelect={handleOnSelect}
             formatResult={formatResult}
+            maxResults={7}
             styling={{
                 width: '100%',
             }}
@@ -61,4 +54,6 @@ const SearchAutoComplete = () => {
         </div>
   )
 }
+
+
 export default SearchAutoComplete
