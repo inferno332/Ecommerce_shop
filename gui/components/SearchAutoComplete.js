@@ -47,6 +47,7 @@ const SearchAutoComplete = ({products}) => {
             onSelect={handleOnSelect}
             formatResult={formatResult}
             maxResults={7}
+            inputDebounce='500'
             styling={{
                 width: '100%',
             }}
