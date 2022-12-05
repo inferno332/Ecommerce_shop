@@ -1,13 +1,50 @@
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { FiSearch } from 'react-icons/fi';
 import { FiUser, FiShoppingCart } from 'react-icons/fi';
 import DropDownMenu from './DropDownMenu';
+import SelectMenu from './SelectMenu';
+import Cart from './Cart/Cart';
+
+import { useCart } from '../zustand/useCart';
 import MobileMenuModal from './MobileMenuModal';
 import SearchAutoComplete from './SearchAutoComplete';
 
 
 const Header = () => {
+    const { products } = useCart((state) => state);
+    const [openCart, setOpenCart] = useState(false);
+
+    // EVENT SCROLL HEADER
+    const [hideHeader, sethideHeader] = useState(false);
+    const [position, setPosition] = useState(0);
+
+    const handleScroll = useCallback(() => {
+        sethideHeader(window.pageYOffset > position);
+        setPosition(window.pageYOffset);
+    }, [position, hideHeader]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+    //END
+
+    //Fix Next.js “Text content does not match server-rendered HTML” React hydration error
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        return null;
+    }
+    //END
+
     return (
         <header>
             <div className='container m-auto'>
@@ -33,22 +70,33 @@ const Header = () => {
                             <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block'>
                                 <FiUser />
                             </span>
-                            <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer'>
+                            <div className='relative'>
+                            <div
+                                className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse border-gray-300 border'
+                                onClick={() => setOpenCart((prev) => !prev)}>
                                 <FiShoppingCart />
-                            </span>
+                            </div>
+                            {products.length > 0 && (
+                                <p className='absolute top-0 right-0 translate-x-[10px] translate-y-[-5px] hidden md:block w-[25px] border rounded-full text-center bg-black text-white font-bold text-'>
+                                    {products.length}
+                                </p>
+                            )}
+                           </div> 
                             <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer block md:hidden'>
                                 {/* <FiMenu /> */}
                                 <MobileMenuModal />
                             </span>
                         </div>
                     </div>
+                </div>
 
-                    <div className='hidden md:flex justify-between w-full mb-2'>
-                        <DropDownMenu />
-                        <div>Navbar</div>
-                    </div>
+                <div className='hidden md:flex justify-between w-full mb-2'>
+                    <DropDownMenu />
+                    <div>Navbar</div>
                 </div>
             </div>
+
+            <Cart openCart={openCart} setOpenCart={setOpenCart} />
         </header>
     );
 };
