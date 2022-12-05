@@ -11,7 +11,8 @@ const productSchema = new Schema(
     supplierId: { type: Schema.Types.ObjectId, ref: 'Supplier' },
     description: { type: String, required: true },
     imageURL: {type: Array, default: []},
-  },
+    promotionPosition :{type:Array, default: []},
+  },{ timestamps: { updatedAt: false } },
   {
     query: {
       byName(name) {
