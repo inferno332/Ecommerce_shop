@@ -24,6 +24,7 @@ module.exports = {
                 rotateRight: 'rotateRight 0.5s',
                 rotateLeft: 'rotateLeft 0.5s',
                 marquee: 'marquee 15s linear infinite',
+                width: 'width 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28)',
             },
             keyframes: {
                 slowfade: {
