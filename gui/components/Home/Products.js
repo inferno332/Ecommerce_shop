@@ -11,16 +11,6 @@ import { useCart } from '../../zustand/useCart';
 
 const Products = ({ products }) => {
     const { add } = useCart((state) => state);
-    //Fix Next.js “Text content does not match server-rendered HTML” React hydration error
-    const [hydrated, setHydrated] = useState(false);
-
-    useEffect(() => {
-        setHydrated(true);
-    }, []);
-    if (!hydrated) {
-        return null;
-    }
-    //END
 
     return (
         <div className='mt-10'>

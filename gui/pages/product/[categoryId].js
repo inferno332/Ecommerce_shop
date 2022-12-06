@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import httpRequest from '../../ultis/axios';
 
@@ -12,9 +12,26 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
     const { add } = useCart((state) => state);
 
+    // EVENT SCROLL HEADER
+    const [hideHeader, sethideHeader] = useState(false);
+    const [position, setPosition] = useState(0);
+
+    const handleScroll = useCallback(() => {
+        sethideHeader(window.pageYOffset > position);
+        setPosition(window.pageYOffset);
+    }, [position, hideHeader]);
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    });
+    //END
+
     return (
-        <div>
-            <div className='relative sm:sticky sm:top-0 z-10'>
+        <div className={`${hideHeader ? 'sm:translate-y-[0px]' : 'sm:translate-y-[80px]'} ease-out duration-300`}>
+            <div className='relative sm:sticky sm:top-[-1px] z-10'>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex'>
@@ -36,7 +53,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                         <AiOutlineShoppingCart
                                             className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
                                             onClick={() => {
-                                                add({ product: product, quantity: 1 });
+                                                add({ product: p, quantity: 1 });
                                             }}
                                         />
                                         <Link href={`/product/details/${p._id}`}>
