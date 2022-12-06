@@ -11,7 +11,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     let PriceRange = query.price && JSON.parse(query.price);
     const listVariants = {
         close: { width: 0, height: 0, opacity: 0, transition: { duration: 0.5 } },
-        open: { width: '200px', height: '85vh', opacity: 1, transition: { duration: 0.5 } },
+        open: { width: '200px', height: '65vh', opacity: 1, transition: { duration: 0.5 } },
     };
 
     const handleCheckCategory = (e, name) => {
@@ -24,18 +24,15 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
     const handleCheckSupplier = (e, name) => {
         if (e.target.checked === true) {
             SupplierNames.push(name);
-            console.log(SupplierNames.length);
         } else {
             SupplierNames = SupplierNames.filter((item) => item !== name);
         }
     };
     const handlePriceChange = (value) => {
         PriceRange = { gte: value.min, lte: value.max };
-        console.log(PriceRange);
     };
     const handleRouterPush = () => {
         if (CategoryNames.length > 0 && SupplierNames.length > 0) {
-            console.log('a');
             router.push({
                 pathname: `/product/filter`,
                 query: {
@@ -50,7 +47,6 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 query: { category: CategoryNames.join('-'), price: JSON.stringify(PriceRange) },
             });
         } else if (SupplierNames.length > 0) {
-            console.log('b');
             router.push({
                 pathname: '/product/filter',
                 query: { supplier: SupplierNames.join('-'), price: JSON.stringify(PriceRange) },
