@@ -9,7 +9,7 @@ const Products = ({ categories, suppliers, products, page }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
 
     // EVENT SCROLL HEADER
-    const [hideHeader, sethideHeader] = useState(false);
+    const [hideHeader, sethideHeader] = useState(true);
     const [position, setPosition] = useState(0);
 
     const handleScroll = useCallback(() => {
@@ -26,12 +26,20 @@ const Products = ({ categories, suppliers, products, page }) => {
     //END
 
     return (
-        <div className={`${hideHeader ? 'sm:translate-y-[0px]' : 'sm:translate-y-[80px]'} ease-out duration-300`}>
-            <div className='relative sm:sticky sm:top-[-1px] z-10'>
+        <div>
+            <div
+                className={`${
+                    hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
+                } ease-out duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex'>
-                <Sidebar isOpenFilter={isOpenFilter} categories={categories} suppliers={suppliers} />
+                <Sidebar
+                    isOpenFilter={isOpenFilter}
+                    categories={categories}
+                    suppliers={suppliers}
+                    hideHeader={hideHeader}
+                />
                 <AllProducts products={products} page={page} />
             </div>
         </div>

@@ -20,7 +20,7 @@ router.get(
   allowRoles("admin", "staff"),
   getCustomerByName
 );
-router.post("/", auth, allowRoles("admin"), createCustomer);
+router.post("/", createCustomer);
 router.put("/:id", auth, allowRoles("admin"), updateCustomer);
 router.delete("/:id", auth, allowRoles("admin"), deleteCustomer);
 

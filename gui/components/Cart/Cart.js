@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { MdOutlineCancel } from 'react-icons/md';
@@ -8,7 +8,18 @@ import FilledCart from './FilledCart';
 import { useCart } from '../../zustand/useCart';
 
 export default function Cart({ setOpenCart, openCart }) {
-    const { products } = useCart((state) => state);
+    const { products, sum, subTotal } = useCart((state) => state);
+
+    const quantity = products
+        .map((item) => item.quantity)
+        .reduce((total, value) => {
+            total += value;
+            return total;
+        }, 0);
+
+    useEffect(() => {
+        sum();
+    }, [quantity]);
 
     return (
         <Transition show={openCart} as={Fragment}>
@@ -51,18 +62,18 @@ export default function Cart({ setOpenCart, openCart }) {
                                                     </button>
                                                 </div>
                                             </div>
-                                            {products.length > 0 ? (
+                                            {products?.length > 0 ? (
                                                 <FilledCart setOpenCart={setOpenCart} />
                                             ) : (
                                                 <EmptyCart setOpenCart={setOpenCart} />
                                             )}
                                         </div>
 
-                                        {products.length > 0 && (
+                                        {products?.length > 0 && (
                                             <div className='border-t border-gray-200 py-6 px-4 sm:px-6'>
                                                 <div className='flex justify-between text-base font-medium text-gray-900'>
                                                     <p>Subtotal:</p>
-                                                    <p>chua lam</p>
+                                                    <p>${subTotal}</p>
                                                 </div>
                                                 <p className='mt-0.5 text-sm text-gray-500'>
                                                     Shipping and taxes calculated at checkout.

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import RangeSlider from '../RangeSlider';
 
-const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
+const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
     const router = useRouter();
     const { query } = router;
     let CategoryNames = query.category?.split('-') || [];
@@ -65,7 +65,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
         <motion.div
             animate={isOpenFilter ? 'open' : 'close'}
             variants={listVariants}
-            className='sm:sticky sm:top-[50px] flex'>
+            className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} sm:sticky flex duration-300 ease-out`}>
             <div>
                 <div className='border-b pb-3'>
                     <p className='font-medium pb-2'>Categories</p>
@@ -108,12 +108,12 @@ const Sidebar = ({ isOpenFilter, categories, suppliers }) => {
                 </div>
 
                 <div className='border-b py-3'>
-                <p className='font-medium pb-2 mb-2'>Prices</p>
+                    <p className='font-medium pb-2 mb-2'>Prices</p>
                     <RangeSlider
                         min='0'
-                        max='300'
+                        max='500'
                         onChange={(e) => handlePriceChange(e)}
-                        defaultValue={[PriceRange?.gte || 0, PriceRange?.lte || 100]}
+                        defaultValue={[PriceRange?.gte || 0, PriceRange?.lte || 500]}
                     />
                 </div>
                 <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={handleRouterPush}>
