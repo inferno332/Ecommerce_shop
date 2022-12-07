@@ -24,7 +24,7 @@ router.get("/v1", getAllProducts);
 router.get("/:id", auth, allowRoles("admin", "staff"), getProductById);
 router.get("/v2/:id", getProductById);
 router.post("/", auth, allowRoles("admin"), createProduct);
-router.put("/:id", auth, allowRoles("admin"), updateProduct);
+router.patch("/:id", auth, allowRoles("admin"), updateProduct);
 router.delete("/:id", auth, allowRoles("admin"), deleteProduct);
 
 //Hiển thị tất cả mặt hàng có tồn kho dưới 50
