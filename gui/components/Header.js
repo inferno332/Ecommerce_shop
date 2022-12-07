@@ -7,7 +7,7 @@ import Cart from './Cart/Cart';
 
 import { useCart } from '../zustand/useCart';
 import MobileMenuModal from './MobileMenuModal';
-import SearchAutoComplete from './SearchAutoComplete';
+import SearchBar from './SearchBar';
 
 const Header = () => {
     const { products } = useCart((state) => state);
@@ -48,7 +48,7 @@ const Header = () => {
                 {/* Search bar */}
                 <div className='items-center flex flex-grow rounded-full bg-transparent relative'>
                     <div className='relative w-full flex flex-row-reverse'>
-                        <SearchAutoComplete />
+                        <SearchBar />
                     </div>
                 </div>
 
@@ -58,7 +58,7 @@ const Header = () => {
                     </span>
                     <div className='relative'>
                         <div
-                            className='rounded-full p-4 bg-[#F2F2F2] hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block hover:animate-pulse border-gray-300 border'
+                            className='rounded-full p-4 hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block'
                             onClick={() => setOpenCart((prev) => !prev)}>
                             <FiShoppingCart />
                         </div>
