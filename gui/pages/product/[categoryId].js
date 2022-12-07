@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import httpRequest from '../../ultis/axios';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -13,7 +14,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
     const { add } = useCart((state) => state);
 
     // EVENT SCROLL HEADER
-    const [hideHeader, sethideHeader] = useState(false);
+    const [hideHeader, sethideHeader] = useState(true);
     const [position, setPosition] = useState(0);
 
     const handleScroll = useCallback(() => {
@@ -30,12 +31,20 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
     //END
 
     return (
-        <div className={`${hideHeader ? 'sm:translate-y-[0px]' : 'sm:translate-y-[80px]'} ease-out duration-300`}>
-            <div className='relative sm:sticky sm:top-[-1px] z-10'>
+        <div>
+            <div
+                className={`${
+                    hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
+                } ease-out duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex'>
-                <Sidebar isOpenFilter={isOpenFilter} categories={categories} suppliers={suppliers} />
+                <Sidebar
+                    isOpenFilter={isOpenFilter}
+                    categories={categories}
+                    suppliers={suppliers}
+                    hideHeader={hideHeader}
+                />
 
                 <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full'>
                     {product.map((p) => {
@@ -43,9 +52,11 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                             <div key={p._id} className='group relative border rounded-lg cursor-pointer'>
                                 <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
                                     <Link href={`/product/details/${p._id}`}>
-                                        <img
-                                            src={`http://localhost:9000${p.imageURL[0]}`}
-                                            alt={p.name}
+                                        <Image
+                                            src={`${process.env.BASE_URL}${product.imageURL[0]}`}
+                                            alt={product.name}
+                                            width='300'
+                                            height='300'
                                             className=' w-full h-full object-contain'
                                         />
                                     </Link>

@@ -41,6 +41,18 @@ export const useCart = create(
                     return null;
                 }
             },
+            sum: () => {
+                const products = get().products;
+
+                let cartTotal = products.reduce((total, { quantity, product }) => {
+                    const { price } = product;
+                    const productTotal = price * quantity;
+                    total += productTotal;
+                    return total;
+                }, 0);
+
+                return set({ subTotal: cartTotal }, false, { type: 'carts/total' });
+            },
         })),
         persistOptions,
     ),

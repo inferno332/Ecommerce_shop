@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -18,9 +19,11 @@ const AllProducts = ({ products, page }) => {
                         <div key={product._id} className='group relative border rounded-lg cursor-pointer'>
                             <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
                                 <Link href={`/product/details/${product._id}`}>
-                                    <img
-                                        src={`http://localhost:9000${product.imageURL[0]}`}
+                                    <Image
+                                        src={`${process.env.BASE_URL}${product.imageURL[0]}`}
                                         alt={product.name}
+                                        width='300'
+                                        height='300'
                                         className=' w-full h-full object-contain'
                                     />
                                 </Link>
