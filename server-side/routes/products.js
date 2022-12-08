@@ -18,13 +18,13 @@ const allowRoles = require("../middleware/allowRoles");
 const auth = passport.authenticate("jwt", { session: false });
 
 router.get("/filter", filterProduct);
+router.get("/search/:name", getProductByName);
 router.get("/", auth, allowRoles("admin", "staff"), getAllProducts);
 router.get("/v1", getAllProducts);
 router.get("/:id", auth, allowRoles("admin", "staff"), getProductById);
 router.get("/v2/:id", getProductById);
-router.get("/find/:name", auth, allowRoles("admin", "staff"), getProductByName);
 router.post("/", auth, allowRoles("admin"), createProduct);
-router.put("/:id", auth, allowRoles("admin"), updateProduct);
+router.patch("/:id", auth, allowRoles("admin"), updateProduct);
 router.delete("/:id", auth, allowRoles("admin"), deleteProduct);
 
 //Hiển thị tất cả mặt hàng có tồn kho dưới 50

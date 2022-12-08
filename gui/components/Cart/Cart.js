@@ -9,7 +9,6 @@ import FilledCart from './FilledCart';
 import { useCart } from '../../zustand/useCart';
 
 export default function Cart({ setOpenCart, openCart }) {
-    const router = useRouter();
     const { products, sum, subTotal } = useCart((state) => state);
 
     const quantity = products
