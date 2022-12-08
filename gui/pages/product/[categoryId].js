@@ -53,8 +53,8 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                 <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
                                     <Link href={`/product/details/${p._id}`}>
                                         <Image
-                                            src={`${process.env.BASE_URL}${product.imageURL[0]}`}
-                                            alt={product.name}
+                                            src={`${process.env.BASE_URL}${p.imageURL[0]}`}
+                                            alt={p.name}
                                             width='300'
                                             height='300'
                                             className=' w-full h-full object-contain'

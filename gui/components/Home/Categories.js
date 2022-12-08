@@ -9,10 +9,9 @@ const Categories = ({ categories }) => {
                     return (
                         <div
                             key={category._id}
-                            className='relative duration-300 sm:cursor-pointer sm:hover:shadow-2xl sm:hover:scale-[1.01]'
-                        >
+                            className='relative duration-300 sm:cursor-pointer sm:hover:shadow-2xl sm:hover:scale-[1.01]'>
                             <img
-                                src={`http://localhost:9000${category.imageUrl}`}
+                                src={`${process.env.BASE_URL}${category.imageUrl}`}
                                 alt={category.name}
                                 className='h-[450px] w-[100%] sm:h-[500px] object-cover rounded-md'
                             />

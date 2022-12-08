@@ -16,7 +16,7 @@ const FilledCart = ({ setOpenCart }) => {
                         <li key={product.product._id} className='flex py-6'>
                             <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
                                 <img
-                                    src={`http://localhost:9000${product.product.imageURL[0]}`}
+                                    src={`${process.env.BASE_URL}${product.product.imageURL[0]}`}
                                     alt={product.product.name}
                                     className='h-full w-full object-cover object-center cursor-pointer'
                                     onClick={() => {
