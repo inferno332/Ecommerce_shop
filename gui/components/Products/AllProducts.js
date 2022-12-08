@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
@@ -13,6 +14,7 @@ const AllProducts = ({ products, page }) => {
     const router = useRouter();
     return (
         <div className='flex flex-col w-full gap-5'>
+            <Toaster position='top-center' reverseOrder={false} />
             <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full'>
                 {products.map((product) => {
                     return (
@@ -31,7 +33,14 @@ const AllProducts = ({ products, page }) => {
                                     <AiOutlineShoppingCart
                                         className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
                                         onClick={() => {
-                                            add({ product: product, quantity: 1 });
+                                            toast.success('Successfully Add To Cart!');
+                                            add({
+                                                productId: product._id,
+                                                name: product.name,
+                                                price: product.price,
+                                                image: product.imageURL[0],
+                                                quantity: 1,
+                                            });
                                         }}
                                     />
                                     <Link href={`/product/details/${product._id}`}>

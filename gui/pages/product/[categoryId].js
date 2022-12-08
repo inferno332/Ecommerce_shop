@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast, { Toaster } from 'react-hot-toast';
 import httpRequest from '../../ultis/axios';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -32,6 +33,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
 
     return (
         <div>
+            <Toaster position='top-center' reverseOrder={false} />
             <div
                 className={`${
                     hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
@@ -64,7 +66,14 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                         <AiOutlineShoppingCart
                                             className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
                                             onClick={() => {
-                                                add({ product: p, quantity: 1 });
+                                                toast.success('Successfully Add To Cart!');
+                                                add({
+                                                    productId: p._id,
+                                                    name: p.name,
+                                                    price: p.price,
+                                                    image: p.imageURL[0],
+                                                    quantity: 1,
+                                                });
                                             }}
                                         />
                                         <Link href={`/product/details/${p._id}`}>

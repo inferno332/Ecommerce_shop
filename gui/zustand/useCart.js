@@ -10,30 +10,30 @@ export const useCart = create(
     persist(
         devtools((set, get) => ({
             products: [],
-            add: ({ product, quantity }) => {
+            add: ({ productId, name, price, image, quantity }) => {
                 const products = get().products;
-                const found = products.find((item) => item.product._id === product._id);
+                const found = products.find((item) => item.productId === productId);
                 if (found) {
                     found.quantity++;
                 } else {
-                    products.push({ product, quantity });
+                    products.push({ productId, name, price, image, quantity });
                 }
                 return set({ products: products }, false, { type: 'carts/addToCart' });
             },
             remove: (id) => {
                 const products = get().products;
-                const newProducts = products.filter((x) => x.product._id !== id);
+                const newProducts = products.filter((x) => x.productId !== id);
                 return set({ products: newProducts }, false, { type: 'carts/removeFromCart' });
             },
             increase: (id) => {
                 const products = get().products;
-                const found = products.find((x) => x.product._id === id);
+                const found = products.find((x) => x.productId === id);
                 found.quantity++;
                 return set({ products: products }, false, { type: 'carts/increase' });
             },
             decrease: (id) => {
                 const products = get().products;
-                const found = products.find((x) => x.product._id === id);
+                const found = products.find((x) => x.productId === id);
                 if (found.quantity > 1) {
                     found.quantity--;
                     return set({ products: products }, false, { type: 'carts/decrease' });
@@ -44,14 +44,16 @@ export const useCart = create(
             sum: () => {
                 const products = get().products;
 
-                let cartTotal = products.reduce((total, { quantity, product }) => {
-                    const { price } = product;
+                let cartTotal = products.reduce((total, { quantity, price }) => {
                     const productTotal = price * quantity;
                     total += productTotal;
                     return total;
                 }, 0);
 
                 return set({ subTotal: cartTotal }, false, { type: 'carts/total' });
+            },
+            clear: () => {
+                set({ products: [] }, false, { type: 'carts/clear' });
             },
         })),
         persistOptions,

@@ -13,14 +13,14 @@ const FilledCart = ({ setOpenCart }) => {
             <div className='flow-root'>
                 <ul className='-my-6 divide-y divide-gray-200'>
                     {products.map((product) => (
-                        <li key={product.product._id} className='flex py-6'>
+                        <li key={product.productId} className='flex py-6'>
                             <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
                                 <img
-                                    src={`${process.env.BASE_URL}${product.product.imageURL[0]}`}
-                                    alt={product.product.name}
+                                    src={`${process.env.BASE_URL}${product.image}`}
+                                    alt={product.name}
                                     className='h-full w-full object-cover object-center cursor-pointer'
                                     onClick={() => {
-                                        router.push(`/product/details/${product.product._id}`);
+                                        router.push(`/product/details/${product.productId}`);
                                         setOpenCart(false);
                                     }}
                                 />
@@ -30,24 +30,24 @@ const FilledCart = ({ setOpenCart }) => {
                                 <div
                                     className='flex justify-between text-base font-medium text-gray-900 cursor-pointer'
                                     onClick={() => {
-                                        router.push(`/product/details/${product.product._id}`);
+                                        router.push(`/product/details/${product.productId}`);
                                         setOpenCart(false);
                                     }}>
-                                    <h3>{product.product.name}</h3>
-                                    <p className='ml-4'>${product.product.price * product.quantity}</p>
+                                    <h3>{product.name}</h3>
+                                    <p className='ml-4'>${product.price * product.quantity}</p>
                                 </div>
 
                                 <div className='flex flex-1 items-end justify-between text-sm'>
                                     <div className='flex items-center gap-5'>
                                         <button
                                             className='border rounded-full p-2 hover:bg-gray-50'
-                                            onClick={() => decrease(product.product._id)}>
+                                            onClick={() => decrease(product.productId)}>
                                             <strong>-</strong>
                                         </button>
                                         <p className='text-orange-500 font-semibold'>{product.quantity}</p>
                                         <button
                                             className='border rounded-full p-2 hover:bg-gray-50'
-                                            onClick={() => increase(product.product._id)}>
+                                            onClick={() => increase(product.productId)}>
                                             <strong>+</strong>
                                         </button>
                                     </div>
@@ -56,7 +56,7 @@ const FilledCart = ({ setOpenCart }) => {
                                         <button
                                             type='button'
                                             className='flex items-center gap-1 border border-red-300 px-5 py-2 rounded-lg font-medium text-gray-600 hover:text-gray-800 hover:border-red-600'
-                                            onClick={() => remove(product.product._id)}>
+                                            onClick={() => remove(product.productId)}>
                                             Remove <RiDeleteBin7Line />
                                         </button>
                                     </div>

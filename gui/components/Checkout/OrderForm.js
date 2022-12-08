@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import httpRequest from '../../ultis/axios';
 
 import { Stepper, Step, StepLabel, StepContent } from '@mui/material';
@@ -10,16 +11,16 @@ import StepTwo from './form/StepTwo';
 import { useCart } from '../../zustand/useCart';
 
 const OrderForm = () => {
-    const { products } = useCart((state) => state);
-    console.log(products.quantity);
-    
+    const router = useRouter();
+    const { products, clear } = useCart((state) => state);
+
     //REACT HOOK FORM
     const { handleSubmit, register } = useForm();
 
     const onSubmit = async (data) => {
-        const array = { ...data, orderDetail: products };
+        const array = { ...data, orderDetails: products };
         console.log(array);
-        // await httpRequest.post('/orders/v1', data);
+        // await httpRequest.post('/orders/v1', array);
     };
     //END
 
@@ -33,31 +34,23 @@ const OrderForm = () => {
     const handleBack = () => {
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
-
-    const handleReset = () => {
-        setActiveStep(0);
-    };
     //END
 
     return (
         <div>
-            <h1 className='font-semibold text-2xl mb-3'>Please enter this form</h1>
+            <h1 className='font-semibold text-2xl mb-3'>Enter this form</h1>
+            <div className='flex text-xs gap-2'>
+                <span className='text-red-500'>*Note:</span>
+                <span className=' text-gray-500'>
+                    Please fill out all fields completely so that we can contact you sooner!
+                </span>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stepper activeStep={activeStep} orientation='vertical'>
                     <Step>
                         <StepLabel>Customer information</StepLabel>
                         <StepContent>
-                            <StepOne register={register} />
-                            <div>
-                                <button
-                                    className='w-full mt-5 bg-black hover:bg-[#333] duration-200 ease-in text-white py-2 px-5 rounded-lg'
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleNext();
-                                    }}>
-                                    Continue
-                                </button>
-                            </div>
+                            <StepOne register={register} handleNext={handleNext} />
                         </StepContent>
                     </Step>
                     <Step>
@@ -89,7 +82,10 @@ const OrderForm = () => {
                     </div>
                     <div
                         className='flex items-center gap-2 text-sm text-blue-500 border-b border-dashed border-blue-500 max-w-[160px] hover:scale-[1.01] duration-200 cursor-pointer'
-                        onClick={handleReset}>
+                        onClick={() => {
+                            clear();
+                            router.push('/');
+                        }}>
                         <p>Return to Home Page</p>
                         <BsArrowRight />
                     </div>

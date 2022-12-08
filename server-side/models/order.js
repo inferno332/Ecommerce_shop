@@ -17,13 +17,13 @@ const oderSchema = new Schema(
         paymentType: { type: String, default: 'CASH' },
         orderDetails: [
             {
-                // productId: { type: Schema.Types.ObjectId, ref: 'product' },
-                name: {type: String},
+                image: { type: String },
+                name: { type: String },
                 price: { type: Number },
+                productId: { type: Schema.Types.ObjectId, ref: 'Product' },
                 quantity: { type: Number },
-                // discount: { type: Number },
+                _id: false 
             },
-            { _id: false },
         ],
     },
     { timestamps: { updatedAt: false } },

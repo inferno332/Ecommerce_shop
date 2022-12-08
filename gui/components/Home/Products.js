@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { BsArrowRight, BsCart2 } from 'react-icons/bs';
 
 import { useCart } from '../../zustand/useCart';
-import { useRouter } from 'next/router';
 
 const Products = ({ products }) => {
     const router = useRouter();
@@ -17,8 +18,9 @@ const Products = ({ products }) => {
 
     return (
         <div className='mt-10'>
+            <Toaster position='top-center' reverseOrder={false} />
             <div className='flex justify-between items-center mb-5'>
-                <h1 className='font-bold text-xl'>Recommend For You</h1>
+                <h1 className='font-bold text-xl'>Our Products</h1>
                 <div
                     className='flex items-center gap-2 cursor-pointer border-dashed border-b border-gray-300 duration-300 sm:hover:scale-[1.1]'
                     onClick={() => router.push('/product')}>
@@ -71,7 +73,16 @@ const Products = ({ products }) => {
                                 </Link>
                                 <i
                                     className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'
-                                    onClick={() => add({ product: product, quantity: 1 })}>
+                                    onClick={() => {
+                                        toast.success('Successfully Add To Cart!');
+                                        add({
+                                            productId: product._id,
+                                            name: product.name,
+                                            price: product.price,
+                                            image: product.imageURL[0],
+                                            quantity: 1,
+                                        });
+                                    }}>
                                     <BsCart2 />
                                 </i>
                                 <div className='flex items-center justify-between py-5 px-2'>
