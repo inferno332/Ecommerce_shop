@@ -15,7 +15,12 @@ const OrderForm = () => {
     const { products, clear } = useCart((state) => state);
 
     //REACT HOOK FORM
-    const { handleSubmit, register } = useForm();
+    const {
+        handleSubmit,
+        register,
+        formState: { errors },
+        trigger,
+    } = useForm();
 
     const onSubmit = async (data) => {
         const array = { ...data, orderDetails: products };
@@ -50,18 +55,23 @@ const OrderForm = () => {
                     <Step>
                         <StepLabel>Customer information</StepLabel>
                         <StepContent>
-                            <StepOne register={register} handleNext={handleNext} />
+                            <StepOne register={register} handleNext={handleNext} trigger={trigger} errors={errors} />
                         </StepContent>
                     </Step>
                     <Step>
                         <StepLabel>Order information</StepLabel>
                         <StepContent>
-                            <StepTwo register={register} />
+                            <StepTwo register={register} errors={errors} />
                             <div>
                                 <button
                                     type='submit'
                                     className='w-full mt-5 mb-2 bg-black hover:bg-[#333] duration-200 ease-in text-white py-2 px-5 rounded-lg'
-                                    onClick={handleNext}>
+                                    onClick={async () => {
+                                        const result = await trigger('shippingAddress');
+                                        if (result) {
+                                            handleNext();
+                                        }
+                                    }}>
                                     Finish
                                 </button>
                                 <button

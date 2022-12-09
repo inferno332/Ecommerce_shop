@@ -4,7 +4,7 @@ import OrderSummary from '../components/Checkout/OrderSummary';
 
 const checkout = () => {
     return (
-        <div className='mt-5 mx-auto flex flex-col-reverse md:flex-row gap-5'>
+        <div className='mt-5 mx-auto flex flex-col-reverse lg:flex-row gap-5'>
             <div className='flex-1'>
                 <OrderForm />
             </div>
