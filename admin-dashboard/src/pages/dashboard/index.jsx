@@ -9,6 +9,7 @@ import TrafficIcon from '@mui/icons-material/Traffic';
 
 import { tokens } from '../../theme';
 import StatBox from '../../components/StatBox';
+import LineChart from '../../components/LineChart';
 
 function Dashboard() {
     const theme = useTheme();
@@ -80,6 +81,9 @@ function Dashboard() {
                         icon={<TrafficIcon sx={{ color: colors.greenAccent[600], fontSize: '26px' }} />}
                     />
                 </Box>
+            </Box>
+            <Box display="flex" justifyContent="space-between" alignItems="center" height='250px'>
+                <LineChart isDashboard />
             </Box>
         </Box>
     );
