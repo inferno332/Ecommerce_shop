@@ -1,6 +1,9 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 
 const Categories = ({ categories }) => {
+    const router = useRouter();
+
     return (
         <div>
             <h1 className='font-bold text-xl mb-5'>CATEGORIES</h1>
@@ -8,11 +11,11 @@ const Categories = ({ categories }) => {
                 {categories.map((category) => {
                     return (
                         <div
-                            key={category._id}
                             className='relative duration-300 sm:cursor-pointer sm:hover:shadow-2xl sm:hover:scale-[1.01]'
-                        >
+                            key={category._id}
+                            onClick={() => router.push(`/product/filter?category=${category.name}`)}>
                             <img
-                                src={`http://localhost:9000${category.imageUrl}`}
+                                src={`${process.env.BASE_URL}${category.imageUrl}`}
                                 alt={category.name}
                                 className='h-[450px] w-[100%] sm:h-[500px] object-cover rounded-md'
                             />

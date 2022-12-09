@@ -19,6 +19,7 @@ const auth = passport.authenticate("jwt", { session: false });
 router.get("/", auth, allowRoles("admin", "staff"), getAllOrders);
 router.get("/:id", auth, allowRoles("admin", "staff"), getOrderById);
 router.post("/", auth, allowRoles("admin"), createOrder);
+router.post("/v1", createOrder);
 router.put("/:id", auth, allowRoles("admin"), updateOrder);
 router.delete("/:id", auth, allowRoles("admin"), deleteOrder);
 

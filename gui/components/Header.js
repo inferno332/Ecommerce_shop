@@ -34,7 +34,7 @@ const Header = () => {
         <header>
             <div
                 className={`${
-                    hideHeader && 'h-0 opacity-0'
+                    hideHeader && 'sm:h-0 sm:opacity-0'
                 } bg-white ease-out duration-300 flex justify-between items-center md:h-20 gap-2 md:gap-6`}>
                 <Link href='/'>
                     <Image

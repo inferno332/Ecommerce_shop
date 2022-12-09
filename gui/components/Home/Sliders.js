@@ -18,8 +18,7 @@ function Sliders({ sliders }) {
                 clickable: true,
             }}
             modules={[Pagination, Autoplay]}
-            className='h-[400px] lg:h-[600px]'
-        >
+            className='h-[400px] lg:h-[600px]'>
             {sliders.map((slider, index) => {
                 return (
                     <SwiperSlide key={index} className='relative flex justify-center items-center '>
@@ -31,7 +30,7 @@ function Sliders({ sliders }) {
                             </button>
                         </div>
                         <img
-                            src={`http://localhost:9000${slider.imageUrl}`}
+                            src={`${process.env.BASE_URL}${slider.imageUrl}`}
                             alt={slider.title}
                             className='w-[100%] h-[100%] object-fill opacity-70 rounded-lg'
                         />

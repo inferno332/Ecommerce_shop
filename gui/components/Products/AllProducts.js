@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
@@ -13,6 +14,7 @@ const AllProducts = ({ products, page }) => {
     const router = useRouter();
     return (
         <div className='flex flex-col w-full gap-5'>
+            <Toaster position='top-center' reverseOrder={false} />
             <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full'>
                 {products.map((product) => {
                     return (
@@ -26,12 +28,22 @@ const AllProducts = ({ products, page }) => {
                                         height='300'
                                         className=' w-full h-full object-contain'
                                     />
+                                    {product.discount > 0 && (
+                                        <div className='discount absolute top-3 sm:top-5'>{product.discount}% Off</div>
+                                    )}
                                 </Link>
                                 <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
                                     <AiOutlineShoppingCart
                                         className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
                                         onClick={() => {
-                                            add({ product: product, quantity: 1 });
+                                            toast.success('Successfully Add To Cart!');
+                                            add({
+                                                productId: product._id,
+                                                name: product.name,
+                                                price: product.discountPrice,
+                                                image: product.imageURL[0],
+                                                quantity: 1,
+                                            });
                                         }}
                                     />
                                     <Link href={`/product/details/${product._id}`}>
@@ -39,9 +51,19 @@ const AllProducts = ({ products, page }) => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className='flex flex-col sm:flex-row justify-between items-start gap-5 py-2 sm:py-5 px-1'>
+                            <div className=' py-2 sm:py-5 px-1'>
                                 <p className='text-sm'>{product.name}</p>
-                                <p className='font-semibold'>${product.price}</p>
+                                {product.discount > 0 ? (
+                                    <div className='flex gap-3'>
+                                        <del className='text-xl text-gray-500'>${product.price}</del>
+                                        <span> &rarr;</span>
+                                        <p className=' font-semibold text-xl text-orange-500'>
+                                            ${product.discountPrice}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <p className='font-semibold text-xl'>${product.price}</p>
+                                )}
                             </div>
                         </div>
                     );

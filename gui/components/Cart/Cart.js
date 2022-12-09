@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
 
 import { MdOutlineCancel } from 'react-icons/md';
 import EmptyCart from './EmptyCart';
@@ -8,6 +9,7 @@ import FilledCart from './FilledCart';
 import { useCart } from '../../zustand/useCart';
 
 export default function Cart({ setOpenCart, openCart }) {
+    const router = useRouter();
     const { products, sum, subTotal } = useCart((state) => state);
 
     const quantity = products
@@ -78,20 +80,23 @@ export default function Cart({ setOpenCart, openCart }) {
                                                 <p className='mt-0.5 text-sm text-gray-500'>
                                                     Shipping and taxes calculated at checkout.
                                                 </p>
-                                                <div className='mt-6'>
-                                                    <a
-                                                        href='#'
-                                                        className='flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm opacity-90 hover:opacity-100'>
-                                                        Checkout
-                                                    </a>
-                                                </div>
+                                                <button
+                                                    className='mt-6 w-full flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm opacity-90 hover:opacity-100'
+                                                    onClick={() => {
+                                                        router.push('/checkout');
+                                                        setOpenCart(false);
+                                                    }}>
+                                                    Checkout
+                                                </button>
                                                 <div className='flex justify-center text-center text-sm '>
                                                     <div className='flex flex-col'>
                                                         <p className='my-2'>or</p>
                                                         <button
-                                                            type='button'
                                                             className='font-medium opacity-80 hover:opacity-100'
-                                                            onClick={() => setOpenCart(false)}>
+                                                            onClick={() => {
+                                                                router.push('/product');
+                                                                setOpenCart(false);
+                                                            }}>
                                                             Continue Shopping
                                                             <span aria-hidden='true'> &rarr;</span>
                                                         </button>
