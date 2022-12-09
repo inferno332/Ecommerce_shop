@@ -28,6 +28,9 @@ const AllProducts = ({ products, page }) => {
                                         height='300'
                                         className=' w-full h-full object-contain'
                                     />
+                                    {product.discount > 0 && (
+                                        <div className='discount absolute top-3 sm:top-5'>{product.discount}% Off</div>
+                                    )}
                                 </Link>
                                 <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
                                     <AiOutlineShoppingCart
@@ -37,7 +40,7 @@ const AllProducts = ({ products, page }) => {
                                             add({
                                                 productId: product._id,
                                                 name: product.name,
-                                                price: product.price,
+                                                price: product.discountPrice,
                                                 image: product.imageURL[0],
                                                 quantity: 1,
                                             });
@@ -48,9 +51,19 @@ const AllProducts = ({ products, page }) => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className='flex flex-col sm:flex-row justify-between items-start gap-5 py-2 sm:py-5 px-1'>
+                            <div className=' py-2 sm:py-5 px-1'>
                                 <p className='text-sm'>{product.name}</p>
-                                <p className='font-semibold'>${product.price}</p>
+                                {product.discount > 0 ? (
+                                    <div className='flex gap-3'>
+                                        <del className='text-xl text-gray-500'>${product.price}</del>
+                                        <span> &rarr;</span>
+                                        <p className=' font-semibold text-xl text-orange-500'>
+                                            ${product.discountPrice}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <p className='font-semibold text-xl'>${product.price}</p>
+                                )}
                             </div>
                         </div>
                     );

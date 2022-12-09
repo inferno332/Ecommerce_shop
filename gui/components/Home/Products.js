@@ -70,6 +70,9 @@ const Products = ({ products }) => {
                                             className=' w-full h-full object-contain'
                                         />
                                     </div>
+                                    {product.discount > 0 && (
+                                        <div className='discount absolute top-5'>{product.discount}% Off</div>
+                                    )}
                                 </Link>
                                 <i
                                     className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'
@@ -78,16 +81,26 @@ const Products = ({ products }) => {
                                         add({
                                             productId: product._id,
                                             name: product.name,
-                                            price: product.price,
+                                            price: product.discountPrice,
                                             image: product.imageURL[0],
                                             quantity: 1,
                                         });
                                     }}>
                                     <BsCart2 />
                                 </i>
-                                <div className='flex items-center justify-between py-5 px-2'>
+                                <div className=' py-5 px-2'>
                                     <h1 className='text-md sm:text-xs'>{product.name}</h1>
-                                    <p className=' font-bold text-xl'>${product.price}</p>
+                                    {product.discount > 0 ? (
+                                        <div className='flex gap-3'>
+                                            <del className='text-xl text-gray-500'>${product.price}</del>
+                                            <span> &rarr;</span>
+                                            <p className=' font-semibold text-xl text-orange-500'>
+                                                ${product.discountPrice}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p className='font-semibold text-xl'>${product.price}</p>
+                                    )}
                                 </div>
                             </SwiperSlide>
                         );

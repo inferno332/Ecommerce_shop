@@ -4,16 +4,26 @@ const tryCatch = require('./utils/tryCatch');
 const getAllProducts = tryCatch(async (req, res) => {
     const page = req.query.page;
     const productsPerPage = 12;
+    const price = {
+        $divide: [{ $multiply: ['$price', '$discount'] }, 100],
+    };
+    const discountPrice = [
+        {
+            $addFields: {
+                discountPrice: {
+                    $subtract: ['$price', price],
+                },
+            },
+        },
+    ];
 
     if (page) {
-        const products = await Product.find()
+        const products = await Product.aggregate(discountPrice)
             .skip(page * productsPerPage)
-            .limit(productsPerPage)
-            .populate('categoryId')
-            .populate('supplierId');
+            .limit(productsPerPage);
         res.status(200).json(products);
     } else {
-        const products = await Product.find().populate('categoryId').populate('supplierId');
+        const products = await Product.aggregate(discountPrice);
         res.status(200).json(products);
     }
 });
@@ -79,6 +89,7 @@ const filterProduct = tryCatch(async (req, res) => {
             $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
         };
     }
+
     const aggegrate = [
         {
             $lookup: {
@@ -117,6 +128,13 @@ const filterProduct = tryCatch(async (req, res) => {
                 imageURL: 1,
                 categoryName: '$category.name',
                 supplierName: '$supplier.name',
+            },
+        },
+        {
+            $addFields: {
+                discountPrice: {
+                    $subtract: ['$price', { $divide: [{ $multiply: ['$price', '$discount'] }, 100] }],
+                },
             },
         },
     ];

@@ -61,3 +61,47 @@ input::-webkit-inner-spin-button {
 .swiper-slide-thumb-active {
     border: 1px solid rgb(235, 46, 46);
 }
+
+.discount {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    display: inline-block;
+    background: #f97316;
+    width: 100px;
+    height: 40px;
+    line-height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    border-radius: 4px;
+    padding: 0 15px;
+}
+.discount:after {
+    content: ' ';
+    height: 22px;
+    width: 22px;
+    background: #fff;
+    position: absolute;
+    top: 7px;
+    left: -9px;
+    border-radius: 4px;
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.discount:before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: #e57373;
+    position: absolute;
+    top: 16px;
+    left: 0px;
+    z-index: 1;
+    border-radius: 10px;
+}

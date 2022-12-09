@@ -80,15 +80,14 @@ export default function Cart({ setOpenCart, openCart }) {
                                                 <p className='mt-0.5 text-sm text-gray-500'>
                                                     Shipping and taxes calculated at checkout.
                                                 </p>
-                                                <div className='mt-6 flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm opacity-90 hover:opacity-100'>
-                                                    <button
-                                                        onClick={() => {
-                                                            router.push('/checkout');
-                                                            setOpenCart(false);
-                                                        }}>
-                                                        Checkout
-                                                    </button>
-                                                </div>
+                                                <button
+                                                    className='mt-6 w-full flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm opacity-90 hover:opacity-100'
+                                                    onClick={() => {
+                                                        router.push('/checkout');
+                                                        setOpenCart(false);
+                                                    }}>
+                                                    Checkout
+                                                </button>
                                                 <div className='flex justify-center text-center text-sm '>
                                                     <div className='flex flex-col'>
                                                         <p className='my-2'>or</p>
