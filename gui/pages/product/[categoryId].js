@@ -73,7 +73,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                                 add({
                                                     productId: p._id,
                                                     name: p.name,
-                                                    price: p.discountPrice,
+                                                    price: Math.floor(p.discountPrice),
                                                     image: p.imageURL[0],
                                                     quantity: 1,
                                                 });
@@ -90,7 +90,9 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                         <div className='flex gap-3'>
                                             <del className='text-xl text-gray-500'>${p.price}</del>
                                             <span> &rarr;</span>
-                                            <p className=' font-semibold text-xl text-orange-500'>${p.discountPrice}</p>
+                                            <p className=' font-semibold text-xl text-orange-500'>
+                                                ${Math.floor(p.discountPrice)}
+                                            </p>
                                         </div>
                                     ) : (
                                         <p className='font-semibold text-xl'>${p.price}</p>
