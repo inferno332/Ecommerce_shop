@@ -436,51 +436,51 @@ export const mockLineData = [
     color: tokens("dark").greenAccent[500],
     data: [
       {
-        x: "plane",
+        x: "January",
         y: 101,
       },
       {
-        x: "helicopter",
+        x: "Febuary",
         y: 75,
       },
       {
-        x: "boat",
+        x: "March",
         y: 36,
       },
       {
-        x: "train",
+        x: "April",
         y: 216,
       },
       {
-        x: "subway",
+        x: "May",
         y: 35,
       },
       {
-        x: "bus",
+        x: "June",
         y: 236,
       },
       {
-        x: "car",
+        x: "July",
         y: 88,
       },
       {
-        x: "moto",
+        x: "August",
         y: 232,
       },
       {
-        x: "bicycle",
+        x: "September",
         y: 281,
       },
       {
-        x: "horse",
+        x: "October",
         y: 1,
       },
       {
-        x: "skateboard",
+        x: "November",
         y: 35,
       },
       {
-        x: "others",
+        x: "December",
         y: 14,
       },
     ],
@@ -490,51 +490,51 @@ export const mockLineData = [
     color: tokens("dark").blueAccent[300],
     data: [
       {
-        x: "plane",
+        x: "January",
         y: 212,
       },
       {
-        x: "helicopter",
+        x: "Febuary",
         y: 190,
       },
       {
-        x: "boat",
+        x: "March",
         y: 270,
       },
       {
-        x: "train",
+        x: "April",
         y: 9,
       },
       {
-        x: "subway",
+        x: "May",
         y: 75,
       },
       {
-        x: "bus",
+        x: "June",
         y: 175,
       },
       {
-        x: "car",
+        x: "July",
         y: 33,
       },
       {
-        x: "moto",
+        x: "August",
         y: 189,
       },
       {
-        x: "bicycle",
+        x: "September",
         y: 97,
       },
       {
-        x: "horse",
+        x: "October",
         y: 87,
       },
       {
-        x: "skateboard",
+        x: "November",
         y: 299,
       },
       {
-        x: "others",
+        x: "December",
         y: 251,
       },
     ],
@@ -544,51 +544,51 @@ export const mockLineData = [
     color: tokens("dark").redAccent[200],
     data: [
       {
-        x: "plane",
+        x: "January",
         y: 191,
       },
       {
-        x: "helicopter",
+        x: "Febuary",
         y: 136,
       },
       {
-        x: "boat",
+        x: "March",
         y: 91,
       },
       {
-        x: "train",
+        x: "April",
         y: 190,
       },
       {
-        x: "subway",
+        x: "May",
         y: 211,
       },
       {
-        x: "bus",
+        x: "June",
         y: 152,
       },
       {
-        x: "car",
+        x: "July",
         y: 189,
       },
       {
-        x: "moto",
+        x: "August",
         y: 152,
       },
       {
-        x: "bicycle",
+        x: "September",
         y: 8,
       },
       {
-        x: "horse",
+        x: "October",
         y: 197,
       },
       {
-        x: "skateboard",
+        x: "November",
         y: 107,
       },
       {
-        x: "others",
+        x: "December",
         y: 170,
       },
     ],
