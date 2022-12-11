@@ -25,7 +25,7 @@ export default function Home({ sliders, categories, products, suppliers }) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const resSlider = await httpRequest.get('/sliders');
     const sliders = await resSlider.data;
 
