@@ -1,22 +1,23 @@
-import { Box, InputAdornment, MenuItem, OutlinedInput, TextField, useTheme } from '@mui/material';
+import { Box, Button, InputAdornment, MenuItem, OutlinedInput, TextField, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
+import { DeleteOutline } from '@mui/icons-material';
 
 const EditProductModal = ({ open, onClose, updateData, params, suppliers, categories, handleUpload }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const defaultInputValues = {
+        id: params.row._id,
         name: params.row.name,
         description: params.row.description,
         price: params.row.price,
-        stock: params.row.stock,
-        discount: params.row.discount,
+        sizes: params.row.sizes,
         categoryId: params.row.categoryId,
         supplierId: params.row.supplierId,
     };
@@ -25,7 +26,6 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
 
     const handleChange = (value) => {
         setProducts(value);
-        console.log(value);
     };
 
     const modalStyles = {
@@ -48,8 +48,15 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
         name: yup.string().required('Name is required'),
         description: yup.string().required('Description is required'),
         price: yup.number().required('Price is required'),
-        stock: yup.number().required('Stock is required').integer('Stock must be an integer'),
-        discount: yup.number().required('Discount is required').max(100, 'Discount must be less than 100'),
+        sizes: yup
+            .array(
+                yup.object().shape({
+                    name: yup.string().required('Size name is required'),
+                    discount: yup.number().required('Discount is required'),
+                    stock: yup.number().required('Stock is required'),
+                }),
+            )
+            .required('Size is required'),
         categoryId: yup.string().required('Category is required'),
         supplierId: yup.string().required('Supplier is required'),
     });
@@ -58,19 +65,25 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
         register,
         handleSubmit,
         formState: { errors },
+        control,
     } = useForm({
         resolver: yupResolver(validationSchema),
+        defaultValues: defaultInputValues,
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'sizes',
     });
 
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields}>
-                <TextField placeholder="Product ID" defaultValue={params.row._id} disabled label="Product ID" />
+                <TextField placeholder="Product ID" disabled label="Product ID" />
                 <TextField
                     placeholder="Name"
                     name="name"
                     label="Name"
-                    defaultValue={params.row.name}
                     required
                     {...register('name')}
                     error={errors.name ? true : false}
@@ -81,7 +94,6 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                     placeholder="Description"
                     name="description"
                     label="Description"
-                    defaultValue={params.row.description}
                     required
                     {...register('description')}
                     error={errors.description ? true : false}
@@ -95,35 +107,10 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                     id="outlined-adornment-amount"
                     name="price"
                     startAdornment={<InputAdornment position="start">Amount ($)</InputAdornment>}
-                    defaultValue={params.row.price}
                     required
                     {...register('price')}
                     error={errors.price ? true : false}
-                    onChange={(e) => handleChange({ ...products, price: e.target.value })}
-                />
-                <TextField
-                    placeholder="Stock"
-                    type="number"
-                    name="stock"
-                    label="Stock"
-                    defaultValue={params.row.stock}
-                    required
-                    {...register('stock')}
-                    error={errors.stock ? true : false}
-                    helperText={errors.stock?.message}
-                    onChange={(e) => handleChange({ ...products, stock: e.target.value })}
-                />
-                <TextField
-                    placeholder="Discount"
-                    type="number"
-                    name="discount"
-                    label="Discount"
-                    defaultValue={params.row.discount}
-                    required
-                    {...register('discount')}
-                    error={errors.discount ? true : false}
-                    helperText={errors.discount?.message}
-                    onChange={(e) => handleChange({ ...products, discount: e.target.value })}
+                    onChange={(e) => handleChange({ ...products, price: parseInt(e.target.value) })}
                 />
                 <Box display="flex" gap={2}>
                     <TextField
@@ -165,6 +152,91 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                         ))}
                     </TextField>
                 </Box>
+                {/* Sizes */}
+                {fields.map((field, index) => (
+                    <Box key={field.id} display="flex" gap={2}>
+                        <TextField
+                            {...register(`sizes.${index}.name`)}
+                            error={errors.sizes?.[index]?.name ? true : false}
+                            helperText={errors.sizes?.[index]?.name?.message}
+                            placeholder="Size name"
+                            name={`sizes.${index}.name`}
+                            label="Size name"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, name: e.target.value } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <TextField
+                            {...register(`sizes.${index}.discount`)}
+                            error={errors.sizes?.[index]?.discount ? true : false}
+                            helperText={errors.sizes?.[index]?.discount?.message}
+                            type="number"
+                            placeholder="Discount"
+                            name={`sizes.${index}.discount`}
+                            label="Discount"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, discount: parseInt(e.target.value) } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <TextField
+                            {...register(`sizes.${index}.stock`)}
+                            error={errors.sizes?.[index]?.stock ? true : false}
+                            helperText={errors.sizes?.[index]?.stock?.message}
+                            type="number"
+                            placeholder="Stock"
+                            name={`sizes.${index}.stock`}
+                            label="Stock"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, stock: parseInt(e.target.value) } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <span
+                            style={{ cursor: 'pointer', color: colors.redAccent[500], marginTop: '18px' }}
+                            onClick={() => {
+                                remove(index);
+                                setProducts({
+                                    ...products,
+                                    sizes: products.sizes.filter((size, i) => i !== index),
+                                });
+                            }}
+                        >
+                            <DeleteOutline />
+                        </span>
+                    </Box>
+                ))}
+                <Button
+                    sx={{
+                        bgcolor: colors.blueAccent[600],
+                        marginBottom: '20px',
+                        '&:hover': { bgcolor: colors.blueAccent[500] },
+                    }}
+                    variant="contained"
+                    onClick={() => {
+                        setProducts({ ...products, sizes: [...products.sizes, { name: '', discount: '', stock: '' }] });
+                        append({ name: '', discount: '', stock: '' });
+                    }}
+                    type="submit"
+                >
+                    <Typography variant="h6" color={colors.grey[100]}>
+                        Append
+                    </Typography>
+                </Button>
+                {/* End Sizes */}
                 <input
                     type="file"
                     name="uploadImg"
@@ -176,7 +248,7 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
             </Box>
         );
     };
-    
+
     return (
         <BasicModal
             open={open}

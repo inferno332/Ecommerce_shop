@@ -48,7 +48,6 @@ const SearchBar = () => {
                 onSelect={handleOnSelect}
                 formatResult={formatResult}
                 maxResults={7}
-                autoFocus
                 inputDebounce='300'
                 showIcon={false}
                 placeholder='Search'

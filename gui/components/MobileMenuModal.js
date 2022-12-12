@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { IoClose } from 'react-icons/io5';
+import { MdOutlineCancel } from 'react-icons/md';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -68,7 +68,7 @@ export default function MobileMenuModal() {
                                 <Dialog.Panel className='w-full relative flex flex-col justify-between max-w-md transform overflow-hidden bg-white p-6 text-left min-h-screen shadow-xl transition-all'>
                                     <div className='absolute top-1 right-1 p-4 rounded-full truncate focus:outline-none'>
                                         <button onClick={closeModal}>
-                                            <IoClose className='text-2xl' />
+                                            <MdOutlineCancel className='text-2xl' />
                                         </button>
                                     </div>
 

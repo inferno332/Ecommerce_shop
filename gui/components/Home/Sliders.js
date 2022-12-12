@@ -4,7 +4,6 @@ import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-
 function Sliders({ sliders }) {
     return (
         <Swiper
@@ -19,10 +18,10 @@ function Sliders({ sliders }) {
                 clickable: true,
             }}
             modules={[Pagination, Autoplay]}
-            className='h-[400px] lg:h-[600px]'>
+            className='h-[400px] lg:h-[600px] truncate rounded-md'>
             {sliders.map((slider, index) => {
                 return (
-                    <SwiperSlide key={index} className='relative flex justify-center items-center '>
+                    <SwiperSlide key={index} className='relative flex justify-center items-center'>
                         <div className='absolute z-10 left-12 md:left-24 lg:left-56'>
                             <h1 className=' text-3xl font-medium'>{slider.title}</h1>
                             <p className='mb-5 mt-2'>{slider.description}</p>
