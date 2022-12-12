@@ -28,8 +28,8 @@ const AllProducts = ({ products, page }) => {
                                         height='300'
                                         className=' w-full h-full object-contain'
                                     />
-                                    {product.discount > 0 && (
-                                        <div className='discount absolute top-3 sm:top-5'>{product.discount}% Off</div>
+                                    {product.sizes[0].discount > 0 && (
+                                        <div className='discount absolute top-5'>{product.sizes[0].discount}% Off</div>
                                     )}
                                 </Link>
                                 <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
@@ -40,8 +40,9 @@ const AllProducts = ({ products, page }) => {
                                             add({
                                                 productId: product._id,
                                                 name: product.name,
-                                                price: Math.floor(product.discountPrice),
+                                                price: Math.floor(product.sizes[0].discountPrice),
                                                 image: product.imageURL[0],
+                                                size: product.sizes[0].name,
                                                 quantity: 1,
                                             });
                                         }}
@@ -52,18 +53,24 @@ const AllProducts = ({ products, page }) => {
                                 </div>
                             </div>
                             <div className=' py-2 sm:py-5 px-1'>
-                                <p className='text-sm'>{product.name}</p>
-                                {product.discount > 0 ? (
-                                    <div className='flex gap-3'>
-                                        <del className='text-xl text-gray-500'>${product.price}</del>
-                                        <span> &rarr;</span>
-                                        <p className=' font-semibold text-xl text-orange-500'>
-                                            ${Math.floor(product.discountPrice)}
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <p className='font-semibold text-xl'>${product.price}</p>
-                                )}
+                                <div className='flex flex-col justify-between gap-1'>
+                                    <p className='text-sm'>{product.name}</p>
+                                    {product.sizes && (
+                                        <h1 className='text-md sm:text-sm font-semibold'>
+                                            Size: {product.sizes[0].name}
+                                        </h1>
+                                    )}
+                                    {product?.sizes[0].discount > 0 ? (
+                                        <div className='flex gap-3 items-end'>
+                                            <p className=' font-semibold text-xl text-orange-500'>
+                                                ${Math.floor(product.sizes[0].discountPrice)}
+                                            </p>
+                                            <del className='text-sm text-gray-500'>${product.price}</del>
+                                        </div>
+                                    ) : (
+                                        <p className='font-semibold text-xl'>${product.price}</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     );
