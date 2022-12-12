@@ -113,8 +113,8 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
                     defaultValue={[PriceRange?.gte || 0, PriceRange?.lte || 500]}
                 />
             </div>
-            <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={handleRouterPush}>
-                Click
+            <button className='border rounded-full py-2 px-1 bg-black mt-10 text-white' onClick={handleRouterPush}>
+                Apply
             </button>
         </motion.div>
     );
