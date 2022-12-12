@@ -68,7 +68,7 @@ export default function MobileMenuModal() {
                                 <Dialog.Panel className='w-full relative flex flex-col justify-between max-w-md transform overflow-hidden bg-white p-6 text-left min-h-screen shadow-xl transition-all'>
                                     <div className='absolute top-1 right-1 p-4 rounded-full truncate focus:outline-none'>
                                         <button onClick={closeModal}>
-                                            <MdOutlineCancel className='text-2xl' />
+                                            <MdOutlineCancel className='text-2xl text-slate-400' />
                                         </button>
                                     </div>
 
@@ -91,14 +91,14 @@ export default function MobileMenuModal() {
                                         />
                                     </div>
 
-                                    <div className='flex gap-2'>
+                                    <div className='flex gap-4 justify-center'>
                                         <Link href='/login' legacyBehavior>
-                                            <button className='text-lg px-6 py-[6px] text-white rounded-full border-[1.5px] bg-[#111]'>
+                                            <button className='text-lg px-7 py-[6px] text-white rounded-full border-[1.5px] bg-[#111]'>
                                                 Sign in
                                             </button>
                                         </Link>
                                         <Link href='/register' legacyBehavior>
-                                            <button className='text-lg px-4 py-[6px] text-black rounded-full border-[1.5px] border-[#ccc] bg-white'>
+                                            <button className='text-lg px-6 py-[6px] text-black rounded-full border-[1.5px] border-[#ccc] bg-white'>
                                                 Resgister
                                             </button>
                                         </Link>
