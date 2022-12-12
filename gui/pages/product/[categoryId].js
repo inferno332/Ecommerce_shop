@@ -40,7 +40,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                 } ease-out duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
-            <div className='sm:flex'>
+            <div className='sm:flex gap-2'>
                 <Sidebar
                     isOpenFilter={isOpenFilter}
                     categories={categories}
@@ -61,8 +61,8 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                             height='300'
                                             className=' w-full h-full object-contain'
                                         />
-                                        {p.discount > 0 && (
-                                            <div className='discount absolute top-3 sm:top-5'>{p.discount}% Off</div>
+                                        {p.sizes[0].discount > 0 && (
+                                            <div className='discount absolute top-5'>{p.sizes[0].discount}% Off</div>
                                         )}
                                     </Link>
                                     <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
@@ -73,8 +73,9 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                                 add({
                                                     productId: p._id,
                                                     name: p.name,
-                                                    price: Math.floor(p.discountPrice),
+                                                    price: Math.floor(p.sizes[0].discountPrice),
                                                     image: p.imageURL[0],
+                                                    size: p.sizes[0].name,
                                                     quantity: 1,
                                                 });
                                             }}
@@ -85,18 +86,24 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                     </div>
                                 </div>
                                 <div className='py-2 sm:py-5 px-1'>
-                                    <p className='text-sm'>{p.name}</p>
-                                    {p.discount > 0 ? (
-                                        <div className='flex gap-3'>
-                                            <del className='text-xl text-gray-500'>${p.price}</del>
-                                            <span> &rarr;</span>
-                                            <p className=' font-semibold text-xl text-orange-500'>
-                                                ${Math.floor(p.discountPrice)}
-                                            </p>
-                                        </div>
-                                    ) : (
-                                        <p className='font-semibold text-xl'>${p.price}</p>
-                                    )}
+                                    <div className='flex flex-col justify-between gap-1'>
+                                        <p className='text-sm'>{p.name}</p>
+                                        {p.sizes && (
+                                            <h1 className='text-md sm:text-sm font-semibold'>
+                                                Size: {p.sizes[0].name}
+                                            </h1>
+                                        )}
+                                        {p?.sizes[0].discount > 0 ? (
+                                            <div className='flex gap-3 items-end'>
+                                                <p className=' font-semibold text-xl text-orange-500'>
+                                                    ${Math.floor(p.sizes[0].discountPrice)}
+                                                </p>
+                                                <del className='text-sm text-gray-500'>${p.price}</del>
+                                            </div>
+                                        ) : (
+                                            <p className='font-semibold text-xl'>${p.price}</p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         );

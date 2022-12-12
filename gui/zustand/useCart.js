@@ -10,13 +10,13 @@ export const useCart = create(
     persist(
         devtools((set, get) => ({
             products: [],
-            add: ({ productId, name, price, image, quantity }) => {
+            add: ({ productId, name, price, image, size, quantity }) => {
                 const products = get().products;
                 const found = products.find((item) => item.productId === productId);
                 if (found) {
                     found.quantity++;
                 } else {
-                    products.push({ productId, name, price, image, quantity });
+                    products.push({ productId, name, price, image, size, quantity });
                 }
                 return set({ products: products }, false, { type: 'carts/addToCart' });
             },

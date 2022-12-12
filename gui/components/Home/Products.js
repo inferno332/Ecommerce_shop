@@ -69,8 +69,8 @@ const Products = ({ products }) => {
                                         className=' w-full h-full object-contain'
                                     />
                                 </div>
-                                {product.discount > 0 && (
-                                    <div className='discount absolute top-5'>{product.discount}% Off</div>
+                                {product.sizes[0].discount > 0 && (
+                                    <div className='discount absolute top-5'>{product.sizes[0].discount}% Off</div>
                                 )}
                             </Link>
                             <i
@@ -80,26 +80,33 @@ const Products = ({ products }) => {
                                     add({
                                         productId: product._id,
                                         name: product.name,
-                                        price: Math.floor(product.discountPrice),
+                                        price: Math.floor(product.sizes[0].discountPrice),
                                         image: product.imageURL[0],
+                                        size: product.sizes[0].name,
                                         quantity: 1,
                                     });
                                 }}>
                                 <BsCart2 />
                             </i>
                             <div className=' py-5 px-2'>
-                                <h1 className='text-md sm:text-xs'>{product.name}</h1>
-                                {product.discount > 0 ? (
-                                    <div className='flex gap-3'>
-                                        <del className='text-xl text-gray-500'>${product.price}</del>
-                                        <span> &rarr;</span>
-                                        <p className=' font-semibold text-xl text-orange-500'>
-                                            ${Math.floor(product.discountPrice)}
-                                        </p>
-                                    </div>
-                                ) : (
-                                    <p className='font-semibold text-xl'>${product.price}</p>
-                                )}
+                                <div className='flex flex-col justify-between gap-1'>
+                                    <h1 className='text-md sm:text-xs'>{product.name}</h1>
+                                    {product.sizes && (
+                                        <h1 className='text-md sm:text-sm font-semibold'>
+                                            Size: {product.sizes[0].name}
+                                        </h1>
+                                    )}
+                                    {product?.sizes[0].discount > 0 ? (
+                                        <div className='flex gap-3 items-end'>
+                                            <p className=' font-semibold text-xl text-orange-500'>
+                                                ${Math.floor(product.sizes[0].discountPrice)}
+                                            </p>
+                                            <del className='text-sm text-gray-500'>${product.price}</del>
+                                        </div>
+                                    ) : (
+                                        <p className='font-semibold text-xl'>${product.price}</p>
+                                    )}
+                                </div>
                             </div>
                         </SwiperSlide>
                     );
