@@ -1,11 +1,21 @@
-import { Box, InputAdornment, MenuItem, OutlinedInput, TextField, useTheme } from '@mui/material';
+import {
+    Box,
+    Button,
+    InputAdornment,
+    MenuItem,
+    OutlinedInput,
+    TextField,
+    Typography,
+    useTheme,
+} from '@mui/material';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import BasicModal from '../common/BasicModal';
 import { tokens } from '../../theme';
+import { DeleteOutline } from '@mui/icons-material';
 
 const CreateProductModal = ({ open, onClose, suppliers, categories, createData }) => {
     const theme = useTheme();
@@ -15,8 +25,7 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
         name: '',
         description: '',
         price: '',
-        stock: '',
-        discount: '',
+        sizes: [],
         categoryId: '',
         supplierId: '',
     };
@@ -47,8 +56,15 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
         name: yup.string().required('Name is required'),
         description: yup.string().required('Description is required'),
         price: yup.number().required('Price is required'),
-        stock: yup.number().required('Stock is required').integer('Stock must be an integer'),
-        discount: yup.number().required('Discount is required').max(100, 'Discount must be less than 100'),
+        sizes: yup
+            .array(
+                yup.object().shape({
+                    name: yup.string().required('Size name is required'),
+                    discount: yup.number().required('Discount is required'),
+                    stock: yup.number().required('Stock is required'),
+                }),
+            )
+            .required('Size is required'),
         categoryId: yup.string().required('Category is required'),
         supplierId: yup.string().required('Supplier is required'),
     });
@@ -57,8 +73,15 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
         register,
         handleSubmit,
         formState: { errors },
+        control,
     } = useForm({
         resolver: yupResolver(validationSchema),
+        defaultValues: defaultInputValues,
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'sizes',
     });
 
     const getContent = () => {
@@ -68,7 +91,6 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
                     placeholder="Name"
                     name="name"
                     label="Name"
-                    defaultValue=""
                     required
                     {...register('name')}
                     error={errors.name ? true : false}
@@ -79,7 +101,6 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
                     placeholder="Description"
                     name="description"
                     label="Description"
-                    defaultValue=""
                     required
                     {...register('description')}
                     error={errors.description ? true : false}
@@ -93,36 +114,96 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
                     id="outlined-adornment-amount"
                     name="price"
                     startAdornment={<InputAdornment position="start">Amount ($)</InputAdornment>}
-                    defaultValue=""
                     required
                     {...register('price')}
                     error={errors.price ? true : false}
                     onChange={(e) => handleChange({ ...products, price: e.target.value })}
                 />
-                <TextField
-                    placeholder="Stock"
-                    type="number"
-                    name="stock"
-                    label="Stock"
-                    defaultValue=""
-                    required
-                    {...register('stock')}
-                    error={errors.stock ? true : false}
-                    helperText={errors.stock?.message}
-                    onChange={(e) => handleChange({ ...products, stock: e.target.value })}
-                />
-                <TextField
-                    placeholder="Discount"
-                    type="number"
-                    name="discount"
-                    label="Discount"
-                    defaultValue=""
-                    required
-                    {...register('discount')}
-                    error={errors.discount ? true : false}
-                    helperText={errors.discount?.message}
-                    onChange={(e) => handleChange({ ...products, discount: e.target.value })}
-                />
+                {/* Sizes */}
+                {fields.map((field, index) => (
+                    <Box key={field.id} display="flex" gap={2}>
+                        <TextField
+                            {...register(`sizes.${index}.name`)}
+                            error={errors.sizes?.[index]?.name ? true : false}
+                            helperText={errors.sizes?.[index]?.name?.message}
+                            placeholder="Size name"
+                            name={`sizes.${index}.name`}
+                            label="Size name"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, name: e.target.value } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <TextField
+                            {...register(`sizes.${index}.discount`)}
+                            error={errors.sizes?.[index]?.discount ? true : false}
+                            helperText={errors.sizes?.[index]?.discount?.message}
+                            type="number"
+                            placeholder="Discount"
+                            name={`sizes.${index}.discount`}
+                            label="Discount"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, discount: parseInt(e.target.value) } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <TextField
+                            {...register(`sizes.${index}.stock`)}
+                            error={errors.sizes?.[index]?.stock ? true : false}
+                            helperText={errors.sizes?.[index]?.stock?.message}
+                            type="number"
+                            placeholder="Stock"
+                            name={`sizes.${index}.stock`}
+                            label="Stock"
+                            onChange={(e) =>
+                                handleChange({
+                                    ...products,
+                                    sizes: products.sizes.map((size, i) =>
+                                        i === index ? { ...size, stock: parseInt(e.target.value) } : size,
+                                    ),
+                                })
+                            }
+                        />
+                        <span
+                            style={{ cursor: 'pointer', color: colors.redAccent[500], marginTop: '18px' }}
+                            onClick={() => {
+                                remove(index);
+                                setProducts({
+                                    ...products,
+                                    sizes: products.sizes.filter((size, i) => i !== index),
+                                });
+                            }}
+                        >
+                            <DeleteOutline />
+                        </span>
+                    </Box>
+                ))}
+                <Button
+                    sx={{
+                        bgcolor: colors.blueAccent[600],
+                        marginBottom: '20px',
+                        '&:hover': { bgcolor: colors.blueAccent[500] },
+                    }}
+                    variant="contained"
+                    onClick={() => {
+                        setProducts({ ...products, sizes: [...products.sizes, { name: '', discount: '', stock: '' }] });
+                        append({ name: '', discount: '', stock: '' });
+                    }}
+                    type="submit"
+                >
+                    <Typography variant="h6" color={colors.grey[100]}>
+                        Append
+                    </Typography>
+                </Button>
+                {/* End Sizes */}
                 <Box display="flex" gap={2}>
                     <TextField
                         sx={{ flex: 1 }}

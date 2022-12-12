@@ -51,7 +51,7 @@ const Products = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`http://localhost:9000/products/${params.row._id}`, data);
+            await axiosJWT.patch(`http://localhost:9000/products/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -92,10 +92,8 @@ const Products = () => {
     }, [refresh]);
 
     const columns = [
-        { field: 'name', headerName: 'Name', flex: 0.7 },
+        { field: 'name', headerName: 'Name', flex: 0.5 },
         { field: 'price', headerName: 'Price', flex: 0.3 },
-        { field: 'discount', headerName: 'Discount (%)', flex: 0.3 },
-        { field: 'stock', headerName: 'Stock', flex: 0.3 },
         {
             field: 'categoryName',
             headerName: 'Category',
