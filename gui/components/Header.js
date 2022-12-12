@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import { FiUser, FiShoppingCart } from 'react-icons/fi';
-import Cart from './Cart/Cart';
+import { motion } from 'framer-motion';
 
+import Cart from './Cart/Cart';
 import { useCart } from '../zustand/useCart';
 import MobileMenuModal from './MobileMenuModal';
 import SearchBar from './SearchBar';
@@ -32,10 +32,10 @@ const Header = () => {
 
     return (
         <header>
-            <div
-                className={`${
-                    hideHeader && 'sm:h-0 sm:opacity-0'
-                } bg-white ease-out duration-300 flex justify-between items-center md:h-20 gap-2 md:gap-6`}>
+            <motion.div
+                initial={{ y: 0 }}
+                animate={{ y: hideHeader ? -100 : 0 }}
+                className='bg-white ease-out duration-300 flex justify-between items-center md:h-20 gap-2 md:gap-6 py-2 md:py-0 mx-[-5px]'>
                 <Link href='/'>
                     <Image
                         src='/ss-logo.svg'
@@ -51,17 +51,17 @@ const Header = () => {
                         <SearchBar />
                     </div>
                 </div>
-
+                {/* End search bar */}
                 <div className='flex md:gap-2 items-center'>
                     <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block'>
                         <FiUser />
                     </span>
-                    <div className='relative'>
-                        <div
-                            className='rounded-full p-4 hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block'
+                    <div className='relative p-4'>
+                        <span
+                            className='rounded-full hover:bg-[#E0E0E0] hover:cursor-pointer'
                             onClick={() => setOpenCart((prev) => !prev)}>
                             <FiShoppingCart />
-                        </div>
+                        </span>
                         {products?.length > 0 && (
                             <p className='absolute top-0 right-0 translate-x-[10px] translate-y-[-5px] hidden md:block w-[25px] border rounded-full text-center bg-black text-white font-bold text-'>
                                 {products.length}
@@ -73,7 +73,7 @@ const Header = () => {
                         <MobileMenuModal />
                     </span>
                 </div>
-            </div>
+            </motion.div>
 
             <Cart openCart={openCart} setOpenCart={setOpenCart} />
         </header>
