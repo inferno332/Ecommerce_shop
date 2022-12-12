@@ -15,27 +15,32 @@ const Product = ({ product, products }) => {
     const navigationPrevRef = useRef(null);
     const navigationNextRef = useRef(null);
     const SizeSelect = [
-        { value: '40', available: true },
-        { value: '40.5', available: true },
-        { value: '41', available: true },
-        { value: '41.5', available: true },
-        { value: '42', available: true },
-        { value: '42.5', available: false },
-        { value: '43', available: true },
-        { value: '43.5', available: true },
-        { value: '44', available: true },
-        { value: '44.5', available: true },
-        { value: '45', available: true },
-        { value: '45.5', available: true },
-        { value: '46', available: true },
-        { value: '46.5', available: true },
-        { value: '47', available: true },
-        { value: '47.5', available: false },
+        { value: '38' },
+        { value: '38.5' },
+        { value: '39' },
+        { value: '39.5' },
+        { value: '40' },
+        { value: '40.5' },
+        { value: '41' },
+        { value: '41.5' },
+        { value: '42' },
+        { value: '42.5' },
+        { value: '43' },
+        { value: '43.5' },
+        { value: '44' },
+        { value: '44.5' },
+        { value: '45' },
+        { value: '45.5' },
+        { value: '46' },
+        { value: '46.5' },
+        { value: '47' },
+        { value: '47.5' },
     ];
-    const [size, setSize] = useState('40');
+    const [selectedProduct, setSelectedProduct] = useState(product.sizes[0]);
     const handleSizeSelect = (targetSize) => {
-        setSize(targetSize);
+        setSelectedProduct(product.sizes.find((size) => size.name === targetSize));
     };
+    console.log(selectedProduct);
     return (
         <div className='flex flex-col gap-5 justify-center items-center mt-5'>
             <div className='flex flex-col md:flex-row w-full'>
@@ -62,7 +67,7 @@ const Product = ({ product, products }) => {
                         watchSlidesProgress
                         modules={[Autoplay, Navigation, Thumbs]}
                         className='[&_.swiper-wrapper]:justify-center [&_.swiper-wrapper]:flex-wrap'>
-                        {product.imageURL.map((image, index) => (
+                        {product.imageURL.map((image) => (
                             <SwiperSlide key={image} className='cursor-pointer rounded-xl truncate !w-16 !h-16'>
                                 <img
                                     src={`http://localhost:9000${image}`}
@@ -77,20 +82,24 @@ const Product = ({ product, products }) => {
                     <div className='flex flex-col mb-5 px-0 md:p-5'>
                         <h1 className='text-3xl font-semibold mb-1'>{product.name}</h1>
                         <h2 className='text-lg mb-3'>Men's Shoes</h2>
-                        <span className='text-lg text-gray-700'>$ {product.price}</span>
+                        <span className='text-lg text-gray-700'>$ {selectedProduct?.discountPrice}</span>
                     </div>
                     {/* Size Selector */}
                     <div className='flex flex-col mb-5 md:p-5'>
                         <p className='text-lg'>Select Size</p>
                         <div className='grid grid-cols-3 gap-2 mt-2'>
                             {SizeSelect.map((item) =>
-                                item.available ? (
+                                product.sizes.find((size) => size.name === item.value) ? (
                                     <div
                                         key={item.value}
                                         className={`flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-pointer hover:border-black
-                                ${item.value === size ? 'border-black' : ''}
+                                ${item.value === selectedProduct.name ? 'border-black' : ''}
                                 `}
-                                        onClick={() => handleSizeSelect(item.value)}>
+                                        onClick={
+                                            product.sizes.find((size) => size.name === item.value)
+                                                ? () => handleSizeSelect(item.value)
+                                                : null
+                                        }>
                                         EU {item.value}
                                     </div>
                                 ) : (
