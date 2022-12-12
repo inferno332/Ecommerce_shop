@@ -33,7 +33,10 @@ const FilledCart = ({ setOpenCart }) => {
                                         router.push(`/product/details/${product.productId}`);
                                         setOpenCart(false);
                                     }}>
-                                    <h3>{product.name}</h3>
+                                    <div>
+                                        <h3>{product.name}</h3>
+                                        <p className='text-sm'>Size: {product.size}</p>
+                                    </div>
                                     <p className='ml-4'>${product.price * product.quantity}</p>
                                 </div>
 

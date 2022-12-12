@@ -22,7 +22,8 @@ const oderSchema = new Schema(
                 price: { type: Number },
                 productId: { type: Schema.Types.ObjectId, ref: 'Product' },
                 quantity: { type: Number },
-                _id: false 
+                size: { type: String },
+                _id: false,
             },
         ],
     },

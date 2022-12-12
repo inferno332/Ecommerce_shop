@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const Product = require('../models/product');
 const tryCatch = require('./utils/tryCatch');
 
@@ -35,32 +36,80 @@ const getAllProducts = tryCatch(async (req, res) => {
     const page = req.query.page;
     const productsPerPage = 12;
     const price = {
-        $divide: [{ $multiply: ['$price', '$discount'] }, 100],
+        $divide: [{ $multiply: ['$price', '$sizes.discount'] }, 100],
     };
-    const discountPrice = [
+    const discountPrice = {
+        $addFields: {
+            'sizes.discountPrice': {
+                $subtract: ['$price', price],
+            },
+        },
+    };
+    const aggegrate = [
         {
-            $addFields: {
-                discountPrice: {
-                    $subtract: ['$price', price],
-                },
+            $unwind: { path: '$sizes' },
+        },
+        discountPrice,
+        {
+            $sort: { 'sizes.discount': -1 },
+        },
+        {
+            $group: {
+                _id: '$_id',
+                name: { $first: '$name' },
+                price: { $first: '$price' },
+                sizes: { $push: '$sizes' },
+                category: { $first: '$categoryId' },
+                supplier: { $first: '$supplierId' },
+                description: { $first: '$description' },
+                imageURL: { $first: '$imageURL' },
+                promotionPosition: { $first: '$promotionPosition' },
+                createdAt: { $first: '$createdAt' },
             },
         },
     ];
-
     if (page) {
-        const products = await Product.aggregate(discountPrice)
+        const products = await Product.aggregate(aggegrate)
             .skip(page * productsPerPage)
             .limit(productsPerPage);
         res.status(200).json(products);
     } else {
-        const products = await Product.aggregate(discountPrice);
+        const products = await Product.aggregate(aggegrate);
         res.status(200).json(products);
     }
 });
 
 const getProductById = tryCatch(async (req, res) => {
     const { id } = req.params;
-    const product = await Product.findById(id);
+    const discountPrice = [
+        {
+            $match: { _id: ObjectId(id) },
+        },
+        {
+            $unwind: { path: '$sizes' },
+        },
+        {
+            $addFields: {
+                'sizes.discountPrice': {
+                    $subtract: ['$price', { $divide: [{ $multiply: ['$price', '$sizes.discount'] }, 100] }],
+                },
+            },
+        },
+        {
+            $group: {
+                _id: '$_id',
+                name: { $first: '$name' },
+                price: { $first: '$price' },
+                sizes: { $push: '$sizes' },
+                description: { $first: '$description' },
+                imageURL: { $first: '$imageURL' },
+            },
+        },
+    ];
+
+    const product = await Product.aggregate(discountPrice).then(function ([res]) {
+        return res;
+    });
     res.status(200).json(product);
 });
 
@@ -153,52 +202,78 @@ const filterProduct = tryCatch(async (req, res) => {
             $project: {
                 name: 1,
                 price: 1,
-                stock: 1,
-                discount: 1,
+                sizes: 1,
                 imageURL: 1,
                 categoryName: '$category.name',
                 supplierName: '$supplier.name',
             },
         },
+    ];
+    const discountPrice = [
+        {
+            $unwind: { path: '$sizes' },
+        },
         {
             $addFields: {
-                discountPrice: {
-                    $subtract: ['$price', { $divide: [{ $multiply: ['$price', '$discount'] }, 100] }],
+                'sizes.discountPrice': {
+                    $subtract: ['$price', { $divide: [{ $multiply: ['$price', '$sizes.discount'] }, 100] }],
                 },
+            },
+        },
+        {
+            $sort: { 'sizes.discount': -1 },
+        },
+        {
+            $group: {
+                _id: '$_id',
+                name: { $first: '$name' },
+                price: { $first: '$price' },
+                sizes: { $push: '$sizes' },
+                imageURL: { $first: '$imageURL' },
+                categoryName: { $first: '$categoryName' },
+                supplierName: { $first: '$supplierName' },
             },
         },
     ];
     if (categoryArray.length > 0 && supplierArray.length > 0) {
-        const result = await Product.aggregate(aggegrate).append({
-            $match: {
-                $and: [
-                    { categoryName: { $in: categoryArray } },
-                    { supplierName: { $in: supplierArray } },
-                    priceDefault,
-                ],
-            },
-        });
+        const result = await Product.aggregate(aggegrate)
+            .append({
+                $match: {
+                    $and: [
+                        { categoryName: { $in: categoryArray } },
+                        { supplierName: { $in: supplierArray } },
+                        priceDefault,
+                    ],
+                },
+            })
+            .append(discountPrice);
         res.status(200).json(result);
     } else if (categoryArray.length > 0) {
-        const result = await Product.aggregate(aggegrate).append({
-            $match: {
-                $and: [{ categoryName: { $in: categoryArray } }, priceDefault],
-            },
-        });
+        const result = await Product.aggregate(aggegrate)
+            .append({
+                $match: {
+                    $and: [{ categoryName: { $in: categoryArray } }, priceDefault],
+                },
+            })
+            .append(discountPrice);
         res.status(200).json(result);
     } else if (supplierArray.length > 0) {
-        const result = await Product.aggregate(aggegrate).append({
-            $match: {
-                $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
-            },
-        });
+        const result = await Product.aggregate(aggegrate)
+            .append({
+                $match: {
+                    $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
+                },
+            })
+            .append(discountPrice);
         res.status(200).json(result);
     } else if (price) {
-        const result = await Product.aggregate(aggegrate).append({
-            $match: {
-                $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
-            },
-        });
+        const result = await Product.aggregate(aggegrate)
+            .append({
+                $match: {
+                    $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
+                },
+            })
+            .append(discountPrice);
         res.status(200).json(result);
     } else {
         res.status(400).json({ message: 'Bad request' });

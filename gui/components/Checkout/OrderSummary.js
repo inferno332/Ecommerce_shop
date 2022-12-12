@@ -70,7 +70,7 @@ const OrderSummary = () => {
                                     </div>
                                     <div className='flex gap-5'>
                                         <p>Size:</p>
-                                        <p>EU 38</p>
+                                        <p>{product.size}</p>
                                     </div>
                                     <div className='flex gap-5'>
                                         <p>Total:</p>
