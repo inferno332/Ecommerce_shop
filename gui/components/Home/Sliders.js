@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+
 function Sliders({ sliders }) {
     return (
         <Swiper

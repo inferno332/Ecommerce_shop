@@ -182,10 +182,26 @@ const Product = ({ product, products }) => {
         </div>
     );
 };
-export async function getServerSideProps(context) {
+
+export async function getStaticPaths() {
+    const resProducts = await httpRequest.get('/products/v1');
+    const products = await resProducts.data;
+
+    const paths = products.map((product) => ({
+        params: { productId: product._id },
+    }));
+
+    return {
+        paths,
+        fallback: 'blocking',
+    };
+}
+
+export async function getStaticProps(context) {
     const { productId } = context.params;
     const product = await httpRequest.get(`/products/v2/${productId}`);
     const resProducts = await httpRequest.get('/products/v1');
+
     return {
         props: {
             product: product.data,

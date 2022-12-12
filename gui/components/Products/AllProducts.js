@@ -40,7 +40,7 @@ const AllProducts = ({ products, page }) => {
                                             add({
                                                 productId: product._id,
                                                 name: product.name,
-                                                price: product.discountPrice,
+                                                price: Math.floor(product.discountPrice),
                                                 image: product.imageURL[0],
                                                 quantity: 1,
                                             });
@@ -58,7 +58,7 @@ const AllProducts = ({ products, page }) => {
                                         <del className='text-xl text-gray-500'>${product.price}</del>
                                         <span> &rarr;</span>
                                         <p className=' font-semibold text-xl text-orange-500'>
-                                            ${product.discountPrice}
+                                            ${Math.floor(product.discountPrice)}
                                         </p>
                                     </div>
                                 ) : (
