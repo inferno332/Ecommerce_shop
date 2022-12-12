@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { BsArrowRight, BsCart2 } from 'react-icons/bs';
 
 import { useCart } from '../../zustand/useCart';
-import { useRouter } from 'next/router';
 
 const Products = ({ products }) => {
     const router = useRouter();
@@ -17,11 +18,12 @@ const Products = ({ products }) => {
 
     return (
         <div className='mt-10'>
+            <Toaster position='top-center' reverseOrder={false} />
             <div className='flex justify-between items-center mb-5'>
-                <h1 className='font-bold text-xl'>Recommend For You</h1>
+                <h1 className='font-bold text-xl'>Our Products</h1>
                 <div
                     className='flex items-center gap-2 cursor-pointer border-dashed border-b border-gray-300 duration-300 sm:hover:scale-[1.1]'
-                    onClick={() => router.push('/product')}>
+                    onClick={() => router.push('/product?page=0')}>
                     More products
                     <BsArrowRight className='text-xs' />
                 </div>
@@ -54,34 +56,54 @@ const Products = ({ products }) => {
                     '--swiper-navigation-color': 'black',
                 }}
                 className='[&_.swiper-button-prev]:w-[50px] [&_.swiper-button-prev]:h-[50px] [&_.swiper-button-prev]:border [&_.swiper-button-prev]:border-[#999] [&_.swiper-button-prev]:rounded-full [&_.swiper-button-next]:w-[50px] [&_.swiper-button-next]:h-[50px] [&_.swiper-button-next]:border [&_.swiper-button-next]:border-[#999] [&_.swiper-button-next]:rounded-full rounded-xl'>
-                {products
-                    .map((product) => {
-                        return (
-                            <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
-                                <Link href={`/product/details/${product._id}`}>
-                                    <div className='relative h-[450px] sm:h-[300px] bg-[#f6f6f6]'>
-                                        <Image
-                                            src={`${process.env.BASE_URL}${product.imageURL[0]}`}
-                                            alt={product.name}
-                                            width='300'
-                                            height='300'
-                                            className=' w-full h-full object-contain'
-                                        />
-                                    </div>
-                                </Link>
-                                <i
-                                    className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'
-                                    onClick={() => add({ product: product, quantity: 1 })}>
-                                    <BsCart2 />
-                                </i>
-                                <div className='flex items-center justify-between py-5 px-2'>
-                                    <h1 className='text-md sm:text-xs'>{product.name}</h1>
-                                    <p className=' font-bold text-xl'>${product.price}</p>
+                {products.map((product) => {
+                    return (
+                        <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
+                            <Link href={`/product/details/${product._id}`}>
+                                <div className='relative h-[450px] sm:h-[300px] bg-[#f6f6f6]'>
+                                    <Image
+                                        src={`${process.env.BASE_URL}${product.imageURL[0]}`}
+                                        alt={product.name}
+                                        width='300'
+                                        height='300'
+                                        className=' w-full h-full object-contain'
+                                    />
                                 </div>
-                            </SwiperSlide>
-                        );
-                    })
-                    .slice(0, 5)}
+                                {product.discount > 0 && (
+                                    <div className='discount absolute top-5'>{product.discount}% Off</div>
+                                )}
+                            </Link>
+                            <i
+                                className='absolute top-5 right-5  animate-[wiggle_1s_ease-in-out_infinite] lg:animate-none lg:group-hover:animate-[wiggle_1s_ease-in-out_infinite] text-2xl p-3 opacity-50 border border-black rounded-full bg-white'
+                                onClick={() => {
+                                    toast.success('Successfully Add To Cart!');
+                                    add({
+                                        productId: product._id,
+                                        name: product.name,
+                                        price: Math.floor(product.discountPrice),
+                                        image: product.imageURL[0],
+                                        quantity: 1,
+                                    });
+                                }}>
+                                <BsCart2 />
+                            </i>
+                            <div className=' py-5 px-2'>
+                                <h1 className='text-md sm:text-xs'>{product.name}</h1>
+                                {product.discount > 0 ? (
+                                    <div className='flex gap-3'>
+                                        <del className='text-xl text-gray-500'>${product.price}</del>
+                                        <span> &rarr;</span>
+                                        <p className=' font-semibold text-xl text-orange-500'>
+                                            ${Math.floor(product.discountPrice)}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <p className='font-semibold text-xl'>${product.price}</p>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                    );
+                })}
             </Swiper>
         </div>
     );

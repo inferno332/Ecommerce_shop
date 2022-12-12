@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast, { Toaster } from 'react-hot-toast';
 import httpRequest from '../../ultis/axios';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
@@ -32,6 +33,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
 
     return (
         <div>
+            <Toaster position='top-center' reverseOrder={false} />
             <div
                 className={`${
                     hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
@@ -53,18 +55,28 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                 <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
                                     <Link href={`/product/details/${p._id}`}>
                                         <Image
-                                            src={`${process.env.BASE_URL}${product.imageURL[0]}`}
-                                            alt={product.name}
+                                            src={`${process.env.BASE_URL}${p.imageURL[0]}`}
+                                            alt={p.name}
                                             width='300'
                                             height='300'
                                             className=' w-full h-full object-contain'
                                         />
+                                        {p.discount > 0 && (
+                                            <div className='discount absolute top-3 sm:top-5'>{p.discount}% Off</div>
+                                        )}
                                     </Link>
                                     <div className='absolute duration-300 lg:translate-x-5 lg:opacity-0 top-2 md:top-5 right-2 md:right-5 md:group-hover:translate-x-0 md:group-hover:opacity-100'>
                                         <AiOutlineShoppingCart
                                             className='border border-[#ccc] rounded-full text-3xl text-[#999] md:text-4xl p-1 mb-1 bg-white  duration-200 hover:scale-110'
                                             onClick={() => {
-                                                add({ product: p, quantity: 1 });
+                                                toast.success('Successfully Add To Cart!');
+                                                add({
+                                                    productId: p._id,
+                                                    name: p.name,
+                                                    price: Math.floor(p.discountPrice),
+                                                    image: p.imageURL[0],
+                                                    quantity: 1,
+                                                });
                                             }}
                                         />
                                         <Link href={`/product/details/${p._id}`}>
@@ -72,9 +84,19 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                                         </Link>
                                     </div>
                                 </div>
-                                <div className='flex flex-col sm:flex-row justify-between items-start gap-5 py-2 sm:py-5 px-1'>
+                                <div className='py-2 sm:py-5 px-1'>
                                     <p className='text-sm'>{p.name}</p>
-                                    <p className='font-semibold'>${p.price}</p>
+                                    {p.discount > 0 ? (
+                                        <div className='flex gap-3'>
+                                            <del className='text-xl text-gray-500'>${p.price}</del>
+                                            <span> &rarr;</span>
+                                            <p className=' font-semibold text-xl text-orange-500'>
+                                                ${Math.floor(p.discountPrice)}
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p className='font-semibold text-xl'>${p.price}</p>
+                                    )}
                                 </div>
                             </div>
                         );

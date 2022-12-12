@@ -15,10 +15,10 @@ const Layout = ({ children }) => {
     //END
     return (
         <>
-            <div className='sticky top-0 container mx-auto z-10'>
+            <div className='sticky top-0 container mx-auto z-[11]'>
                 <Header />
             </div>
-            <main className='container mx-auto min-h-[90vh]'>{children}</main>
+            <main className='container mx-auto min-h-[90vh] sm:min-h-[80vh]'>{children}</main>
             <Footer />
         </>
     );
