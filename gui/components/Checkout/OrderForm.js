@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import httpRequest from '../../ultis/axios';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { Stepper, Step, StepLabel, StepContent } from '@mui/material';
 import { BsArrowRight } from 'react-icons/bs';
@@ -24,8 +25,8 @@ const OrderForm = () => {
 
     const onSubmit = async (data) => {
         const array = { ...data, orderDetails: products };
-        console.log(array);
-        // await httpRequest.post('/orders/v1', array);
+        await httpRequest.post('/orders/v1', array);
+        toast.success('Successfully Order. Thank You!');
     };
     //END
 
@@ -43,6 +44,7 @@ const OrderForm = () => {
 
     return (
         <div>
+            <Toaster position='top-center' reverseOrder={false} />
             <h1 className='font-semibold text-2xl mb-3'>Enter this form</h1>
             <div className='flex text-xs gap-2'>
                 <span className='text-red-500'>*Note:</span>

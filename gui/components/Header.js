@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiUser, FiShoppingCart } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FiShoppingCart } from 'react-icons/fi';
 
 import Cart from './Cart/Cart';
 import { useCart } from '../zustand/useCart';
@@ -32,10 +31,10 @@ const Header = () => {
 
     return (
         <header>
-            <motion.div
-                initial={{ y: 0 }}
-                animate={{ y: hideHeader ? -100 : 0 }}
-                className='bg-white ease-out duration-300 flex justify-between items-center md:h-20 gap-2 md:gap-6 py-2 md:py-0 mx-[-5px]'>
+            <div
+                className={`${
+                    hideHeader ? 'h-0 translate-y-[-100px]' : 'h-[80px] translate-y-0'
+                } bg-white ease-linear duration-300 flex justify-between items-center md:h-20 gap-2 md:gap-6 py-2 md:py-0 mx-[-5px]`}>
                 <Link href='/'>
                     <Image
                         src='/ss-logo.svg'
@@ -43,7 +42,7 @@ const Header = () => {
                         width={300}
                         height={300}
                         priority
-                        className='hidden md:inline-block h-fit hover:opacity-70 h-28 w-28'
+                        className='hidden md:inline-block hover:opacity-70 h-28 w-28'
                     />
                 </Link>
                 {/* Search bar */}
@@ -54,9 +53,6 @@ const Header = () => {
                 </div>
                 {/* End search bar */}
                 <div className='flex md:gap-2 items-center'>
-                    <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer hidden md:block'>
-                        <FiUser />
-                    </span>
                     <div className='relative p-4'>
                         <span
                             className='rounded-full hover:bg-[#E0E0E0] hover:cursor-pointer'
@@ -74,7 +70,7 @@ const Header = () => {
                         <MobileMenuModal />
                     </span>
                 </div>
-            </motion.div>
+            </div>
 
             <Cart openCart={openCart} setOpenCart={setOpenCart} />
         </header>

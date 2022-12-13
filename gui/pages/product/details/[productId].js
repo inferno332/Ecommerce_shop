@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -6,11 +8,15 @@ import 'swiper/css/thumbs';
 import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
 import { Autoplay, Navigation, Thumbs, Scrollbar, FreeMode } from 'swiper';
+import toast, { Toaster } from 'react-hot-toast';
+
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import httpRequest from '../../../ultis/axios';
+import { useCart } from '../../../zustand/useCart';
 
 const Product = ({ product, products }) => {
+    const { add } = useCart((state) => state);
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
     const navigationPrevRef = useRef(null);
     const navigationNextRef = useRef(null);
@@ -36,13 +42,13 @@ const Product = ({ product, products }) => {
         { value: '47' },
         { value: '47.5' },
     ];
-    const [selectedProduct, setSelectedProduct] = useState(product.sizes[0]);
+    const [selectedProduct, setSelectedProduct] = useState(product?.sizes[0]);
     const handleSizeSelect = (targetSize) => {
         setSelectedProduct(product.sizes.find((size) => size.name === targetSize));
     };
-    console.log(selectedProduct);
     return (
         <div className='flex flex-col gap-5 justify-center items-center mt-5'>
+            <Toaster position='top-center' reverseOrder={false} />
             <div className='flex flex-col md:flex-row w-full'>
                 <div className='flex-1 md:w-1/2 h-96 md:h-[600px]'>
                     <Swiper
@@ -52,10 +58,12 @@ const Product = ({ product, products }) => {
                         modules={[Autoplay, Thumbs]}>
                         {product.imageURL.map((image) => (
                             <SwiperSlide key={image}>
-                                <img
-                                    src={`http://localhost:9000${image}`}
+                                <Image
+                                    src={`${process.env.BASE_URL}${image}`}
                                     alt={product.name}
-                                    className='w-full h-full object-cover rounded-xl overflow-hidden'
+                                    width='500'
+                                    height='500'
+                                    className='w-full h-full lg:object-cover object-contain rounded-xl overflow-hidden'
                                 />
                             </SwiperSlide>
                         ))}
@@ -69,9 +77,11 @@ const Product = ({ product, products }) => {
                         className='[&_.swiper-wrapper]:justify-center [&_.swiper-wrapper]:flex-wrap'>
                         {product.imageURL.map((image) => (
                             <SwiperSlide key={image} className='cursor-pointer rounded-xl truncate !w-16 !h-16'>
-                                <img
-                                    src={`http://localhost:9000${image}`}
+                                <Image
+                                    src={`${process.env.BASE_URL}${image}`}
                                     alt={product.name}
+                                    width='100'
+                                    height='100'
                                     className='object-cover w-full h-full'
                                 />
                             </SwiperSlide>
@@ -82,13 +92,13 @@ const Product = ({ product, products }) => {
                     <div className='flex flex-col mb-5 px-0 md:p-5'>
                         <h1 className='text-3xl font-semibold mb-1'>{product.name}</h1>
                         <h2 className='text-lg mb-3'>Men's Shoes</h2>
-                        <span className='text-lg text-gray-700'>$ {selectedProduct?.discountPrice}</span>
+                        <span className='text-lg text-gray-700'>$ {Math.floor(selectedProduct?.discountPrice)}</span>
                     </div>
                     {/* Size Selector */}
                     <div className='flex flex-col mb-5 md:p-5'>
                         <p className='text-lg'>Select Size</p>
                         <div className='grid grid-cols-3 gap-2 mt-2'>
-                            {SizeSelect.map((item) =>
+                            {SizeSelect?.map((item) =>
                                 product.sizes.find((size) => size.name === item.value) ? (
                                     <div
                                         key={item.value}
@@ -114,7 +124,19 @@ const Product = ({ product, products }) => {
                     </div>
                     {/* Add to Cart */}
                     <div className='flex flex-col mb-10 p-0 md:p-5'>
-                        <button className='flex justify-center items-center w-full h-16 bg-black text-white font-semibold rounded-full cursor-pointer hover:bg-gray-900'>
+                        <button
+                            className='flex justify-center items-center w-full h-16 bg-black text-white font-semibold rounded-full cursor-pointer hover:bg-gray-900'
+                            onClick={() => {
+                                toast.success('Successfully Add To Cart!');
+                                add({
+                                    productId: selectedProduct._id,
+                                    name: product.name,
+                                    price: Math.floor(selectedProduct.discountPrice),
+                                    image: product.imageURL[0],
+                                    size: selectedProduct.name,
+                                    quantity: 1,
+                                });
+                            }}>
                             Add to Cart
                         </button>
                     </div>
@@ -167,11 +189,13 @@ const Product = ({ product, products }) => {
                     {products.map((product) => (
                         <SwiperSlide key={product._id}>
                             <div className='flex flex-col mb-10'>
-                                <img
-                                    src={`http://localhost:9000${product.imageURL[0]}`}
-                                    alt={product.name}
-                                    className='w-60 h-60 md:w-96 md:h-96 object-cover rounded-xl overflow-hidden'
-                                />
+                                <Link href={`/product/details/${product._id}`}>
+                                    <img
+                                        src={`http://localhost:9000${product.imageURL[0]}`}
+                                        alt={product.name}
+                                        className='w-60 h-60 md:w-96 md:h-96 object-cover rounded-xl overflow-hidden'
+                                    />
+                                </Link>
                                 <h3 className='text-lg leading-4 text-gray-700 font-semibold mt-2 text-left'>
                                     {product.name}
                                 </h3>
