@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridFooter } from '@mui/x-data-grid';
 import { Box, useTheme } from '@mui/material';
 import { tokens } from '../theme';
 
@@ -30,14 +30,18 @@ const DataTable = ({ createData, content, categories, suppliers, ...passProps })
             <DataGrid
                 {...passProps}
                 components={{
-                    Footer: () => (
-                        <FooterCreateButton
-                            categories={categories}
-                            suppliers={suppliers}
-                            createData={createData}
-                            content={content}
-                        />
-                    ),
+                    Footer: () => {
+                        return content ? (
+                            <FooterCreateButton
+                                categories={categories}
+                                suppliers={suppliers}
+                                createData={createData}
+                                content={content}
+                            />
+                        ) : (
+                            <GridFooter />
+                        );
+                    },
                 }}
             />
         </Box>

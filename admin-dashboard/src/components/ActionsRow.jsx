@@ -24,7 +24,7 @@ const EditModal = ({ content, ...props }) => {
     }
 };
 
-const ActionsRow = ({ params, handleDelete, updateData, content, handleUpload, ...props }) => {
+const ActionsRow = ({ params, handleDelete, updateData, content, noEdit = false, handleUpload, ...props }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -47,15 +47,17 @@ const ActionsRow = ({ params, handleDelete, updateData, content, handleUpload, .
                 handleUpload={handleUpload}
                 {...props}
             />
-            <IconButton
-                sx={{
-                    backgroundColor: colors.greenAccent[600],
-                    ':hover': { backgroundColor: colors.greenAccent[700] },
-                }}
-                onClick={() => setOpen(true)}
-            >
-                <DescriptionOutlined />
-            </IconButton>
+            {!noEdit && (
+                <IconButton
+                    sx={{
+                        backgroundColor: colors.greenAccent[600],
+                        ':hover': { backgroundColor: colors.greenAccent[700] },
+                    }}
+                    onClick={() => setOpen(true)}
+                >
+                    <DescriptionOutlined />
+                </IconButton>
+            )}
             <IconButton
                 sx={{
                     backgroundColor: colors.redAccent[600],

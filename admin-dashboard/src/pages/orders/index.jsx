@@ -11,12 +11,15 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import { tokens } from '../../theme';
+import OrderDetailsModal from '../../components/Modals/OrderDetailsModal';
 
 const Orders = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const [orders, setOrders] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [orderDetails, setOrderDetails] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
 
@@ -67,6 +70,10 @@ const Orders = () => {
             console.log(error);
         }
     };
+    const handleRowClick = (orders) => {
+        setOrderDetails(orders);
+        setOpen(true);
+    };
 
     useEffect(() => {
         axiosJWT
@@ -86,9 +93,24 @@ const Orders = () => {
             valueGetter: ({ row: { firstName, lastName } }) => `${firstName} ${lastName}`,
         },
         {
+            field: 'phoneNumber',
+            headerName: 'Phone Number',
+            flex: 0.3,
+        },
+        {
+            field: 'email',
+            headerName: 'Customer Email',
+            flex: 0.5,
+        },
+        {
+            field: 'address',
+            headerName: 'Address',
+            flex: 0.5,
+        },
+        {
             field: 'shippedDate',
             headerName: 'Shipped Date',
-            flex: 0.5,
+            flex: 0.3,
             valueGetter: ({ row: { shippedDate } }) => moment(shippedDate).format('DD-MM-YYYY'),
         },
         {
@@ -98,8 +120,10 @@ const Orders = () => {
             renderCell: ({ row: { status } }) => {
                 return (
                     <Box
-                        minWidth="82px"
+                        minWidth="100px"
                         py="6px"
+                        px='8px'
+                        borderRadius="4px"
                         display="flex"
                         justifyContent="center"
                         backgroundColor={
@@ -109,7 +133,6 @@ const Orders = () => {
                                 ? colors.redAccent[600]
                                 : colors.redAccent[700]
                         }
-                        borderRadius="4px"
                     >
                         {status === 'waiting' && <HourglassBottomOutlined />}
                         {status === 'shipping' && <LocalShippingOutlined />}
@@ -128,6 +151,7 @@ const Orders = () => {
             renderCell: (params) => {
                 return (
                     <ActionsRow
+                        noEdit
                         content="Category"
                         params={params}
                         handleDelete={handleDelete}
@@ -152,11 +176,12 @@ const Orders = () => {
                 loading={orders.length === 0}
                 rowHeight={100}
                 pageSize={pageSize}
-                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                onRowClick={({ row: { orderDetails } }) => handleRowClick(orderDetails)}
                 createData={createData}
-                content="Category"
             />
+            <OrderDetailsModal open={open} onClose={() => setOpen(false)} orderDetails={orderDetails} />;
         </Box>
     );
 };
