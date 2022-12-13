@@ -4,33 +4,33 @@ const tryCatch = require('./utils/tryCatch');
 
 const getAllProductsAdmin = tryCatch(async (req, res) => {
     const lookupCategory = {
-      $lookup: {
-        from: "categories",
-        localField: "categoryId",
-        foreignField: "_id",
-        as: "category",
-      },
+        $lookup: {
+            from: 'categories',
+            localField: 'categoryId',
+            foreignField: '_id',
+            as: 'category',
+        },
     };
     const lookupSupplier = {
-      $lookup: {
-        from: "suppliers",
-        localField: "supplierId",
-        foreignField: "_id",
-        as: "supplier",
-      },
+        $lookup: {
+            from: 'suppliers',
+            localField: 'supplierId',
+            foreignField: '_id',
+            as: 'supplier',
+        },
     };
     const products = await Product.aggregate([
-      lookupCategory,
-      lookupSupplier,
-      {
-        $addFields: {
-          category: { $first: "$category" },
-          supplier: { $first: "$supplier" },
+        lookupCategory,
+        lookupSupplier,
+        {
+            $addFields: {
+                category: { $first: '$category' },
+                supplier: { $first: '$supplier' },
+            },
         },
-      },
     ]);
     res.status(200).json(products);
-  });
+});
 
 const getAllProducts = tryCatch(async (req, res) => {
     const page = req.query.page;
@@ -276,7 +276,8 @@ const filterProduct = tryCatch(async (req, res) => {
             .append(discountPrice);
         res.status(200).json(result);
     } else {
-        res.status(400).json({ message: 'Bad request' });
+        const result = await Product.aggregate(discountPrice);
+        res.status(200).json(result);
     }
 });
 
@@ -290,5 +291,5 @@ module.exports = {
     stockProduct,
     searchProductByCategory,
     filterProduct,
-    getAllProductsAdmin
+    getAllProductsAdmin,
 };

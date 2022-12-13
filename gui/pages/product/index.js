@@ -34,33 +34,42 @@ const Products = ({ categories, suppliers, products, page }) => {
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex'>
-                <Sidebar
-                    isOpenFilter={isOpenFilter}
-                    categories={categories}
-                    suppliers={suppliers}
-                    hideHeader={hideHeader}
-                />
-                <AllProducts products={products} page={page} />
+                <div className='relative'>
+                    <Sidebar
+                        isOpenFilter={isOpenFilter}
+                        categories={categories}
+                        suppliers={suppliers}
+                        hideHeader={hideHeader}
+                    />
+                </div>
+                <AllProducts products={products} />
             </div>
         </div>
     );
 };
 
-export async function getServerSideProps({ query: { page = 0 } }) {
+export async function getServerSideProps(context) {
     const resCate = await httpRequest.get('/categories/v1');
     const categories = await resCate.data;
 
     const resSuppliers = await httpRequest.get('/suppliers/v1');
     const suppliers = await resSuppliers.data;
 
-    const resProducts = await httpRequest.get(`/products/v1?page=${page}`);
-    const products = await resProducts.data;
+    const { category, supplier, price } = context.query;
+    const resProduct = await httpRequest.get('products/filter', {
+        params: {
+            category,
+            supplier,
+            price,
+        },
+    });
+    const products = await resProduct.data;
+
     return {
         props: {
             categories,
             suppliers,
             products,
-            page,
         },
     };
 }
