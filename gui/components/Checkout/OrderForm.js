@@ -24,8 +24,8 @@ const OrderForm = () => {
     } = useForm();
 
     const onSubmit = async (data) => {
-        const array = { ...data, orderDetails: products };
-        await httpRequest.post('/orders/v1', array);
+        const order = { ...data, orderDetails: products };
+        await httpRequest.post('/orders/v1', order);
         toast.success('Successfully Order. Thank You!');
     };
     //END
