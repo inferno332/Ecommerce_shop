@@ -59,9 +59,11 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
     return (
         <motion.div
             animate={{ x: isOpenFilter ? 0 : -1000, opacity: isOpenFilter ? 1 : 0, transition: { duration: 0.2 } }}
-            className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} ${isOpenFilter ? 'sm:flex grid' : 'sm:hidden hidden'}
+            className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} ${
+                isOpenFilter ? 'sm:flex grid' : 'sm:hidden hidden'
+            }
             duration-300 ease-out flex-1 item mx-auto
-                grid grid-cols-2 sm:flex sm:flex-col sm:sticky mb-2
+                grid grid-cols-2 sm:flex sm:flex-col sm:sticky sm:mr-5
             `}>
             <div className='pb-3'>
                 <p className='font-medium pb-2'>Categories</p>
