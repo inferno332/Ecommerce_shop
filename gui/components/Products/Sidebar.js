@@ -59,11 +59,10 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
     return (
         <motion.div
             animate={{ x: isOpenFilter ? 0 : -1000, opacity: isOpenFilter ? 1 : 0, transition: { duration: 0.2 } }}
-            className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} ${isOpenFilter ? 'sm:flex' : 'sm:hidden'} 
-            ${isOpenFilter ? 'grid' : 'hidden'}
-            duration-300 ease-out flex-1 item mx-auto
-                grid grid-cols-2 sm:flex sm:flex-col
-            `}>
+            className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} ${
+                isOpenFilter ? 'sm:flex grid' : 'sm:hidden hidden'
+            }
+            duration-300 ease-out flex-1 item mx-auto mb-2 sm:flex sm:flex-col grid grid-cols-2`}>
             <div className='pb-3'>
                 <p className='font-medium pb-2'>Categories</p>
                 <div>
@@ -113,9 +112,11 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
                     defaultValue={[PriceRange?.gte || 0, PriceRange?.lte || 500]}
                 />
             </div>
-            <button className='border rounded-lg p-1 bg-orange-300 mt-10' onClick={handleRouterPush}>
-                Click
-            </button>
+            <div className='flex sm:block my-auto sm:my-0'>
+                <button className='border rounded-full py-2 px-1 bg-black text-white w-full' onClick={handleRouterPush}>
+                    Apply
+                </button>
+            </div>
         </motion.div>
     );
 };
