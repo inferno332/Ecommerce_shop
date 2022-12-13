@@ -5,7 +5,6 @@ import HeaderProduct from '../../components/Products/HeaderProduct';
 import Sidebar from '../../components/Products/Sidebar';
 import AllProducts from '../../components/Products/AllProducts';
 
-
 const ProductWithCate = ({ products, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
 
@@ -31,7 +30,7 @@ const ProductWithCate = ({ products, categories, suppliers }) => {
             <div
                 className={`${
                     hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
-                } ease-out duration-300 relative sm:sticky z-10`}>
+                } ease-linear duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex '>

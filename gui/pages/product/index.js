@@ -5,7 +5,7 @@ import AllProducts from '../../components/Products/AllProducts';
 import HeaderProduct from '../../components/Products/HeaderProduct';
 import Sidebar from '../../components/Products/Sidebar';
 
-const Products = ({ categories, suppliers, products, page }) => {
+const Products = ({ categories, suppliers, products }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
 
     // EVENT SCROLL HEADER
@@ -30,7 +30,7 @@ const Products = ({ categories, suppliers, products, page }) => {
             <div
                 className={`${
                     hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
-                } ease-out duration-300 relative sm:sticky z-10`}>
+                } ease-linear duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex'>
