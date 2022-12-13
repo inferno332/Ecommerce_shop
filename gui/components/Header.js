@@ -40,9 +40,10 @@ const Header = () => {
                     <Image
                         src='/ss-logo.svg'
                         alt='logo'
-                        width='100'
-                        height='100'
-                        className='hidden md:inline-block h-fit hover:opacity-70'
+                        width={300}
+                        height={300}
+                        priority
+                        className='hidden md:inline-block h-fit hover:opacity-70 h-28 w-28'
                     />
                 </Link>
                 {/* Search bar */}

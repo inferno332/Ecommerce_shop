@@ -40,7 +40,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                 } ease-out duration-300 relative sm:sticky z-10`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
-            <div className='sm:flex gap-2'>
+            <div className='sm:flex gap-5'>
                 <Sidebar
                     isOpenFilter={isOpenFilter}
                     categories={categories}
@@ -48,18 +48,19 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                     hideHeader={hideHeader}
                 />
 
-                <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full'>
+                <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full flex-grow'>
                     {product.map((p) => {
                         return (
-                            <div key={p._id} className='group relative border rounded-lg cursor-pointer'>
-                                <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
+                            <div key={p._id} className='group relative border rounded-lg cursor-pointer truncate'>
+                                <div className='h-[200px] sm:h-[250px] lg:h-[380px] bg-[#f6f6f6]'>
                                     <Link href={`/product/details/${p._id}`}>
                                         <Image
                                             src={`${process.env.BASE_URL}${p.imageURL[0]}`}
                                             alt={p.name}
-                                            width='300'
-                                            height='300'
-                                            className=' w-full h-full object-contain'
+                                            width={300}
+                                            height={300}
+                                            priority
+                                            className='w-full h-full object-contain duration-300 transform group-hover:scale-110'
                                         />
                                         {p.sizes[0].discount > 0 && (
                                             <div className='discount absolute top-5'>{p.sizes[0].discount}% Off</div>

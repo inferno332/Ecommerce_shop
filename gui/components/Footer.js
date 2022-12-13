@@ -10,7 +10,14 @@ const Footer = () => {
         <div className='bg-[#2B3445]'>
             <div className='container mx-auto grid grid-cols-1 gap-5 mt-10 py-5 '>
                 <div>
-                    <Image src='/ss-logo-white.svg' alt='logo' width='100' height='100' className='md:block' />
+                    <Image
+                        src='/ss-logo-white.svg'
+                        alt='logo'
+                        width={300}
+                        height={300}
+                        priority
+                        className='h-28 w-28'
+                    />
                     <div className='text-[#f9f9f9] opacity-70 max-w-md'>
                         Independent since 2022, we empower people through sport and craftsmanship to create positive
                         change in comm unities around the world.
