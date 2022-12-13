@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
-const oderSchema = new Schema(
+const orderSchema = new Schema(
     {
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
@@ -30,5 +30,5 @@ const oderSchema = new Schema(
     { timestamps: { updatedAt: false } },
 );
 
-const Order = model('Order', oderSchema);
+const Order = model('Order', orderSchema);
 module.exports = Order;

@@ -1,5 +1,5 @@
 import { Box, useTheme } from '@mui/material';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import axiosJWT from '../../axios/axiosJWT';
 import EmailIcon from '@mui/icons-material/Email';
@@ -14,6 +14,47 @@ import LineChart from '../../components/LineChart';
 function Dashboard() {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [orderSold, setOrderSold] = useState({
+        today: 0,
+        week: 0,
+        month: 0,
+    });
+    const getSoldOrderByDay = async () => {
+        try {
+            const res = await axiosJWT.get('http://localhost:9000/orders/sold/today');
+            setOrderSold((prev) => {
+                return { ...prev, today: res.data.length };
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const getSoldOrderByWeek = async () => {
+        try {
+            const res = await axiosJWT.get('http://localhost:9000/orders/sold/week');
+            setOrderSold((prev) => {
+                return { ...prev, week: res.data.length };
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const getSoldOrderByMonth = async () => {
+        try {
+            const res = await axiosJWT.get('http://localhost:9000/orders/sold/month');
+            setOrderSold((prev) => {
+                return { ...prev, month: res.data.length };
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getSoldOrderByDay();
+        getSoldOrderByWeek();
+        getSoldOrderByMonth();
+    }, []);
+    console.log(orderSold);
     return (
         <Box m="20px">
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -29,8 +70,8 @@ function Dashboard() {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="12,361"
-                        subtitle="Emails Sent"
+                        title={orderSold.today.toString()}
+                        subtitle="Today's Orders"
                         progress="0.75"
                         increase="+14%"
                         icon={<EmailIcon sx={{ color: colors.greenAccent[600], fontSize: '26px' }} />}
@@ -44,8 +85,8 @@ function Dashboard() {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="431,225"
-                        subtitle="Sales Obtained"
+                        title={`${orderSold.week}`}
+                        subtitle="This Week's Orders"
                         progress="0.50"
                         increase="+21%"
                         icon={<PointOfSaleIcon sx={{ color: colors.greenAccent[600], fontSize: '26px' }} />}
@@ -59,8 +100,8 @@ function Dashboard() {
                     justifyContent="center"
                 >
                     <StatBox
-                        title="32,441"
-                        subtitle="New Clients"
+                        title={`${orderSold.month}`}
+                        subtitle="This Month's Orders"
                         progress="0.30"
                         increase="+5%"
                         icon={<PersonAddIcon sx={{ color: colors.greenAccent[600], fontSize: '26px' }} />}
@@ -82,7 +123,7 @@ function Dashboard() {
                     />
                 </Box>
             </Box>
-            <Box display="flex" justifyContent="space-between" alignItems="center" height='250px'>
+            <Box display="flex" justifyContent="space-between" alignItems="center" height="250px">
                 <LineChart isDashboard />
             </Box>
         </Box>

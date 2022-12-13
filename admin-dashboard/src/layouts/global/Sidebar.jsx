@@ -41,18 +41,13 @@ const DataPage = [
     {
         title: 'Products',
         to: '/products',
-        icon: <WidgetsOutlined />
+        icon: <WidgetsOutlined />,
     },
     {
-        title: 'Contacts',
-        to: '/contacts',
-        icon: <ReceiptOutlined />,  
+        title: 'Orders',
+        to: '/orders',
+        icon: <ReceiptOutlined />,
     },
-    {
-        title: 'Manage Team',
-        to :'/team',
-        icon: <AdminPanelSettingsOutlined />,
-    }
 ];
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -168,13 +163,13 @@ function Sidebar() {
                         </Typography>
                         {DataPage.map((item) => (
                             <Item
-                            key={item.title}
-                            title={item.title}
-                            to={item.to}
-                            icon={item.icon}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
+                                key={item.title}
+                                title={item.title}
+                                to={item.to}
+                                icon={item.icon}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
                         ))}
 
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>

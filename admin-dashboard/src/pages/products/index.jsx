@@ -95,6 +95,12 @@ const Products = () => {
         { field: 'name', headerName: 'Name', flex: 0.5 },
         { field: 'price', headerName: 'Price', flex: 0.3 },
         {
+            field: 'stock',
+            headerName: 'Stock',
+            flex: 0.3,
+            valueGetter: (params) => params.row.sizes.map((size) => size.stock).reduce((a, b) => a + b, 0),
+        },
+        {
             field: 'categoryName',
             headerName: 'Category',
             valueGetter: (params) => params.row.category?.name,
@@ -161,11 +167,9 @@ const Products = () => {
                 disableSelectionOnClick
                 rowHeight={70}
                 loading={products.length === 0}
-
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
-                
                 categories={categories}
                 suppliers={suppliers}
                 createData={createData}
