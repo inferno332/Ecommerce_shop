@@ -1,18 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import toast, { Toaster } from 'react-hot-toast';
 import httpRequest from '../../ultis/axios';
 
-import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 import HeaderProduct from '../../components/Products/HeaderProduct';
 import Sidebar from '../../components/Products/Sidebar';
+import AllProducts from '../../components/Products/AllProducts';
 
-import { useCart } from '../../zustand/useCart';
 
-const ProductWithCate = ({ product, categories, suppliers }) => {
+const ProductWithCate = ({ products, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
-    const { add } = useCart((state) => state);
 
     // EVENT SCROLL HEADER
     const [hideHeader, sethideHeader] = useState(true);
@@ -33,7 +28,6 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
 
     return (
         <div>
-            <Toaster position='top-center' reverseOrder={false} />
             <div
                 className={`${
                     hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
@@ -110,6 +104,7 @@ const ProductWithCate = ({ product, categories, suppliers }) => {
                         );
                     })}
                 </div>
+                <AllProducts products={products} />
             </div>
         </div>
     );
@@ -124,7 +119,7 @@ export async function getServerSideProps(context) {
             price,
         },
     });
-    const product = await resProduct.data;
+    const products = await resProduct.data;
 
     const resCate = await httpRequest.get('/categories/v1');
     const categories = await resCate.data;
@@ -134,7 +129,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            product,
+            products,
             categories,
             suppliers,
         },

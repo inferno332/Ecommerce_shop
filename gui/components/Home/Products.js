@@ -23,7 +23,7 @@ const Products = ({ products }) => {
                 <h1 className='font-bold text-xl'>Our Products</h1>
                 <div
                     className='flex items-center gap-2 cursor-pointer border-dashed border-b border-gray-300 duration-300 sm:hover:scale-[1.1]'
-                    onClick={() => router.push('/product?page=0')}>
+                    onClick={() => router.push('/product/filter')}>
                     More products
                     <BsArrowRight className='text-xs' />
                 </div>
