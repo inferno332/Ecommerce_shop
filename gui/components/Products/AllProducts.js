@@ -1,17 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
-import { HiOutlineArrowLeft, HiOutlineArrowRight } from 'react-icons/hi';
 
 import { useCart } from '../../zustand/useCart';
 
-const AllProducts = ({ products, page }) => {
+const AllProducts = ({ products }) => {
     const { add } = useCart((state) => state);
-    const router = useRouter();
     return (
         <div className='flex flex-col w-full gap-5'>
             <Toaster position='top-center' reverseOrder={false} />
@@ -75,28 +72,6 @@ const AllProducts = ({ products, page }) => {
                         </div>
                     );
                 })}
-            </div>
-            <div className='flex justify-center gap-14'>
-                <button
-                    disabled={page == 0}
-                    className={`${
-                        page == 0 && 'disabled:opacity-20'
-                    } text-3xl border rounded-full p-2 duration-300 hover:scale-110`}
-                    onClick={() => {
-                        router.push(`/product?page=${--page}`);
-                    }}>
-                    <HiOutlineArrowLeft />
-                </button>
-                <button
-                    disabled={products.length <= 11}
-                    className={`${
-                        products.length <= 11 && 'disabled:opacity-20'
-                    } text-3xl border rounded-full p-2 duration-300 hover:scale-110`}
-                    onClick={() => {
-                        router.push(`/product?page=${++page}`);
-                    }}>
-                    <HiOutlineArrowRight />
-                </button>
             </div>
         </div>
     );

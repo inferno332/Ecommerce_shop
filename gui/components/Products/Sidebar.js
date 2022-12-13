@@ -62,7 +62,7 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
             className={`${hideHeader ? 'sm:top-[49px]' : 'sm:top-[130px]'} ${isOpenFilter ? 'sm:flex' : 'sm:hidden'} 
             ${isOpenFilter ? 'grid' : 'hidden'}
             duration-300 ease-out flex-1 item mx-auto
-                grid grid-cols-2 sm:flex sm:flex-col
+                grid grid-cols-2 sm:flex sm:flex-col sm:sticky
             `}>
             <div className='pb-3'>
                 <p className='font-medium pb-2'>Categories</p>
