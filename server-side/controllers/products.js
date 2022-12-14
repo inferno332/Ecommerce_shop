@@ -158,7 +158,7 @@ const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, price } = req.query;
     let page = Number(req.query.page) || 1;
     let limit = 12;
-    let sort = req.query.sort || 'createdAt';
+    let sort = req.query.sort || { price: -1 };
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
     let priceDefault = {
@@ -207,6 +207,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 price: 1,
                 sizes: 1,
                 imageURL: 1,
+                createdAt: 1,
                 categoryName: '$category.name',
                 supplierName: '$supplier.name',
             },
@@ -222,9 +223,6 @@ const filterProduct = tryCatch(async (req, res) => {
                     $subtract: ['$price', { $divide: [{ $multiply: ['$price', '$sizes.discount'] }, 100] }],
                 },
             },
-        },
-        {
-            $sort: { 'sizes.discount': -1 },
         },
         {
             $group: {
@@ -274,7 +272,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 },
             })
             .append(discountPrice)
-            .sort({sort})
+            .sort(sort)
             .skip((page - 1) * limit)
             .limit(limit);
         res.status(200).json(result);
