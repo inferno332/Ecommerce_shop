@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    id="svg2509"
+    sodipodi:docname="hipstershoes.svg"
+    inkscape:export-filename="/home/ginger/art/link/hellohipster/hellohipster.png"
+    viewBox="0 0 183.78 130.76"
+    sodipodi:version="0.32"
+    inkscape:export-xdpi="300"
+    version="1.0"
+    inkscape:output_extension="org.inkscape.output.svg.inkscape"
+    inkscape:export-ydpi="300"
+    inkscape:version="0.46"
+  >
+  <defs
+      id="defs2511"
+    >
+    <pattern
+        id="pattern2677"
+        xlink:href="#pattern2565"
+        patternTransform="matrix(.80178 0 0 .80178 1076 718.53)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern2565"
+        xlink:href="#pattern5120"
+        patternTransform="matrix(.80178 0 0 .80178 1076 718.53)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern5120"
+        xlink:href="#pattern4356"
+        patternTransform="matrix(.80178 0 0 .80178 1019.6 703.36)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4359"
+        xlink:href="#pattern4354"
+        patternTransform="matrix(2.8174 0 0 2.8174 -3.9063e-7 -.000023438)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4354"
+        xlink:href="#pattern4347"
+        patternTransform="matrix(2.8174 0 0 2.8174 979.85 536.53)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4350"
+        xlink:href="#pattern4345"
+        patternTransform="matrix(.29409 0 0 .29409 -3.9063e-7 .000017754)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4345"
+        xlink:href="#pattern4338"
+        patternTransform="matrix(.29409 0 0 .29409 979.85 611.48)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4341"
+        xlink:href="#pattern4336"
+        patternTransform="matrix(.60417 0 0 .60417 .000049609 .000011836)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4336"
+        xlink:href="#pattern4329"
+        patternTransform="matrix(.60417 0 0 .60417 979.85 512.49)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4323"
+        xlink:href="#pattern4078"
+        patternTransform="translate(1024 446.51)"
+        inkscape:collect="always"
+    />
+    <pattern
+        id="pattern4078"
+        width="129.79595"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(834.11 482.88)"
+        height="226.4174"
+      >
+      <path
+          id="path4076"
+          style="fill-rule:evenodd;stroke:#053fa0;stroke-width:4;fill:#ffed00"
+          d="m21.601 52.341s24.286-61.429 58.572-48.572c34.287 12.858 62.857 54.286 38.567 77.143-24.282 22.858-94.282 104.29-112.85 71.428-18.575-32.86 34.283-81.428 55.711-71.428 21.429 10 65.719-28.571 64.289 39.998-1.43 68.57-37.146 128.57-54.289 92.86s-48.571-158.57-50-161.43z"
+      />
+    </pattern
+    >
+    <pattern
+        id="pattern4329"
+        width="193.9493"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(1004.1 440.81)"
+        height="232.11729"
+      >
+      <g
+          id="g4325"
+          transform="translate(-1004.1 -440.81)"
+        >
+        <rect
+            id="rect4321"
+            style="fill-rule:evenodd;fill:#ffffff"
+            height="231.73"
+            width="193.95"
+            y="440.81"
+            x="1004.1"
+        />
+        <rect
+            id="rect4081"
+            style="fill:url(#pattern4323)"
+            height="226.42"
+            width="129.8"
+            y="446.51"
+            x="1024"
+        />
+      </g
+      >
+    </pattern
+    >
+    <pattern
+        id="pattern4338"
+        width="117.1777"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(979.85 512.49)"
+        height="140.23753"
+      >
+      <rect
+          id="rect4334"
+          style="fill:url(#pattern4341)"
+          height="140.24"
+          width="117.18"
+          y="0"
+          x="0"
+      />
+    </pattern
+    >
+    <pattern
+        id="pattern4347"
+        width="34.460896"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(979.85 611.48)"
+        height="41.242584"
+      >
+      <rect
+          id="rect4343"
+          style="fill:url(#pattern4350)"
+          height="41.243"
+          width="34.461"
+          y="0"
+          x="0"
+      />
+    </pattern
+    >
+    <pattern
+        id="pattern4356"
+        width="97.090355"
+        patternUnits="userSpaceOnUse"
+        patternTransform="translate(979.85 536.53)"
+        height="116.19713"
+      >
+      <rect
+          id="rect4352"
+          style="fill:url(#pattern4359)"
+          height="116.2"
+          width="97.09"
+          y="0"
+          x="0"
+      />
+    </pattern
+    >
+  </defs
+  >
+  <sodipodi:namedview
+      id="base"
+      bordercolor="#666666"
+      inkscape:pageshadow="2"
+      guidetolerance="10"
+      pagecolor="#ffffff"
+      gridtolerance="10000"
+      inkscape:window-height="736"
+      inkscape:zoom="2.7683244"
+      objecttolerance="10"
+      showgrid="false"
+      borderopacity="1.0"
+      inkscape:current-layer="layer1"
+      inkscape:cx="100.09924"
+      inkscape:cy="51.155361"
+      inkscape:window-y="32"
+      inkscape:window-x="5"
+      inkscape:window-width="1270"
+      inkscape:pageopacity="0.0"
+      inkscape:document-units="px"
+  />
+  <g
+      id="layer1"
+      inkscape:label="Layer 1"
+      inkscape:groupmode="layer"
+      transform="translate(-513.99 -903.05)"
+    >
+    <g
+        id="g4166"
+      >
+      <path
+          id="path4267"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:url(#pattern2677)"
+          d="m587.49 1029.2l-10.41 2.7-12.06 1.1-18.08-0.6-16.99-0.5h-11.51l-3.84-2.2 0.55-6v-8.2l2.19-4.4 2.2-3.3-3.29-2.8 6.03-5.44 2.19-7.67 3.84-3.84-2.2-3.28 4.39-10.42 4.93-7.67 3.84-4.93 3.28-6.58-4.38-8.77-2.74-9.31-2.19-15.35 2.19-6.03 4.38-6.57 10.96-3.29h9.32l8.77-2.19 8.22 3.83 3.29 6.58v9.32l4.38 3.28 2.19 9.32v9.87l-1.64 7.12-1.1 15.34 0.55 9.32 1.65 7.67 0.54 4.94-2.19 7.12 2.74 7.63v7.2 1.6h1.65l-0.55 9.9-1.1 5.5z"
+      />
+      <path
+          id="path4269"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:#000000"
+          d="m588.04 1014.4l-7.12 1.1-9.32-2.8-6.58-2.7-10.41-3.3-18.08 0.5-10.96 0.6-8.77 2.7-2.2 6.1v9.3l1.65 4.9 12.06 1.1 18.08 1.1 18.63-0.6 13.7-0.5 9.32-3.3 1.64-6.6-1.64-7.6z"
+      />
+      <path
+          id="path4271"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m585.85 996.82l-8.22 4.38h-7.67l-7.68-1.64-16.99-3.29-12.05 2.74-10.41 1.69-2.75 6-2.19 3.8"
+      />
+      <path
+          id="path4273"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m526.11 1000.1l7.13-7.11 5.48-6.03 6.57-7.67 6.03-8.23 4.93-8.22 2.75-4.93 5.48-2.19 4.93-1.1 6.57 0.55 2.74 1.1-5.48 2.74 1.65 1.64 5.48-2.19 2.19 0.55 0.55 6.57-1.65 7.68 0.55 3.29-1.09 5.48 1.64 1.09 1.1-7.12 2.19-3.29v-5.48l1.64 6.03 1.65 5.48 4.93 1.64 4.38-3.29 0.55-3.28-3.83-7.68-4.39-3.83-2.74-5.48-4.38-4.94-5.48-6.57-9.87 0.55-4.38 2.19-14.8 1.64-7.67 7.13-9.32 13.15-4.93 15.34v2.2l5.48-4.94 1.64-6.02 2.74-4.94 3.84-7.12 3.29-5.48 3.83-6.58 4.39 0.55-4.93 7.67-9.32 8.77-2.19 4.39"
+      />
+      <path
+          id="path4275"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m528.31 989.7l1.09-2.19 12.61-14.25 16.44-19.73-12.06 13.15-7.12 10.41"
+      />
+      <path
+          id="path4277"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m570.5 951.34l9.32 1.64-1.1-3.29-3.28-4.38 6.57 6.57 1.1 10.96 2.74 4.94 3.83 9.86"
+      />
+      <path
+          id="path4279"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:#ffffff"
+          d="m590.78 979.29l-3.84-7.13-2.19-4.93-0.55-6.58 1.65-6.57 3.83 7.67 3.84 2.74 3.29 6.57 2.74 4.39-3.84 3.84h-4.93z"
+      />
+      <path
+          id="path4281"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m595.17 975.45l-4.94-7.13 3.84 1.65 1.1 5.48z"
+      />
+      <path
+          id="path4283"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m569.96 984.22l-8.77-1.1-9.87 0.55-8.77 6.03-1.09-0.55"
+      />
+      <path
+          id="path4285"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m565.02 982.03l-6.57-1.65-7.68 0.55-6.57 4.38"
+      />
+      <path
+          id="path4287"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m572.15 982.03l-5.48-4.94h-6.58l-7.67 2.2-3.29 2.19"
+      />
+      <path
+          id="path4289"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m557.9 975.45l12.06 2.19 2.19-1.64-8.77-4.39-2.19 0.55"
+      />
+      <path
+          id="path4291"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m571.6 972.16l-7.12-2.74-8.23-1.1-4.38 2.2"
+      />
+      <path
+          id="path4293"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m574.34 971.06l-6.58-5.48-7.67-0.54-4.38 1.09"
+      />
+      <path
+          id="path4295"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m573.24 966.68l-7.12-4.38-6.58 0.54-2.19 0.55"
+      />
+      <path
+          id="path4297"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m575.44 962.3l-9.32-3.84-7.12 1.64"
+      />
+      <path
+          id="path4299"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m562.28 969.42l-13.15 4.93"
+      />
+      <path
+          id="path4301"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m557.35 975.45l-10.41 3.29"
+      />
+      <path
+          id="path4303"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m579.82 923.39l-2.19 21.37"
+      />
+      <path
+          id="path4305"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m580.79 981.91l1.8 1.53 1.28-8.2 2.05-2.82 0.26-2.05-1.29-2.56-0.51-2.3-1.28-2.05-1.79 9.73 1.02 2.82-1.54 5.9z"
+      />
+      <path
+          id="path4307"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m515.96 1004.7l4.1 3.3 9.74-11.74 8.2-8.46 6.41-7.69 6.92-8.97 7.94-13.58 7.43-2.3 3.84-0.52 5.39 0.52 4.1 1.02 2.81 2.56 0.52 4.36 2.05 4.1 2.3 6.66 1.03 4.36 3.84 1.79 1.8 0.26 5.12-3.33 0.26-1.28-1.28-3.59-3.59-6.92-4.36-3.33-2.56-5.9-9.23-9.22-0.51-1.79-10.76 0.51-3.59 2.56-14.86 1.54-6.92 6.4-9.22 12.3-2.82 6.67-4.36 8.97 2.31 4.35 0.51 0.77 16.66-20.5 1.53-3.33 11.79-11.28-13.32 14.87-7.69 10.25-13.07 12.55-2.05 8.46-6.41 4.6z"
+      />
+      <path
+          id="path4309"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m575.93 961.92l-10.51-3.85-6.15 1.8-1.54 3.33 8.2-1.03 7.43 4.62 2.57-4.87z"
+      />
+      <path
+          id="path4311"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m573.88 970.89l-6.15-5.9h-7.44l-4.35 1.03-3.85 4.1 4.1-2.05 9.23 1.28 5.89 3.07 2.57-1.53z"
+      />
+      <path
+          id="path4313"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m563.11 969.09l-14.35 4.87-2.05 4.36 11.28-3.08 11.79 2.57 2.56-1.54-8.71-4.87-2.82 1.02 2.3-3.33z"
+      />
+      <path
+          id="path4315"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m571.83 981.65l-5.9-4.36-4.61-0.51-9.23 2.56-7.68 5.39 6.15-3.34 7.94-0.77 6.41 1.29 6.92-0.26z"
+      />
+      <path
+          id="path4317"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m541.33 989.08l1.28 0.77 8.97-5.89 10-0.77 8.45 1.28 2.31-2.56h-7.18l-14.35-0.26-9.48 7.43z"
+      />
+    </g
+    >
+    <g
+        id="g4194"
+        transform="matrix(-1 0 0 1 1211.8 .20581)"
+      >
+      <path
+          id="path4196"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:url(#pattern2677)"
+          d="m587.49 1029.2l-10.41 2.7-12.06 1.1-18.08-0.6-16.99-0.5h-11.51l-3.84-2.2 0.55-6v-8.2l2.19-4.4 2.2-3.3-3.29-2.8 6.03-5.44 2.19-7.67 3.84-3.84-2.2-3.28 4.39-10.42 4.93-7.67 3.84-4.93 3.28-6.58-4.38-8.77-2.74-9.31-2.19-15.35 2.19-6.03 4.38-6.57 10.96-3.29h9.32l8.77-2.19 8.22 3.83 3.29 6.58v9.32l4.38 3.28 2.19 9.32v9.87l-1.64 7.12-1.1 15.34 0.55 9.32 1.65 7.67 0.54 4.94-2.19 7.12 2.74 7.63v7.2 1.6h1.65l-0.55 9.9-1.1 5.5z"
+      />
+      <path
+          id="path4198"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:#000000"
+          d="m588.04 1014.4l-7.12 1.1-9.32-2.8-6.58-2.7-10.41-3.3-18.08 0.5-10.96 0.6-8.77 2.7-2.2 6.1v9.3l1.65 4.9 12.06 1.1 18.08 1.1 18.63-0.6 13.7-0.5 9.32-3.3 1.64-6.6-1.64-7.6z"
+      />
+      <path
+          id="path4200"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m585.85 996.82l-8.22 4.38h-7.67l-7.68-1.64-16.99-3.29-12.05 2.74-10.41 1.69-2.75 6-2.19 3.8"
+      />
+      <path
+          id="path4202"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m526.11 1000.1l7.13-7.11 5.48-6.03 6.57-7.67 6.03-8.23 4.93-8.22 2.75-4.93 5.48-2.19 4.93-1.1 6.57 0.55 2.74 1.1-5.48 2.74 1.65 1.64 5.48-2.19 2.19 0.55 0.55 6.57-1.65 7.68 0.55 3.29-1.09 5.48 1.64 1.09 1.1-7.12 2.19-3.29v-5.48l1.64 6.03 1.65 5.48 4.93 1.64 4.38-3.29 0.55-3.28-3.83-7.68-4.39-3.83-2.74-5.48-4.38-4.94-5.48-6.57-9.87 0.55-4.38 2.19-14.8 1.64-7.67 7.13-9.32 13.15-4.93 15.34v2.2l5.48-4.94 1.64-6.02 2.74-4.94 3.84-7.12 3.29-5.48 3.83-6.58 4.39 0.55-4.93 7.67-9.32 8.77-2.19 4.39"
+      />
+      <path
+          id="path4204"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m528.31 989.7l1.09-2.19 12.61-14.25 16.44-19.73-12.06 13.15-7.12 10.41"
+      />
+      <path
+          id="path4206"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m570.5 951.34l9.32 1.64-1.1-3.29-3.28-4.38 6.57 6.57 1.1 10.96 2.74 4.94 3.83 9.86"
+      />
+      <path
+          id="path4208"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.2207;fill:#ffffff"
+          d="m590.78 979.29l-3.84-7.13-2.19-4.93-0.55-6.58 1.65-6.57 3.83 7.67 3.84 2.74 3.29 6.57 2.74 4.39-3.84 3.84h-4.93z"
+      />
+      <path
+          id="path4210"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m595.17 975.45l-4.94-7.13 3.84 1.65 1.1 5.48z"
+      />
+      <path
+          id="path4212"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m569.96 984.22l-8.77-1.1-9.87 0.55-8.77 6.03-1.09-0.55"
+      />
+      <path
+          id="path4214"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m565.02 982.03l-6.57-1.65-7.68 0.55-6.57 4.38"
+      />
+      <path
+          id="path4216"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m572.15 982.03l-5.48-4.94h-6.58l-7.67 2.2-3.29 2.19"
+      />
+      <path
+          id="path4218"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m557.9 975.45l12.06 2.19 2.19-1.64-8.77-4.39-2.19 0.55"
+      />
+      <path
+          id="path4220"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m571.6 972.16l-7.12-2.74-8.23-1.1-4.38 2.2"
+      />
+      <path
+          id="path4222"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m574.34 971.06l-6.58-5.48-7.67-0.54-4.38 1.09"
+      />
+      <path
+          id="path4224"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m573.24 966.68l-7.12-4.38-6.58 0.54-2.19 0.55"
+      />
+      <path
+          id="path4226"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m575.44 962.3l-9.32-3.84-7.12 1.64"
+      />
+      <path
+          id="path4228"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m562.28 969.42l-13.15 4.93"
+      />
+      <path
+          id="path4230"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m557.35 975.45l-10.41 3.29"
+      />
+      <path
+          id="path4232"
+          style="stroke:#000000;stroke-width:1.2207;fill:none"
+          d="m579.82 923.39l-2.19 21.37"
+      />
+      <path
+          id="path4234"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m580.79 981.91l1.8 1.53 1.28-8.2 2.05-2.82 0.26-2.05-1.29-2.56-0.51-2.3-1.28-2.05-1.79 9.73 1.02 2.82-1.54 5.9z"
+      />
+      <path
+          id="path4236"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m515.96 1004.7l4.1 3.3 9.74-11.74 8.2-8.46 6.41-7.69 6.92-8.97 7.94-13.58 7.43-2.3 3.84-0.52 5.39 0.52 4.1 1.02 2.81 2.56 0.52 4.36 2.05 4.1 2.3 6.66 1.03 4.36 3.84 1.79 1.8 0.26 5.12-3.33 0.26-1.28-1.28-3.59-3.59-6.92-4.36-3.33-2.56-5.9-9.23-9.22-0.51-1.79-10.76 0.51-3.59 2.56-14.86 1.54-6.92 6.4-9.22 12.3-2.82 6.67-4.36 8.97 2.31 4.35 0.51 0.77 16.66-20.5 1.53-3.33 11.79-11.28-13.32 14.87-7.69 10.25-13.07 12.55-2.05 8.46-6.41 4.6z"
+      />
+      <path
+          id="path4238"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m575.93 961.92l-10.51-3.85-6.15 1.8-1.54 3.33 8.2-1.03 7.43 4.62 2.57-4.87z"
+      />
+      <path
+          id="path4240"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m573.88 970.89l-6.15-5.9h-7.44l-4.35 1.03-3.85 4.1 4.1-2.05 9.23 1.28 5.89 3.07 2.57-1.53z"
+      />
+      <path
+          id="path4242"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m563.11 969.09l-14.35 4.87-2.05 4.36 11.28-3.08 11.79 2.57 2.56-1.54-8.71-4.87-2.82 1.02 2.3-3.33z"
+      />
+      <path
+          id="path4244"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m571.83 981.65l-5.9-4.36-4.61-0.51-9.23 2.56-7.68 5.39 6.15-3.34 7.94-0.77 6.41 1.29 6.92-0.26z"
+      />
+      <path
+          id="path4246"
+          style="fill-rule:evenodd;stroke:#000000;stroke-width:1.6144;fill:#a5c6ff"
+          d="m541.33 989.08l1.28 0.77 8.97-5.89 10-0.77 8.45 1.28 2.31-2.56h-7.18l-14.35-0.26-9.48 7.43z"
+      />
+    </g
+    >
+  </g
+  >
+  <metadata
+    >
+    <rdf:RDF
+      >
+      <cc:Work
+        >
+        <dc:format
+          >image/svg+xml</dc:format
+        >
+        <dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        />
+        <cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        />
+        <dc:publisher
+          >
+          <cc:Agent
+              rdf:about="http://openclipart.org/"
+            >
+            <dc:title
+              >Openclipart</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:publisher
+        >
+        <dc:title
+          >Hightop Sneakers</dc:title
+        >
+        <dc:date
+          >2009-05-09T20:07:35</dc:date
+        >
+        <dc:description
+        />
+        <dc:source
+          >https://openclipart.org/detail/25869/hightop-sneakers-by-gingercoons</dc:source
+        >
+        <dc:creator
+          >
+          <cc:Agent
+            >
+            <dc:title
+              >gingercoons</dc:title
+            >
+          </cc:Agent
+          >
+        </dc:creator
+        >
+        <dc:subject
+          >
+          <rdf:Bag
+            >
+            <rdf:li
+              >cartoon</rdf:li
+            >
+            <rdf:li
+              >clothing</rdf:li
+            >
+            <rdf:li
+              >colour</rdf:li
+            >
+            <rdf:li
+              >shoes</rdf:li
+            >
+            <rdf:li
+              >sneaker</rdf:li
+            >
+          </rdf:Bag
+          >
+        </dc:subject
+        >
+      </cc:Work
+      >
+      <cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        >
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        />
+        <cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        />
+      </cc:License
+      >
+    </rdf:RDF
+    >
+  </metadata
+  >
+</svg
+>
