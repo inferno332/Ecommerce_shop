@@ -156,6 +156,9 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 
 const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, price } = req.query;
+    let page = Number(req.query.page) || 1;
+    let limit = 12;
+    let sort = req.query.sort || 'createdAt';
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
     let priceDefault = {
@@ -246,7 +249,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     ],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (categoryArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -255,7 +261,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ categoryName: { $in: categoryArray } }, priceDefault],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -264,7 +273,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort({sort})
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (price) {
         const result = await Product.aggregate(aggegrate)
@@ -273,10 +285,16 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else {
-        const result = await Product.aggregate(discountPrice);
+        const result = await Product.aggregate(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     }
 });
