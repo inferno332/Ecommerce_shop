@@ -9,6 +9,10 @@ export default function MobileMenuModal() {
     let [isOpen, setIsOpen] = useState(false);
     const Categories = [
         {
+            name: 'Home',
+            link: '/',
+        },
+        {
             name: 'All categories',
             link: '/product',
         },

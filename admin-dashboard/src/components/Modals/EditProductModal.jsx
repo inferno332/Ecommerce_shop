@@ -38,9 +38,6 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
-            '.Mui-focused': {
-                color: colors.greenAccent[500],
-            },
         },
     };
 

@@ -15,9 +15,7 @@ const Layout = ({ children }) => {
     //END
     return (
         <>
-            <div className='sticky top-0 container mx-auto z-[10]'>
-                <Header />
-            </div>
+            <Header />
             <main className='container mx-auto min-h-[90vh] sm:min-h-[80vh]'>{children}</main>
             <Footer />
         </>

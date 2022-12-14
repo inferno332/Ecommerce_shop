@@ -50,12 +50,15 @@ const ActionsRow = ({ params, handleDelete, updateData, content, noEdit = false,
             {!noEdit && (
                 <IconButton
                     sx={{
-                        backgroundColor: colors.greenAccent[600],
-                        ':hover': { backgroundColor: colors.greenAccent[700] },
+                        backgroundColor: colors.greenAccent[500],
+                        ':hover': { backgroundColor: colors.greenAccent[600] },
                     }}
-                    onClick={() => setOpen(true)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setOpen(true);
+                    }}
                 >
-                    <DescriptionOutlined />
+                    <DescriptionOutlined sx={{color: '#000'}} />
                 </IconButton>
             )}
             <IconButton
@@ -63,7 +66,10 @@ const ActionsRow = ({ params, handleDelete, updateData, content, noEdit = false,
                     backgroundColor: colors.redAccent[600],
                     ':hover': { backgroundColor: colors.redAccent[700] },
                 }}
-                onClick={() => setOpenDelete(true)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDelete(true);
+                }}
             >
                 <DeleteOutline />
             </IconButton>

@@ -70,10 +70,10 @@ const Employees = () => {
                                 justifyContent="center"
                                 backgroundColor={
                                     role === 'admin'
-                                        ? colors.greenAccent[600]
+                                        ? colors.blueAccent[500]
                                         : role === 'manager'
-                                        ? colors.redAccent[600]
-                                        : colors.redAccent[700]
+                                        ? colors.blueAccent[700]
+                                        : colors.redAccent[600]
                                 }
                                 borderRadius="4px"
                             >

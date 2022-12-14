@@ -6,7 +6,7 @@ const DropDownSort = () => {
     const [isActive, setIsActive] = useState(false);
 
     return (
-        <Menu as='div' className='relative inline-block '>
+        <Menu as='div' className='relative inline-block'>
             <Menu.Button
                 className={` flex items-center border rounded-xl p-2 gap-1`}
                 onClick={() => setIsActive((prev) => !prev)}>

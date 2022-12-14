@@ -16,17 +16,14 @@ const OrderDetailsModal = ({ open, onClose, orderDetails }) => {
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
-            '.Mui-focused': {
-                color: colors.greenAccent[500],
-            },
         },
     };
 
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields} gap={2}>
-                {orderDetails.map((item) => (
-                    <Card key={item.name} sx={{ width: '100%' }}>
+                {orderDetails.map((item,index) => (
+                    <Card key={index} sx={{ width: '100%' }}>
                         <CardContent>
                             <Box display="flex" justifyContent="space-between" width="100%">
                                 <Box display="flex" flexDirection="column">

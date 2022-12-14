@@ -11,7 +11,7 @@ const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit, deleteB
         bgcolor: colors.primary[400],
         boxShadow: 24,
         p: 4,
-        overflowY: 'scroll',
+        overflowY: 'auto',
         maxHeight: '80vh',
     };
     return (

@@ -36,8 +36,8 @@ const ProductWithCate = ({ products, categories, suppliers }) => {
 
             <div
                 className={`${
-                    hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
-                } ease-linear duration-300 relative sm:sticky z-10`}>
+                    hideHeader ? 'sm:top-0' : 'sm:top-[80px]'
+                } ease-linear duration-100 sticky h-14 mb-4 z-[9]`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex '>
