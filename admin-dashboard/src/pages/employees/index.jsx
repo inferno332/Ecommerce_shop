@@ -1,21 +1,22 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import { AdminPanelSettingsOutlined, WorkOutlineRounded, ManageAccountsOutlined } from '@mui/icons-material';
+import { GridToolbar } from '@mui/x-data-grid';
 import moment from 'moment';
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import axiosJWT from '../../axios/axiosJWT';
 import { tokens } from '../../theme';
-import { GridToolbar } from '@mui/x-data-grid';
 
 const Employees = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
     const [employees, setEmployees] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
@@ -110,6 +111,8 @@ const Employees = () => {
                         params={params}
                         handleDelete={handleDelete}
                         updateData={updateData}
+                        disableEdit={!roles.includes('admin')}
+                        disableEditRole={!roles.includes('admin')}
                     />
                 );
             },
