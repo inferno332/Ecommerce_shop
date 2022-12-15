@@ -8,8 +8,10 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import { GridToolbar } from '@mui/x-data-grid';
+import { useSelector } from 'react-redux';
 
 const Products = () => {
+    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [suppliers, setSuppliers] = useState([]);
@@ -126,6 +128,7 @@ const Products = () => {
                         handleUpload={handleUpload}
                         categories={categories}
                         suppliers={suppliers}
+                        disableDelete={roles.includes('admin') ? false : true}
                     />
                 );
             },

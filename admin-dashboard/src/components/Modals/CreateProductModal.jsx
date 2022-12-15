@@ -46,9 +46,6 @@ const CreateProductModal = ({ open, onClose, suppliers, categories, createData }
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
-            '.Mui-focused': {
-                color: colors.greenAccent[500],
-            },
         },
     };
 
