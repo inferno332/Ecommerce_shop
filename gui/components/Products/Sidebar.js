@@ -29,30 +29,42 @@ const Sidebar = ({ isOpenFilter, categories, suppliers, hideHeader }) => {
     const handleRouterPush = () => {
         if (CategoryNames.length > 0 && SupplierNames.length > 0) {
             router.push({
-                pathname: `/product/filter`,
+                pathname: '/product/filter',
                 query: {
                     category: CategoryNames.join('-'),
                     supplier: SupplierNames.join('-'),
                     price: JSON.stringify(PriceRange),
+                    sort: query.sort,
                 },
             });
         } else if (CategoryNames.length > 0) {
             router.push({
                 pathname: '/product/filter',
-                query: { category: CategoryNames.join('-'), price: JSON.stringify(PriceRange) },
+                query: {
+                    category: CategoryNames.join('-'),
+                    price: JSON.stringify(PriceRange),
+                    sort: query.sort,
+                },
             });
         } else if (SupplierNames.length > 0) {
             router.push({
                 pathname: '/product/filter',
-                query: { supplier: SupplierNames.join('-'), price: JSON.stringify(PriceRange) },
+                query: {
+                    supplier: SupplierNames.join('-'),
+                    price: JSON.stringify(PriceRange),
+                    sort: query.sort,
+                },
             });
         } else if (PriceRange) {
             router.push({
                 pathname: '/product/filter',
-                query: { price: JSON.stringify(PriceRange) },
+                query: {
+                    price: JSON.stringify(PriceRange),
+                    sort: query.sort,
+                },
             });
         } else {
-            router.push('/product');
+            console.log('No filter');
         }
     };
 

@@ -76,7 +76,7 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields}>
-                <TextField placeholder="Product ID" disabled label="Product ID" />
+                <TextField placeholder="Product ID" disabled label="Product ID" name="id" {...register('id')} />
                 <TextField
                     placeholder="Name"
                     name="name"
