@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+<<<<<<< Updated upstream
 const {
   getAllCategories,
   getCategoryById,
@@ -12,6 +13,21 @@ const {
 } = require("../controllers/categories");
 const allowRoles = require("../middleware/allowRoles");
 const auth = require('../middleware/auth');
+=======
+router.get(
+  "/",
+  // passport.authenticate("jwt", { session: false }),
+  // allowRoles("admin", "staff"),
+  async (req, res) => {
+    try {
+      const categories = await Category.find();
+      res.status(200).json(categories);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+);
+>>>>>>> Stashed changes
 
 
 router.get("/", auth, allowRoles("admin", "staff"), getAllCategories);
