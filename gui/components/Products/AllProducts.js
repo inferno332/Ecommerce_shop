@@ -21,7 +21,7 @@ const AllProducts = ({ products }) => {
         setCurrentProducts(products.slice(itemOffset, itemOffset + itemPerPage));
         setPageCount(Math.ceil(products.length / itemPerPage));
         console.log(products.length);
-    }, [products, itemOffset, pageCount]);
+    }, [products, itemOffset]);
     return (
         <div className='flex flex-col w-full gap-5'>
             <Toaster position='top-center' reverseOrder={false} />
@@ -88,7 +88,7 @@ const AllProducts = ({ products }) => {
             </div>
             {/* Pagination */}
             <div className='mt-4 flex mx-auto'>
-                <Pagination total={pageCount} initialPage={1} onChange={(page) => handlePageClick(page)} />
+                <Pagination total={pageCount} initialPage={1} onChange={(page) => handlePageClick(page)} color='gradient' />
             </div>
         </div>
     );
