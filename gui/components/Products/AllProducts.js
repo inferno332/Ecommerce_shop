@@ -2,28 +2,26 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast, { Toaster } from 'react-hot-toast';
-import ReactPaginate from 'react-paginate';
+import { Pagination } from '@nextui-org/react';
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { useCart } from '../../zustand/useCart';
 
 const AllProducts = ({ products }) => {
     const { add } = useCart((state) => state);
-    const [itemOffset, setItemOffset] = useState(0);
     const [currentProducts, setCurrentProducts] = useState([]);
+    const [itemOffset, setItemOffset] = useState(0);
     const [pageCount, setPageCount] = useState(0);
-    const perPage = 12;
-    const handlePageClick = (e) => {
-        const newOffset = (e.selected * perPage) % products.length;
+    const itemPerPage = 12;
+    const handlePageClick = (page) => {
+        const newOffset = (page - 1) * itemPerPage;
         setItemOffset(newOffset);
-        window.scrollTo(0, 0);
     };
     useEffect(() => {
-        const endOffset = itemOffset + perPage;
-        setCurrentProducts(products.slice(itemOffset, endOffset));
-        setPageCount(Math.ceil(products.length / perPage));
-        window.scrollTo(0, 0);
-    }, [products, itemOffset]);
+        setCurrentProducts(products.slice(itemOffset, itemOffset + itemPerPage));
+        setPageCount(Math.ceil(products.length / itemPerPage));
+        console.log(products.length);
+    }, [products, itemOffset, pageCount]);
     return (
         <div className='flex flex-col w-full gap-5'>
             <Toaster position='top-center' reverseOrder={false} />
@@ -89,22 +87,8 @@ const AllProducts = ({ products }) => {
                 })}
             </div>
             {/* Pagination */}
-            <div className='mt-4 w-[360px] sm:w-[560px] flex mx-auto'>
-                <ReactPaginate
-                    breakLabel='...'
-                    nextLabel='next >'
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={2}
-                    pageCount={pageCount}
-                    previousLabel='< previous'
-                    renderOnZeroPageCount={null}
-                    className='flex justify-center text-center font-semibold w-full text-gray-700'
-                    pageClassName='border border-r-0 border-slate-300 w-10 py-1 hover:bg-black hover:text-white cursor-pointer'
-                    breakClassName='border border-r-0 border-slate-300 w-10 py-1 hover:bg-black hover:text-white'
-                    previousClassName='border border-r-0 border-slate-300 py-1 px-2 hover:bg-black hover:text-white rounded-l-sm'
-                    nextClassName='border border-slate-300 py-1 px-2 hover:bg-black hover:text-white rounded-r-sm'
-                    activeClassName='bg-black text-white'
-                />
+            <div className='mt-4 flex mx-auto'>
+                <Pagination total={pageCount} initialPage={1} onChange={(page) => handlePageClick(page)} />
             </div>
         </div>
     );
