@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
@@ -8,6 +8,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
 import { tokens } from '../../theme';
 import { loginUser } from '../../redux/apiRequests';
+import { useEffect } from 'react';
 
 function Login() {
     const theme = useTheme();
@@ -30,6 +31,13 @@ function Login() {
     const handleShowPass = () => {
         setShowPassword(!showPassword);
     };
+
+    useEffect(() => {
+        const user = JSON.parse(JSON.parse(window.localStorage.getItem('persist:root'))?.auth)?.login?.currentUser;
+        if (user != null) {
+            navigate('/');
+        }
+    }, []);
 
     return (
         <ContainerAuth>

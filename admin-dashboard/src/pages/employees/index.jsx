@@ -16,7 +16,7 @@ const Employees = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
+    const roles = useSelector((state) => state.auth.login.currentUser?.payload?.roles);
     const [employees, setEmployees] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
@@ -59,7 +59,7 @@ const Employees = () => {
             field: 'roles',
             headerName: 'Roles',
             flex: 1,
-            renderCell: ({row: {roles}}) => {
+            renderCell: ({ row: { roles } }) => {
                 return (
                     <Box width="30%" display="flex" gap={1} flex="1">
                         {roles.sort().map((role) => (
@@ -113,6 +113,7 @@ const Employees = () => {
                         updateData={updateData}
                         disableEdit={!roles.includes('admin')}
                         disableEditRole={!roles.includes('admin')}
+                        disableDelete={!roles.includes('admin')}
                     />
                 );
             },
