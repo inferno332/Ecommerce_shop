@@ -21,6 +21,7 @@
     "react-hook-form": "^7.40.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
+    "react-paginate": "^8.1.4",
     "react-search-autocomplete": "^8.2.1",
     "socket.io-client": "^4.5.4",
     "swiper": "^8.4.4",

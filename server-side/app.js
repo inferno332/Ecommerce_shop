@@ -31,7 +31,7 @@ mongoose.connect(
   () => {
     console.log("Connected to DB");
   }
-);
+);  
 
 var app = express();
 

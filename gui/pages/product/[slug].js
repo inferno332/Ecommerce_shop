@@ -5,6 +5,7 @@ import httpRequest from '../../ultis/axios';
 import HeaderProduct from '../../components/Products/HeaderProduct';
 import Sidebar from '../../components/Products/Sidebar';
 import AllProducts from '../../components/Products/AllProducts';
+import PaginatedItems from '../../components/Pagination';
 
 const ProductWithCate = ({ products, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
@@ -36,8 +37,8 @@ const ProductWithCate = ({ products, categories, suppliers }) => {
 
             <div
                 className={`${
-                    hideHeader ? 'sm:top-[-1px]' : 'sm:top-[80px]'
-                } ease-linear duration-300 relative sm:sticky z-10`}>
+                    hideHeader ? 'sm:top-0' : 'sm:top-[80px]'
+                } ease-linear duration-100 relative sm:sticky h-14 mt-4 mb-4 z-[9]`}>
                 <HeaderProduct setIsOpenFilter={setIsOpenFilter} />
             </div>
             <div className='sm:flex '>
@@ -51,17 +52,20 @@ const ProductWithCate = ({ products, categories, suppliers }) => {
                 </div>
                 <AllProducts products={products} />
             </div>
+            <PaginatedItems products={products} />
         </div>
     );
 };
 
 export async function getServerSideProps(context) {
-    const { category, supplier, price } = context.query;
+    const { category, supplier, price, page, sort } = context.query;
     const resProduct = await httpRequest.get('products/filter', {
         params: {
             category,
             supplier,
             price,
+            page,
+            sort,
         },
     });
     const products = await resProduct.data;

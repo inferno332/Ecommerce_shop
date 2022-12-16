@@ -6,6 +6,8 @@ import { AssignmentIndOutlined, HourglassBottomOutlined, LocalShippingOutlined }
 import toast, { Toaster } from 'react-hot-toast';
 import moment from 'moment';
 
+import { useSelector } from 'react-redux';
+
 import axiosJWT from '../../axios/axiosJWT';
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -17,6 +19,7 @@ const Orders = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
+    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
     const [orders, setOrders] = useState([]);
     const [open, setOpen] = useState(false);
     const [orderDetails, setOrderDetails] = useState([]);
@@ -157,6 +160,8 @@ const Orders = () => {
                         handleDelete={handleDelete}
                         updateData={updateData}
                         handleUpload={handleUpload}
+                        disableEdit
+                        disableDelete={!roles.includes('admin')}
                     />
                 );
             },

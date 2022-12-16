@@ -24,7 +24,17 @@ const EditModal = ({ content, ...props }) => {
     }
 };
 
-const ActionsRow = ({ params, handleDelete, updateData, content, noEdit = false, handleUpload, ...props }) => {
+const ActionsRow = ({
+    params,
+    handleDelete,
+    updateData,
+    content,
+    noEdit = false,
+    handleUpload,
+    disableEdit = false,
+    disableDelete = false,
+    ...props
+}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
@@ -47,23 +57,31 @@ const ActionsRow = ({ params, handleDelete, updateData, content, noEdit = false,
                 handleUpload={handleUpload}
                 {...props}
             />
-            {!noEdit && (
                 <IconButton
                     sx={{
-                        backgroundColor: colors.greenAccent[600],
-                        ':hover': { backgroundColor: colors.greenAccent[700] },
+                        backgroundColor: colors.greenAccent[500],
+                        ':hover': { backgroundColor: colors.greenAccent[600] },
+                        '&:disabled': { backgroundColor: colors.greenAccent[500], opacity: 0.5 },
                     }}
-                    onClick={() => setOpen(true)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        setOpen(true);
+                    }}
+                    disabled={disableEdit}
                 >
-                    <DescriptionOutlined />
+                    <DescriptionOutlined sx={{ color: '#000' }} />
                 </IconButton>
-            )}
             <IconButton
                 sx={{
                     backgroundColor: colors.redAccent[600],
                     ':hover': { backgroundColor: colors.redAccent[700] },
+                    '&:disabled': { backgroundColor: colors.redAccent[600], opacity: 0.5 },
                 }}
-                onClick={() => setOpenDelete(true)}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDelete(true);
+                }}
+                disabled={disableDelete}
             >
                 <DeleteOutline />
             </IconButton>

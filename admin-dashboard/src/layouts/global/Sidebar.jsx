@@ -94,10 +94,10 @@ function Sidebar() {
                     padding: '5px 35px 5px 20px !important',
                 },
                 '& .pro-inner-item:hover': {
-                    color: '#868dfb !important',
+                    color: `${colors.blueAccent[500]} !important`,
                 },
                 '& .pro-menu-item.active': {
-                    color: '#6870fa !important',
+                    color: `${colors.blueAccent[500]} !important`,
                 },
             }}
         >
@@ -115,7 +115,7 @@ function Sidebar() {
                         {!isCollapsed && (
                             <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px">
                                 <Typography variant="h3" color={colors.grey[100]}>
-                                    QẢN LÍ
+                                    ADMIN
                                 </Typography>
                                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                                     <MenuOutlined />
@@ -141,7 +141,7 @@ function Sidebar() {
                                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" marginTop="10px">
                                     {user?.payload.fullName}
                                 </Typography>
-                                <Typography variant="h5" color={colors.greenAccent[500]}>
+                                <Typography variant="h5" color={colors.greenAccent[400]}>
                                     VP Fancy Admin
                                 </Typography>
                             </Box>

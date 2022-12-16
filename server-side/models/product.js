@@ -17,6 +17,7 @@ const productSchema = new Schema(
             },
         ],
         promotionPosition: { type: Array, default: [] },
+        createAt: { type: Date, default: Date.now },
     },
     {
         query: {

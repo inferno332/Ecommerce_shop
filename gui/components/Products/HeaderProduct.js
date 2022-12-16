@@ -6,7 +6,7 @@ import DropDownSort from './DropDownSort';
 
 const HeaderProduct = ({ setIsOpenFilter }) => {
     return (
-        <div className='flex justify-between items-center bg-white h-12 mb-4'>
+        <div className='flex justify-between items-center bg-white h-full'>
             <h1 className='font-bold text-xl'>OUR PRODUCTS</h1>
             <div className='flex gap-2'>
                 <button

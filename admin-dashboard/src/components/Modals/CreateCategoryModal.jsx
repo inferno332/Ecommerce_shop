@@ -32,9 +32,6 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
             '.MuiFormControl-root': {
                 marginBottom: '20px',
             },
-            '.Mui-focused': {
-                color: colors.greenAccent[500],
-            },
         },
     };
 

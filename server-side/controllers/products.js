@@ -156,6 +156,16 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 
 const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, price } = req.query;
+    let page = Number(req.query.page) || 1;
+    let limit = 9;
+    let sort = {};
+    if (req.query.sort) {
+        const parts = req.query.sort.split(':');
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
+        console.log(sort);
+    } else {
+        sort = { price: -1 };
+    }
     let categoryArray = category?.split('-') || [];
     let supplierArray = supplier?.split('-') || [];
     let priceDefault = {
@@ -204,11 +214,13 @@ const filterProduct = tryCatch(async (req, res) => {
                 price: 1,
                 sizes: 1,
                 imageURL: 1,
+                createdAt: 1,
                 categoryName: '$category.name',
                 supplierName: '$supplier.name',
             },
         },
     ];
+
     const discountPrice = [
         {
             $unwind: { path: '$sizes' },
@@ -221,9 +233,6 @@ const filterProduct = tryCatch(async (req, res) => {
             },
         },
         {
-            $sort: { 'sizes.discount': -1 },
-        },
-        {
             $group: {
                 _id: '$_id',
                 name: { $first: '$name' },
@@ -232,6 +241,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 imageURL: { $first: '$imageURL' },
                 categoryName: { $first: '$categoryName' },
                 supplierName: { $first: '$supplierName' },
+                createdAt: { $first: '$createdAt' },
             },
         },
     ];
@@ -246,7 +256,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     ],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (categoryArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -255,7 +268,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ categoryName: { $in: categoryArray } }, priceDefault],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -264,7 +280,10 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ supplierName: { $in: supplierArray } }, priceDefault],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else if (price) {
         const result = await Product.aggregate(aggegrate)
@@ -273,10 +292,17 @@ const filterProduct = tryCatch(async (req, res) => {
                     $and: [{ price: { $gte: Number(priceFilter.gte) } }, { price: { $lte: Number(priceFilter.lte) } }],
                 },
             })
-            .append(discountPrice);
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     } else {
-        const result = await Product.aggregate(discountPrice);
+        const result = await Product.aggregate(aggegrate)
+            .append(discountPrice)
+            .sort(sort)
+            .skip((page - 1) * limit)
+            .limit(limit);
         res.status(200).json(result);
     }
 });
