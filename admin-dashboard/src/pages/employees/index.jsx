@@ -16,7 +16,7 @@ const Employees = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
+    const roles = useSelector((state) => state.auth.login.currentUser?.payload?.roles);
     const [employees, setEmployees] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
