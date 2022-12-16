@@ -46,6 +46,17 @@ const Header = () => {
                             className='hidden md:inline-block hover:opacity-70 h-28 w-28'
                         />
                     </Link>
+                    <div className='hidden lg:flex flex-1 gap-10'>
+                        <Link href='/'>
+                            <div className='opacity-80 duration-200 hover:opacity-100'>Home</div>
+                        </Link>
+                        <Link href='/product/filter'>
+                            <div className='opacity-80 duration-200 hover:opacity-100'>Products</div>
+                        </Link>
+                        <Link href='/about-us'>
+                            <div className='opacity-80 duration-200 hover:opacity-100'>About Us</div>
+                        </Link>
+                    </div>
                     {/* Search bar */}
                     <div className='items-center flex flex-grow rounded-full bg-transparent relative'>
                         <div className='relative w-full flex flex-row-reverse'>
@@ -66,7 +77,7 @@ const Header = () => {
                                 </p>
                             )}
                         </div>
-                        <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer block md:hidden'>
+                        <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer block lg:hidden'>
                             {/* <FiMenu /> */}
                             <MobileMenuModal />
                         </span>
