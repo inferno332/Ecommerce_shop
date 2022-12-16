@@ -162,7 +162,6 @@ const filterProduct = tryCatch(async (req, res) => {
     if (req.query.sort) {
         const parts = req.query.sort.split(':');
         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
-        console.log(sort);
     } else {
         sort = { price: -1 };
     }
