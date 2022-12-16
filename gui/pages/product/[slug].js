@@ -5,7 +5,6 @@ import httpRequest from '../../ultis/axios';
 import HeaderProduct from '../../components/Products/HeaderProduct';
 import Sidebar from '../../components/Products/Sidebar';
 import AllProducts from '../../components/Products/AllProducts';
-import PaginatedItems from '../../components/Pagination';
 
 const ProductWithCate = ({ products, categories, suppliers }) => {
     const [isOpenFilter, setIsOpenFilter] = useState(true);
@@ -52,7 +51,6 @@ const ProductWithCate = ({ products, categories, suppliers }) => {
                 </div>
                 <AllProducts products={products} />
             </div>
-            <PaginatedItems products={products} />
         </div>
     );
 };
