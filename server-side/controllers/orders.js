@@ -3,7 +3,7 @@ const tryCatch = require('./utils/tryCatch');
 const moment = require('moment');
 
 const getAllOrders = tryCatch(async (req, res) => {
-    const orders = await Order.find();
+    const orders = await Order.find().sort({ createdAt: -1 });
     res.status(200).json(orders);
 });
 
@@ -69,8 +69,6 @@ const getSoldOrderByDay = tryCatch(async (req, res) => {
 const getSoldOrderByWeek = tryCatch(async (req, res) => {
     let lastWeekend = moment().startOf('week').toDate();
     let today = moment().toDate();
-    console.log('lastweek', lastWeekend);
-    console.log('today', today);
     const aggregate = [
         {
             $match: {
