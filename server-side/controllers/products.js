@@ -157,11 +157,8 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, price } = req.query;
     let page = Number(req.query.page) || 1;
-    let limit = 12;
+    let limit = 9;
     let sort = {};
-    let count = {
-       
-    }
     if (req.query.sort) {
         const parts = req.query.sort.split(':');
         sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
@@ -305,7 +302,7 @@ const filterProduct = tryCatch(async (req, res) => {
             .append(discountPrice)
             .sort(sort)
             .skip((page - 1) * limit)
-            .limit(limit)
+            .limit(limit);
         res.status(200).json(result);
     }
 });
