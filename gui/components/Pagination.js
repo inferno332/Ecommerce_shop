@@ -1,7 +1,7 @@
 import ReactPaginate from 'react-paginate';
 import { useRouter } from 'next/router';
 
-const PaginatedItems = ({  }) => {
+const PaginatedItems = () => {
     const router = useRouter();
     // Invoke when user click to request another page.
     const handlePageClick = (event) => {
@@ -17,7 +17,7 @@ const PaginatedItems = ({  }) => {
                 breakLabel='...'
                 nextLabel='next >'
                 onPageChange={handlePageClick}
-                pageRangeDisplayed={3}
+                pageRangeDisplayed={2}
                 pageCount={5}
                 previousLabel='< previous'
                 renderOnZeroPageCount={null}
