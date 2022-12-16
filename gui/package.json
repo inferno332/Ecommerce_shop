@@ -22,6 +22,7 @@
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.6.0",
     "react-search-autocomplete": "^8.2.1",
+    "socket.io-client": "^4.5.4",
     "swiper": "^8.4.4",
     "zustand": "^4.1.4"
   },

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import httpRequest from '../../ultis/axios';
 import toast, { Toaster } from 'react-hot-toast';
+import { io } from 'socket.io-client';
 
 import { Stepper, Step, StepLabel, StepContent } from '@mui/material';
 import { BsArrowRight } from 'react-icons/bs';
@@ -15,6 +16,12 @@ const OrderForm = () => {
     const router = useRouter();
     const { products, clear } = useCart((state) => state);
 
+    let socket = io.connect(`${process.env.BASE_URL}`, {
+        secure: true,
+        reconnection: true,
+        reconnectionDelay: 5000,
+        reconnectionAttempts: 20,
+    });
     //REACT HOOK FORM
     const {
         handleSubmit,
@@ -27,6 +34,11 @@ const OrderForm = () => {
         const order = { ...data, orderDetails: products };
         await httpRequest.post('/orders/v1', order);
         toast.success('Successfully Order. Thank You!');
+
+        //SOCKET IO
+        socket.emit('client-notification', {
+            message: 'You have an order',
+        });
     };
     //END
 
