@@ -26,7 +26,7 @@ function Sliders({ sliders }) {
                     <SwiperSlide key={index} className='relative flex justify-center items-center'>
                         <div className='flex flex-col gap-5 absolute z-10 left-12 md:left-24 lg:left-56'>
                             <h1 className=' text-3xl font-semibold'>{slider.title}</h1>
-                            <p className='text-2xl'>{slider.description}</p>
+                            <p className='md:text-2xl text-lg'>{slider.description}</p>
                             <button
                                 className=' bg-black rounded-md w-32 text-white px-4 py-2 hover:opacity-80'
                                 onClick={() => {
