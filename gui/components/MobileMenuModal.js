@@ -59,7 +59,7 @@ export default function MobileMenuModal() {
                     </Transition.Child>
 
                     <div className='fixed w-[80vw] top-0 right-0'>
-                        <div className='flex items-center justify-center text-center'>
+                        <div className='flex items-center justify-end text-center'>
                             <Transition.Child
                                 as={Fragment}
                                 enter='transform transition ease-in-out duration-300'
