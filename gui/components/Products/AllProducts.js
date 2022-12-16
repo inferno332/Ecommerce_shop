@@ -1,19 +1,34 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import toast, { Toaster } from 'react-hot-toast';
-
+import ReactPaginate from 'react-paginate';
 import { AiOutlineEye, AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { useCart } from '../../zustand/useCart';
 
 const AllProducts = ({ products }) => {
     const { add } = useCart((state) => state);
+    const [itemOffset, setItemOffset] = useState(0);
+    const [currentProducts, setCurrentProducts] = useState([]);
+    const [pageCount, setPageCount] = useState(0);
+    const perPage = 12;
+    const handlePageClick = (e) => {
+        const newOffset = (e.selected * perPage) % products.length;
+        setItemOffset(newOffset);
+        window.scrollTo(0, 0);
+    };
+    useEffect(() => {
+        const endOffset = itemOffset + perPage;
+        setCurrentProducts(products.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(products.length / perPage));
+        window.scrollTo(0, 0);
+    }, [products, itemOffset]);
     return (
         <div className='flex flex-col w-full gap-5'>
             <Toaster position='top-center' reverseOrder={false} />
             <div className='grid grid-cols-2 sm:grid-cols-3 gap-5 w-full'>
-                {products.map((product) => {
+                {currentProducts.map((product) => {
                     return (
                         <div key={product._id} className='group relative border rounded-lg cursor-pointer'>
                             <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
@@ -72,6 +87,24 @@ const AllProducts = ({ products }) => {
                         </div>
                     );
                 })}
+            </div>
+            {/* Pagination */}
+            <div className='mt-4 w-[360px] sm:w-[560px] flex mx-auto'>
+                <ReactPaginate
+                    breakLabel='...'
+                    nextLabel='next >'
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={2}
+                    pageCount={pageCount}
+                    previousLabel='< previous'
+                    renderOnZeroPageCount={null}
+                    className='flex justify-center text-center font-semibold w-full text-gray-700'
+                    pageClassName='border border-r-0 border-slate-300 w-10 py-1 hover:bg-black hover:text-white cursor-pointer'
+                    breakClassName='border border-r-0 border-slate-300 w-10 py-1 hover:bg-black hover:text-white'
+                    previousClassName='border border-r-0 border-slate-300 py-1 px-2 hover:bg-black hover:text-white rounded-l-sm'
+                    nextClassName='border border-slate-300 py-1 px-2 hover:bg-black hover:text-white rounded-r-sm'
+                    activeClassName='bg-black text-white'
+                />
             </div>
         </div>
     );

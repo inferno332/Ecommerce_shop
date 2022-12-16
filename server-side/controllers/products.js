@@ -156,8 +156,6 @@ const searchProductByCategory = tryCatch(async (req, res) => {
 
 const filterProduct = tryCatch(async (req, res) => {
     const { category, supplier, price } = req.query;
-    let page = Number(req.query.page) || 1;
-    let limit = 9;
     let sort = {};
     if (req.query.sort) {
         const parts = req.query.sort.split(':');
@@ -257,9 +255,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 },
             })
             .append(discountPrice)
-            .sort(sort)
-            .skip((page - 1) * limit)
-            .limit(limit);
+            .sort(sort);
         res.status(200).json(result);
     } else if (categoryArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -269,9 +265,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 },
             })
             .append(discountPrice)
-            .sort(sort)
-            .skip((page - 1) * limit)
-            .limit(limit);
+            .sort(sort);
         res.status(200).json(result);
     } else if (supplierArray.length > 0) {
         const result = await Product.aggregate(aggegrate)
@@ -281,9 +275,7 @@ const filterProduct = tryCatch(async (req, res) => {
                 },
             })
             .append(discountPrice)
-            .sort(sort)
-            .skip((page - 1) * limit)
-            .limit(limit);
+            .sort(sort);
         res.status(200).json(result);
     } else if (price) {
         const result = await Product.aggregate(aggegrate)
@@ -293,16 +285,10 @@ const filterProduct = tryCatch(async (req, res) => {
                 },
             })
             .append(discountPrice)
-            .sort(sort)
-            .skip((page - 1) * limit)
-            .limit(limit);
+            .sort(sort);
         res.status(200).json(result);
     } else {
-        const result = await Product.aggregate(aggegrate)
-            .append(discountPrice)
-            .sort(sort)
-            .skip((page - 1) * limit)
-            .limit(limit);
+        const result = await Product.aggregate(aggegrate).append(discountPrice).sort(sort);
         res.status(200).json(result);
     }
 });
