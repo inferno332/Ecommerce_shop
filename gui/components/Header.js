@@ -46,15 +46,21 @@ const Header = () => {
                             className='hidden md:inline-block hover:opacity-70 h-28 w-28'
                         />
                     </Link>
-                    <div className='hidden lg:flex flex-1 gap-10'>
+                    <div className='hidden lg:flex gap-10'>
                         <Link href='/'>
-                            <div className='opacity-80 duration-200 hover:opacity-100'>Home</div>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>Home</h4>
+                            </div>
                         </Link>
                         <Link href='/product/filter'>
-                            <div className='opacity-80 duration-200 hover:opacity-100'>Products</div>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>Products</h4>
+                            </div>
                         </Link>
                         <Link href='/about-us'>
-                            <div className='opacity-80 duration-200 hover:opacity-100'>About Us</div>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>About Us</h4>
+                            </div>
                         </Link>
                     </div>
                     {/* Search bar */}

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import axiosJWT from '../../axios/axiosJWT';
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
@@ -10,6 +11,7 @@ import ActionsRow from '../../components/ActionsRow';
 import { GridToolbar } from '@mui/x-data-grid';
 
 const Categories = () => {
+    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
     const [categories, setCategories] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
@@ -92,6 +94,8 @@ const Categories = () => {
                         handleDelete={handleDelete}
                         updateData={updateData}
                         handleUpload={handleUpload}
+                        disableDelete={!roles.includes('admin')}
+                        disableEdit={!roles.includes('admin')}
                     />
                 );
             },
