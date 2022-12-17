@@ -14,7 +14,7 @@ export default function MobileMenuModal() {
         },
         {
             name: 'All categories',
-            link: '/product',
+            link: '/product/filter',
         },
         {
             name: 'Women',
