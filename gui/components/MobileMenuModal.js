@@ -28,6 +28,10 @@ export default function MobileMenuModal() {
             name: 'Accessory',
             link: '/product/filter?category=Accessory',
         },
+        {
+            name: 'About us',
+            link: '/about-us',
+        }
     ];
     function closeModal() {
         setIsOpen(false);
