@@ -5,7 +5,7 @@ const categorySchema = new Schema(
   {
     name: { type: String, required: true, unique: true },
     description: String,
-    imageURL: {type: Array, default: []},
+    imageUrl: String,
   },
   {
     query: {

@@ -3,16 +3,11 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import Dashboard from './pages/dashboard';
-import Team from './pages/team';
-import Contacts from './pages/contacts';
+import Orders from './pages/orders';
 import Categories from './pages/categories';
 import Customers from './pages/customers';
-import Form from './pages/form';
 import Employees from './pages/employees';
-// import Bar from './pages/bar';
-// import Line from './pages/line';
-// import Pie from './pages/pie';
-// import Geography from './pages/geography';
+import Products from './pages/products';
 import MainLayout from './layouts/MainLayout';
 import Register from './pages/login/Register';
 import Index from './pages';
@@ -31,16 +26,11 @@ function App() {
                     <Route path="/" element={<Index />}>
                         <Route element={<MainLayout />}>
                             <Route index element={<Dashboard />} />
-                            <Route path="team" element={<Team />} />
                             <Route path="categories" element={<Categories />} />
                             <Route path="customers" element={<Customers />} />
-                            <Route path="contacts" element={<Contacts />} />
+                            <Route path="orders" element={<Orders />} />
                             <Route path="employees" element={<Employees />} />
-                            <Route path="/form" element={<Form />} />
-                            {/* <Route path="/bar" element={<Bar />} /> */}
-                            {/* <Route path="/pie" element={<Pie />} /> */}
-                            {/* <Route path="/line" element={<Line />} /> */}
-                            {/* <Route path="/geography" element={<Geography />} /> */}
+                            <Route path="products" element={<Products />} />
                         </Route>
 
                         <Route element={<NoSideBarLayout />}>

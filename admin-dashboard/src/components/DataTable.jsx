@@ -1,19 +1,22 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridFooter } from '@mui/x-data-grid';
 import { Box, useTheme } from '@mui/material';
 import { tokens } from '../theme';
 
-const DataTable = ({styling = false, ...passProps }) => {
+import FooterCreateButton from './FooterCreateButton';
+
+const DataTable = ({ createData, content, categories, suppliers, ...passProps }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const props = {...passProps}
-    return styling ? (
+    return (
         <Box
             m="40px 0 0 0"
             height="75vh"
             sx={{
-                '& .MuiDataGrid-root .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-root .MuiDataGrid-cell:focus': { outline: 'none !important' },
+                '& .MuiDataGrid-root .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-root .MuiDataGrid-cell:focus': {
+                    outline: 'none !important',
+                },
                 '& .MuiDataGrid-root': { border: 'none' },
                 '& .MuiDataGrid-cell': { borderTop: 'none' },
                 '& .name-column--cell': { color: colors.greenAccent[300] },
@@ -24,11 +27,23 @@ const DataTable = ({styling = false, ...passProps }) => {
                 '& .MuiCircularProgress-root': { color: colors.grey[100] },
             }}
         >
-            <DataGrid {...props}  />
-        </Box>
-    ) : (
-        <Box m="40px 0 0 0" height="75vh">
-            <DataGrid {...props}  />
+            <DataGrid
+                {...passProps}
+                components={{
+                    Footer: () => {
+                        return content ? (
+                            <FooterCreateButton
+                                categories={categories}
+                                suppliers={suppliers}
+                                createData={createData}
+                                content={content}
+                            />
+                        ) : (
+                            <GridFooter />
+                        );
+                    },
+                }}
+            />
         </Box>
     );
 };

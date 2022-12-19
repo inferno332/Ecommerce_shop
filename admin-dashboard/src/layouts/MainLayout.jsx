@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import Sidebar from '../pages/global/Sidebar';
-import Topbar from '../pages/global/Topbar';
+import Sidebar from './global/Sidebar';
+import Topbar from './global/Topbar';
 
 function MainLayout(props) {
     return (

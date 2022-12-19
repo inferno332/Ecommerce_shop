@@ -38,6 +38,34 @@ const deleteCategory = tryCatch(async (req, res) => {
   res.status(200).json(category);
 });
 
+// Hiển thị Category với tất cả Product có trong Cate
+const getCategoryWithProductsByName = tryCatch(async (req, res) => {
+  const { name } = req.query;
+  const aggregate = [
+    {
+      $match: {
+        name: new RegExp("^" + name + "$", "i"),
+      },
+    },
+    {
+      $lookup: {
+        from: "products",
+        let: { id: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$$id", "$categoryId"] },
+            },
+          },
+        ],
+        as: "products",
+      },
+    },
+  ];
+  const category = await Category.aggregate(aggregate).sort("1");
+  res.status(200).json(category);
+});
+
 module.exports = {
   getAllCategories,
   getCategoryById,
@@ -45,4 +73,5 @@ module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
+  getCategoryWithProductsByName,
 };

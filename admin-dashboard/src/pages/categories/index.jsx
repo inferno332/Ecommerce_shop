@@ -3,14 +3,41 @@ import { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import axiosJWT from '../../axios/axiosJWT';
 import toast, { Toaster } from 'react-hot-toast';
+import { useSelector } from 'react-redux';
 
 import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
+import { GridToolbar } from '@mui/x-data-grid';
 
 const Categories = () => {
+    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
     const [categories, setCategories] = useState([]);
+    const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);
+
+    const createData = async (data) => {
+        try {
+            await axiosJWT.post('http://localhost:9000/categories', data);
+            setRefesh((prev) => !prev);
+            toast.success('Successfully updated!');
+        } catch (error) {
+            toast.error('Can not update!');
+            console.log(error);
+        }
+    };
+
+    const handleUpload = async (params, e) => {
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        await axiosJWT
+            .post(`http://localhost:9000/upload/category/${params.row._id}`, formData)
+            .then(() => {
+                setRefesh((prev) => !prev);
+                toast.success('Successfully uploaded!');
+            })
+            .catch((err) => console.log(err));
+    };
 
     const handleDelete = async (id) => {
         try {
@@ -41,7 +68,18 @@ const Categories = () => {
     }, [refresh]);
 
     const columns = [
-        { field: '_id', headerName: 'Categories ID', width: 200 },
+        {
+            field: 'imageURL',
+            headerName: 'Image',
+            width: 200,
+            renderCell: (params) => (
+                <img
+                    style={{ width: 90, height: 90, objectFit: 'fill', borderRadius: '10px' }}
+                    src={`http://localhost:9000${params.row.imageUrl}`}
+                    alt=""
+                />
+            ),
+        },
         { field: 'name', headerName: 'Category', flex: 0.5, cellClassName: 'name-column--cell' },
         { field: 'description', headerName: 'Description', flex: 1 },
         {
@@ -55,6 +93,9 @@ const Categories = () => {
                         params={params}
                         handleDelete={handleDelete}
                         updateData={updateData}
+                        handleUpload={handleUpload}
+                        disableDelete={!roles.includes('admin')}
+                        disableEdit={!roles.includes('admin')}
                     />
                 );
             },
@@ -69,9 +110,17 @@ const Categories = () => {
                 rows={categories}
                 columns={columns}
                 getRowId={(row) => row._id}
-                loading={categories.length === 0}
-                styling
+                components={{ Toolbar: GridToolbar }}
                 disableSelectionOnClick
+                loading={categories.length === 0}
+                rowHeight={100}
+
+                pageSize={pageSize}
+                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                rowsPerPageOptions={[5, 10, 15, 20]}
+                
+                createData={createData}
+                content="Category"
             />
         </Box>
     );

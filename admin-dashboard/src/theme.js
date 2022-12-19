@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo } from 'react';
+import { createContext, useState, useMemo, useEffect } from 'react';
 import { createTheme } from '@mui/material/styles';
 
 // color design tokens
@@ -28,15 +28,15 @@ export const tokens = (mode) => ({
                   900: '#1f2a40',
               },
               greenAccent: {
-                  100: '#dbf5ee',
-                  200: '#b7ebde',
-                  300: '#94e2cd',
-                  400: '#70d8bd',
-                  500: '#4cceac',
-                  600: '#3da58a',
-                  700: '#2e7c67',
-                  800: '#1e5245',
-                  900: '#0f2922',
+                  100: '#e3faf8',
+                  200: '#c8f5f0',
+                  300: '#acf0e9',
+                  400: '#91ebe1',
+                  500: '#75e6da',
+                  600: '#5eb8ae',
+                  700: '#468a83',
+                  800: '#2f5c57',
+                  900: '#172e2c',
               },
               redAccent: {
                   100: '#f8dcdb',
@@ -50,15 +50,15 @@ export const tokens = (mode) => ({
                   900: '#2c100f',
               },
               blueAccent: {
-                  100: '#e1e2fe',
-                  200: '#c3c6fd',
-                  300: '#a4a9fc',
-                  400: '#868dfb',
-                  500: '#6870fa',
-                  600: '#535ac8',
-                  700: '#3e4396',
-                  800: '#2a2d64',
-                  900: '#1f2a40',
+                  100: '#d1ebf0',
+                  200: '#a3d7e1',
+                  300: '#74c2d2',
+                  400: '#46aec3',
+                  500: '#189ab4',
+                  600: '#137b90',
+                  700: '#0e5c6c',
+                  800: '#0a3e48',
+                  900: '#051f24',
               },
           }
         : {
@@ -85,15 +85,15 @@ export const tokens = (mode) => ({
                   900: '#d0d1d5',
               },
               greenAccent: {
-                  100: '#0f2922',
-                  200: '#1e5245',
-                  300: '#2e7c67',
-                  400: '#3da58a',
-                  500: '#4cceac',
-                  600: '#70d8bd',
-                  700: '#94e2cd',
-                  800: '#b7ebde',
-                  900: '#dbf5ee',
+                  900: '#e3faf8',
+                  800: '#c8f5f0',
+                  700: '#acf0e9',
+                  600: '#91ebe1',
+                  500: '#75e6da',
+                  400: '#468a83',
+                  300: '#468a83',
+                  200: '#2f5c57',
+                  100: '#172e2c',
               },
               redAccent: {
                   100: '#2c100f',
@@ -107,15 +107,15 @@ export const tokens = (mode) => ({
                   900: '#f8dcdb',
               },
               blueAccent: {
-                  100: '#151632',
-                  200: '#2a2d64',
-                  300: '#3e4396',
-                  400: '#535ac8',
-                  500: '#6870fa',
-                  600: '#868dfb',
-                  700: '#a4a9fc',
-                  800: '#c3c6fd',
-                  900: '#e1e2fe',
+                  900: '#d1ebf0',
+                  800: '#a3d7e1',
+                  700: '#74c2d2',
+                  600: '#46aec3',
+                  500: '#189ab4',
+                  400: '#137b90',
+                  300: '#0e5c6c',
+                  200: '#0a3e48',
+                  100: '#051f24',
               },
           }),
 });
@@ -169,7 +169,7 @@ export const themeSettings = (mode) => {
         },
         typography: {
             fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
-            fontSize: 12,
+            fontSize: 13,
             h1: {
                 fontFamily: ['Source Sans Pro', 'sans-serif'].join(','),
                 fontSize: 40,
@@ -205,12 +205,21 @@ export const ColorModeContext = createContext({
 
 export const useMode = () => {
     const [mode, setMode] = useState('dark');
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            setMode(window.localStorage.getItem('theme') || 'light');
+        }
+    }, []);
 
     const colorMode = useMemo(
         () => ({
-            toggleColorMode: () => setMode((prev) => (prev === 'light' ? 'dark' : 'light')),
+            toggleColorMode: () => {
+                const newMode = mode === 'light' ? 'dark' : 'light';
+                setMode(newMode);
+                window.localStorage.setItem('theme', newMode);
+            },
         }),
-        [],
+        [mode],
     );
 
     const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
