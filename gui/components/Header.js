@@ -78,9 +78,9 @@ const Header = () => {
                                 <FiShoppingCart />
                             </span>
                             {products?.length > 0 && (
-                                <p className='absolute top-0 right-0 translate-x-[10px] translate-y-[-5px] hidden md:block w-[25px] border rounded-full text-center bg-black text-white font-bold text-'>
-                                    {products.length}
-                                </p>
+                                <div className='absolute top-0 right-0 translate-x-[5px] translate-y-[-2px] border rounded-full text-center bg-black text-white font-bold text-xs'>
+                                    <span className='text-center leading-5 p-2'>{products.length}</span>
+                                </div>
                             )}
                         </div>
                         <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer block lg:hidden'>
