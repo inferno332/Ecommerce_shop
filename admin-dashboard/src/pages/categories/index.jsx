@@ -18,7 +18,7 @@ const Categories = () => {
 
     const createData = async (data) => {
         try {
-            await axiosJWT.post('http://localhost:9000/categories', data);
+            await axiosJWT.post('https://server-ls-shop.onrender.com/categories', data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -31,7 +31,7 @@ const Categories = () => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         await axiosJWT
-            .post(`http://localhost:9000/upload/category/${params.row._id}`, formData)
+            .post(`https://server-ls-shop.onrender.com/upload/category/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -41,7 +41,7 @@ const Categories = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`http://localhost:9000/categories/${id}`);
+            await axiosJWT.delete(`https://server-ls-shop.onrender.com/categories/${id}`);
             setCategories(categories.filter((category) => category._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -51,7 +51,7 @@ const Categories = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`http://localhost:9000/categories/${params.row._id}`, data);
+            await axiosJWT.put(`https://server-ls-shop.onrender.com/categories/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -62,7 +62,7 @@ const Categories = () => {
 
     useEffect(() => {
         axiosJWT
-            .get('http://localhost:9000/categories')
+            .get('https://server-ls-shop.onrender.com/categories')
             .then((res) => setCategories(res.data))
             .catch((err) => console.log(err));
     }, [refresh]);
@@ -75,7 +75,7 @@ const Categories = () => {
             renderCell: (params) => (
                 <img
                     style={{ width: 90, height: 90, objectFit: 'fill', borderRadius: '10px' }}
-                    src={`http://localhost:9000${params.row.imageUrl}`}
+                    src={`https://server-ls-shop.onrender.com${params.row.imageUrl}`}
                     alt=""
                 />
             ),
@@ -114,11 +114,9 @@ const Categories = () => {
                 disableSelectionOnClick
                 loading={categories.length === 0}
                 rowHeight={100}
-
                 pageSize={pageSize}
                 onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                 rowsPerPageOptions={[5, 10, 15, 20]}
-                
                 createData={createData}
                 content="Category"
             />

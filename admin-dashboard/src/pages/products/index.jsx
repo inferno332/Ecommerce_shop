@@ -20,7 +20,7 @@ const Products = () => {
 
     const createData = async (data) => {
         try {
-            await axiosJWT.post('http://localhost:9000/products', data);
+            await axiosJWT.post('https://server-ls-shop.onrender.com/products', data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -33,7 +33,7 @@ const Products = () => {
         const formData = new FormData();
         formData.append('files', e.target.files[0]);
         await axiosJWT
-            .post(`http://localhost:9000/upload/product/${params.row._id}`, formData)
+            .post(`https://server-ls-shop.onrender.com/upload/product/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -43,7 +43,7 @@ const Products = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`http://localhost:9000/products/${id}`);
+            await axiosJWT.delete(`https://server-ls-shop.onrender.com/products/${id}`);
             setProducts(products.filter((product) => product._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -53,7 +53,7 @@ const Products = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.patch(`http://localhost:9000/products/${params.row._id}`, data);
+            await axiosJWT.patch(`https://server-ls-shop.onrender.com/products/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -64,7 +64,7 @@ const Products = () => {
 
     const getAllCategories = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/categories');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/categories');
             setCategories(res.data);
         } catch (error) {
             console.log(error);
@@ -72,7 +72,7 @@ const Products = () => {
     };
     const getAllSuppliers = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/suppliers');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/suppliers');
             setSuppliers(res.data);
         } catch (error) {
             console.log(error);
@@ -81,7 +81,7 @@ const Products = () => {
 
     const getProducts = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/products');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/products');
             setProducts(res.data);
         } catch (error) {
             console.log(error);
@@ -149,7 +149,7 @@ const Products = () => {
                                 borderRadius: '20%',
                                 marginRight: '10px',
                             }}
-                            src={`http://localhost:9000${image}`}
+                            src={`https://server-ls-shop.onrender.com${image}`}
                             alt=""
                         />
                     );

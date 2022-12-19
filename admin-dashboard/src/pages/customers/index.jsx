@@ -17,7 +17,7 @@ const Customers = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`http://localhost:9000/customers/${id}`);
+            await axiosJWT.delete(`https://server-ls-shop.onrender.com/customers/${id}`);
             setCustomers(customers.filter((customer) => customer._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -27,7 +27,7 @@ const Customers = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`http://localhost:9000/customers/${params.row._id}`, data);
+            await axiosJWT.put(`https://server-ls-shop.onrender.com/customers/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             console.log(data);
             toast.success('Successfully updated!');
@@ -39,7 +39,7 @@ const Customers = () => {
 
     useEffect(() => {
         axiosJWT
-            .get('http://localhost:9000/customers')
+            .get('https://server-ls-shop.onrender.com/customers')
             .then((res) => setCustomers(res.data))
             .catch((err) => console.log(err));
     }, [refresh]);
