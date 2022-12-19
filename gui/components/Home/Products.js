@@ -90,7 +90,9 @@ const Products = ({ products }) => {
                             </i>
                             <div className='py-5 px-2'>
                                 <div className='flex flex-col justify-between gap-1'>
-                                    <h1 className='text-lg md:text-base capitalize'>{product.name.toLowerCase()}</h1>
+                                    <h1 className='text-lg md:text-base capitalize md:tracking-[0.2px]'>
+                                        {product.name.toLowerCase()}
+                                    </h1>
                                     {product.sizes && (
                                         <h1 className='text-lg md:text-base font-semibold'>
                                             Size: {product.sizes[0].name}
@@ -98,13 +100,13 @@ const Products = ({ products }) => {
                                     )}
                                     {product?.sizes[0].discount > 0 ? (
                                         <div className='flex gap-3 items-end'>
-                                            <p className='font-semibold text-lg md:text-base text-orange-500'>
+                                            <p className='font-semibold text-xl text-orange-600'>
                                                 ${Math.floor(product.sizes[0].discountPrice)}
                                             </p>
                                             <del className='text-sm text-gray-500'>${product.price}</del>
                                         </div>
                                     ) : (
-                                        <p className='font-semibold text-xl'>${product.price}</p>
+                                        <p className='text-xl text-orange-700 font-semibold'>${product.price}</p>
                                     )}
                                 </div>
                             </div>

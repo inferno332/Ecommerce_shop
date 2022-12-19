@@ -34,7 +34,7 @@ function Login() {
 
     useEffect(() => {
         const user = JSON.parse(JSON.parse(window.localStorage.getItem('persist:root'))?.auth)?.login?.currentUser;
-        if (user != null) {
+        if (user !== null) {
             navigate('/');
         }
     }, []);
