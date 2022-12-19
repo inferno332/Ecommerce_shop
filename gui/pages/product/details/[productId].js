@@ -42,6 +42,7 @@ const Product = ({ product, products }) => {
         { value: '47' },
         { value: '47.5' },
     ];
+    const SizeSelectAccessory = [{ value: 'S' }, { value: 'M' }, { value: 'L' }, { value: 'XL' }];
     const [selectedProduct, setSelectedProduct] = useState(product?.sizes[0]);
     const handleSizeSelect = (targetSize) => {
         setSelectedProduct(product.sizes.find((size) => size.name === targetSize));
@@ -100,28 +101,51 @@ const Product = ({ product, products }) => {
                     <div className='flex flex-col mb-5 md:p-5'>
                         <p className='text-lg'>Select Size</p>
                         <div className='grid grid-cols-3 gap-2 mt-2'>
-                            {SizeSelect?.map((item) =>
-                                product.sizes.find((size) => size.name === item.value) ? (
-                                    <div
-                                        key={item.value}
-                                        className={`flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-pointer hover:border-black
+                            {product.category !== 'Accessory'
+                                ? SizeSelect.map((item) =>
+                                      product.sizes.find((size) => size.name === item.value) ? (
+                                          <div
+                                              key={item.value}
+                                              className={`flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-pointer hover:border-black
                                 ${item.value === selectedProduct.name ? 'border-black' : ''}
                                 `}
-                                        onClick={
-                                            product.sizes.find((size) => size.name === item.value)
-                                                ? () => handleSizeSelect(item.value)
-                                                : null
-                                        }>
-                                        EU {item.value}
-                                    </div>
-                                ) : (
-                                    <div
-                                        key={item.value}
-                                        className='flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-default opacity-40 bg-slate-300'>
-                                        EU {item.value}
-                                    </div>
-                                ),
-                            )}
+                                              onClick={
+                                                  product.sizes.find((size) => size.name === item.value)
+                                                      ? () => handleSizeSelect(item.value)
+                                                      : null
+                                              }>
+                                              EU {item.value}
+                                          </div>
+                                      ) : (
+                                          <div
+                                              key={item.value}
+                                              className='flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-default opacity-40 bg-slate-300'>
+                                              EU {item.value}
+                                          </div>
+                                      ),
+                                  )
+                                : SizeSelectAccessory.map((item) =>
+                                      product.sizes.find((size) => size.name === item.value) ? (
+                                          <div
+                                              key={item.value}
+                                              className={`flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-pointer hover:border-black
+                            ${item.value === selectedProduct.name ? 'border-black' : ''}
+                            `}
+                                              onClick={
+                                                  product.sizes.find((size) => size.name === item.value)
+                                                      ? () => handleSizeSelect(item.value)
+                                                      : null
+                                              }>
+                                              {item.value}
+                                          </div>
+                                      ) : (
+                                          <div
+                                              key={item.value}
+                                              className='flex justify-center items-center font-semibold w-full h-12 border border-solid border-gray-300 rounded-md cursor-default opacity-40 bg-slate-300'>
+                                              {item.value}
+                                          </div>
+                                      ),
+                                  )}
                         </div>
                     </div>
                     {/* Add to Cart */}
