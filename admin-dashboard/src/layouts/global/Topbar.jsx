@@ -33,12 +33,19 @@ function Topbar() {
     });
 
     useEffect(() => {
+        const notif = window.localStorage.getItem('notification');
+        if (notif !== null) {
+            setNotification(JSON.parse(notif));
+        }
+
         socket.on('server-notification', (data) => {
             setNotification((prev) => [...prev, data]);
         });
     }, []);
 
     useEffect(() => {
+        window.localStorage.setItem('notification', JSON.stringify(notification));
+
         axiosJWT.get('http://localhost:9000/orders').then((res) => setOrders(res.data));
     }, [notification]);
 
@@ -74,7 +81,7 @@ function Topbar() {
                                     setNotification([]);
                                 }}
                                 anchorReference="anchorPosition"
-                                anchorPosition={{ top: 50, left: 1250 }}
+                                anchorPosition={{ top: 50, left: 1700 }}
                                 sx={{ maxHeight: '350px', overflowY: 'scroll' }}
                             >
                                 {orders.map((item, index) => (
@@ -100,7 +107,7 @@ function Topbar() {
                                 open={openNotif}
                                 onClose={() => setOpenNotif(false)}
                                 anchorReference="anchorPosition"
-                                anchorPosition={{ top: 50, left: 1250 }}
+                                anchorPosition={{ top: 50, left: 1700 }}
                             >
                                 <Typography sx={{ p: 2 }}>Don't have any notifications</Typography>
                             </Popover>
