@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "start:production": "pm2 start ./bin/www"
+    "start": "node ./bin/www",
+    "start:production": "pm2 start ./bin/www",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
