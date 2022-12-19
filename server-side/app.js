@@ -13,7 +13,6 @@ const passport = require('passport');
 const jwtSettings = require('./constants/jwtSettings');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-
 const uploadRoute = require('./routes/upload');
 const loginRoute = require('./routes/login');
 const categoriesRoute = require('./routes/categories');
@@ -68,16 +67,16 @@ passport.use(
 //END
 
 //ROUTES
-app.use('/upload', uploadRoute);
-app.use('/auth', loginRoute);
-app.use('/categories', categoriesRoute);
-app.use('/suppliers', suppliersRoute);
-app.use('/customers', customersRoute);
-app.use('/employees', employeesRoute);
-app.use('/products', productsRoute);
-app.use('/orders', ordersRoute);
-app.use('/sliders', slidersRoute);
-app.use('/public', express.static('public'));
+app.use("/upload", uploadRoute);
+app.use("/auth", loginRoute);
+app.use("/categories", categoriesRoute);
+app.use("/suppliers", suppliersRoute);
+app.use("/customers", customersRoute);
+app.use("/employees", employeesRoute);
+app.use("/products", productsRoute);
+app.use("/orders", ordersRoute);
+app.use("/sliders", slidersRoute);
+app.use("/public", express.static("public"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

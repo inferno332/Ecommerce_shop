@@ -93,7 +93,7 @@ const Product = ({ product, products }) => {
                 <div className='flex flex-col w-full md:w-[464px]'>
                     <div className='flex flex-col mb-5 px-0 md:p-5'>
                         <h1 className='text-3xl font-semibold mb-1'>{product.name}</h1>
-                        <h2 className='text-lg mb-3'>{console.log(product)}</h2>
+                        <h2 className='text-lg mb-3'>Men's Shoes</h2>
                         <span className='text-lg text-gray-700'>$ {Math.floor(selectedProduct?.discountPrice)}</span>
                     </div>
                     {/* Size Selector */}
