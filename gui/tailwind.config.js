@@ -83,6 +83,10 @@ module.exports = {
                 },
             },
         },
+        fontFamily: {
+            sans: ['Josefin Sans', 'sans-serif'],
+            body: ['Josefin Sans', 'sans-serif'],
+        }
     },
     plugins: ['tailwindcss'],
 };

@@ -88,17 +88,17 @@ const Products = ({ products }) => {
                                 }}>
                                 <BsCart2 />
                             </i>
-                            <div className=' py-5 px-2'>
+                            <div className='py-5 px-2'>
                                 <div className='flex flex-col justify-between gap-1'>
-                                    <h1 className='text-md sm:text-xs'>{product.name}</h1>
+                                    <h1 className='text-lg md:text-base capitalize'>{product.name.toLowerCase()}</h1>
                                     {product.sizes && (
-                                        <h1 className='text-md sm:text-sm font-semibold'>
+                                        <h1 className='text-lg md:text-base font-semibold'>
                                             Size: {product.sizes[0].name}
                                         </h1>
                                     )}
                                     {product?.sizes[0].discount > 0 ? (
                                         <div className='flex gap-3 items-end'>
-                                            <p className=' font-semibold text-xl text-orange-500'>
+                                            <p className='font-semibold text-lg md:text-base text-orange-500'>
                                                 ${Math.floor(product.sizes[0].discountPrice)}
                                             </p>
                                             <del className='text-sm text-gray-500'>${product.price}</del>
