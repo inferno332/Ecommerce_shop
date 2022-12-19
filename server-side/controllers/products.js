@@ -86,6 +86,14 @@ const getProductById = tryCatch(async (req, res) => {
             $match: { _id: ObjectId(id) },
         },
         {
+            $lookup: {
+                from: 'categories',
+                localField: 'categoryId',
+                foreignField: '_id',
+                as: 'category',
+            },
+        },
+        {
             $unwind: { path: '$sizes' },
         },
         {
@@ -103,10 +111,25 @@ const getProductById = tryCatch(async (req, res) => {
                 sizes: { $push: '$sizes' },
                 description: { $first: '$description' },
                 imageURL: { $first: '$imageURL' },
+                category: { $first: '$category' },
+            },
+        },
+        {
+            $unwind: { path: '$category' },
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+                price: 1,
+                sizes: 1,
+                description: 1,
+                imageURL: 1,
+                category: '$category.name',
             },
         },
     ];
-
+    // turn array to obj
     const product = await Product.aggregate(discountPrice).then(function ([res]) {
         return res;
     });
