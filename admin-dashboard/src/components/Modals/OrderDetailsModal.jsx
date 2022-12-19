@@ -22,7 +22,7 @@ const OrderDetailsModal = ({ open, onClose, orderDetails }) => {
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields} gap={2}>
-                {orderDetails.map((item,index) => (
+                {orderDetails.map((item, index) => (
                     <Card key={index} sx={{ width: '100%' }}>
                         <CardContent>
                             <Box display="flex" justifyContent="space-between" width="100%">
@@ -48,7 +48,7 @@ const OrderDetailsModal = ({ open, onClose, orderDetails }) => {
                                     </Box>
                                 </Box>
                                 <img
-                                    src={`http://localhost:9000${item.image}`}
+                                    src={`https://server-ls-shop.onrender.com${item.image}`}
                                     alt={item.name}
                                     style={{
                                         width: 150,

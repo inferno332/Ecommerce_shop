@@ -28,7 +28,7 @@ const Orders = () => {
 
     const createData = async (data) => {
         try {
-            await axiosJWT.post('http://localhost:9000/orders', data);
+            await axiosJWT.post('https://server-ls-shop.onrender.com/orders', data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -41,7 +41,7 @@ const Orders = () => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         await axiosJWT
-            .post(`http://localhost:9000/upload/orders/${params.row._id}`, formData)
+            .post(`https://server-ls-shop.onrender.com/upload/orders/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -54,7 +54,7 @@ const Orders = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`http://localhost:9000/orders/${id}`);
+            await axiosJWT.delete(`https://server-ls-shop.onrender.com/orders/${id}`);
             setOrders(orders.filter((category) => category._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -65,7 +65,7 @@ const Orders = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`http://localhost:9000/orders/${params.row._id}`, data);
+            await axiosJWT.put(`https://server-ls-shop.onrender.com/orders/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -80,7 +80,7 @@ const Orders = () => {
 
     useEffect(() => {
         axiosJWT
-            .get('http://localhost:9000/orders')
+            .get('https://server-ls-shop.onrender.com/orders')
             .then((res) => setOrders(res.data))
             .catch((err) => {
                 console.log(err);
@@ -125,7 +125,7 @@ const Orders = () => {
                     <Box
                         minWidth="100px"
                         py="6px"
-                        px='8px'
+                        px="8px"
                         borderRadius="4px"
                         display="flex"
                         justifyContent="center"

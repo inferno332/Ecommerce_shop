@@ -4,7 +4,7 @@ import { loginStart, loginSuccess, loginFailed, logoutSuccess } from './authSlic
 export const loginUser = async (user, dispatch, navigate, setError) => {
     dispatch(loginStart());
     try {
-        const res = await axios.post('http://localhost:9000/auth/login', user);
+        const res = await axios.post('https://server-ls-shop.onrender.com/auth/login', user);
         dispatch(loginSuccess(res.data));
         navigate('/');
     } catch (error) {

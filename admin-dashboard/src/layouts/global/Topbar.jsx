@@ -25,7 +25,7 @@ function Topbar() {
     const [orders, setOrders] = useState([]);
     const [openNotif, setOpenNotif] = useState(false);
 
-    let socket = io.connect('http://localhost:9000', {
+    let socket = io.connect('https://server-ls-shop.onrender.com', {
         secure: true,
         reconnection: true,
         reconnectionDelay: 5000,
@@ -46,7 +46,7 @@ function Topbar() {
     useEffect(() => {
         window.localStorage.setItem('notification', JSON.stringify(notification));
 
-        axiosJWT.get('http://localhost:9000/orders').then((res) => setOrders(res.data));
+        axiosJWT.get('https://server-ls-shop.onrender.com/orders').then((res) => setOrders(res.data));
     }, [notification]);
 
     return (

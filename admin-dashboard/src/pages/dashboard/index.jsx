@@ -21,7 +21,7 @@ function Dashboard() {
     });
     const getSoldOrderByDay = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/sold/today');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/orders/sold/today');
             setOrderSold((prev) => {
                 return { ...prev, today: res.data.length };
             });
@@ -31,7 +31,7 @@ function Dashboard() {
     };
     const getSoldOrderByWeek = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/sold/week');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/orders/sold/week');
             setOrderSold((prev) => {
                 return { ...prev, week: res.data.length };
             });
@@ -41,7 +41,7 @@ function Dashboard() {
     };
     const getSoldOrderByMonth = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/sold/month');
+            const res = await axiosJWT.get('https://server-ls-shop.onrender.com/orders/sold/month');
             setOrderSold((prev) => {
                 return { ...prev, month: res.data.length };
             });

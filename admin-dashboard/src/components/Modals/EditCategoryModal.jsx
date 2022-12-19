@@ -95,7 +95,11 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                 {params.row.imageUrl && (
                     <ImageList variant="masonry" cols={3} gap={6} rowHeight={150} sx={{ width: 600, height: 200 }}>
                         <ImageListItem cols={1} rows={1}>
-                            <img src={`http://localhost:9000/${params.row.imageUrl}`} alt="" loading="lazy" />
+                            <img
+                                src={`https://server-ls-shop.onrender.com/${params.row.imageUrl}`}
+                                alt=""
+                                loading="lazy"
+                            />
                             <ImageListItemBar title={params.row.name} position="bottom" />
                         </ImageListItem>
                     </ImageList>

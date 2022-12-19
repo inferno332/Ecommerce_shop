@@ -23,7 +23,7 @@ const Employees = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`http://localhost:9000/employees/${id}`);
+            await axiosJWT.delete(`https://server-ls-shop.onrender.com/employees/${id}`);
             setEmployees(employees.filter((employee) => employee._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -33,7 +33,7 @@ const Employees = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.patch(`http://localhost:9000/employees/${params.row._id}`, data);
+            await axiosJWT.patch(`https://server-ls-shop.onrender.com/employees/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -44,7 +44,7 @@ const Employees = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axiosJWT.get('http://localhost:9000/employees');
+                const res = await axiosJWT.get('https://server-ls-shop.onrender.com/employees');
                 setEmployees(res.data);
             } catch (error) {
                 console.log(error);

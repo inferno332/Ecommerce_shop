@@ -193,7 +193,7 @@ const Product = ({ product, products }) => {
                             <div className='flex flex-col mb-10'>
                                 <Link href={`/product/details/${product._id}`}>
                                     <img
-                                        src={`http://localhost:9000${product.imageURL[0]}`}
+                                        src={`https://server-ls-shop.onrender.com${product.imageURL[0]}`}
                                         alt={product.name}
                                         className='w-60 h-60 md:w-96 md:h-96 object-cover rounded-xl overflow-hidden'
                                     />

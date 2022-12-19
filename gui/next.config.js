@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    BASE_URL: 'http://localhost:9000',
+    BASE_URL: 'https://server-ls-shop.onrender.com',
   },
   images: {
     formats: ['image/avif', 'image/webp'],
