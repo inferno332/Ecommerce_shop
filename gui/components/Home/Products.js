@@ -34,7 +34,7 @@ const Products = ({ products }) => {
                 slidesPerView={1}
                 breakpoints={{
                     1024: {
-                        slidesPerView: 4,
+                        slidesPerView: 3.5  ,
                     },
                     768: {
                         slidesPerView: 3,
@@ -64,8 +64,8 @@ const Products = ({ products }) => {
                                     <Image
                                         src={`${process.env.BASE_URL}${product.imageURL[0]}`}
                                         alt={product.name}
-                                        width='300'
-                                        height='300'
+                                        width='200'
+                                        height='200'
                                         className=' w-full h-full object-contain'
                                     />
                                 </div>
@@ -88,9 +88,9 @@ const Products = ({ products }) => {
                                 }}>
                                 <BsCart2 />
                             </i>
-                            <div className='py-5 px-2'>
+                            <div className='py-4 px-2'>
                                 <div className='flex flex-col justify-between gap-1'>
-                                    <h1 className='text-lg md:text-base capitalize md:tracking-[0.2px]'>
+                                    <h1 className='text-lg md:text-base capitalize md:tracking-[0.2px] h-12'>
                                         {product.name.toLowerCase()}
                                     </h1>
                                     {product.sizes && (
