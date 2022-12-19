@@ -62,9 +62,11 @@ const AllProducts = ({ products }) => {
                                     </Link>
                                 </div>
                             </div>
-                            <div className=' py-2 sm:py-5 px-1'>
+                            <div className='py-2 sm:py-5 px-1'>
                                 <div className='flex flex-col justify-between gap-1'>
-                                    <p className='text-sm'>{product.name}</p>
+                                    <p className='text-lg capitalize md:tracking-[0.2px]'>
+                                        {product.name.toLowerCase()}
+                                    </p>
                                     {product.sizes && (
                                         <h1 className='text-md sm:text-sm font-semibold'>
                                             Size: {product.sizes[0].name}
@@ -72,13 +74,13 @@ const AllProducts = ({ products }) => {
                                     )}
                                     {product?.sizes[0].discount > 0 ? (
                                         <div className='flex gap-3 items-end'>
-                                            <p className=' font-semibold text-xl text-orange-500'>
+                                            <p className='font-semibold text-xl text-orange-600'>
                                                 ${Math.floor(product.sizes[0].discountPrice)}
                                             </p>
-                                            <del className='text-sm text-gray-500'>${product.price}</del>
+                                            <del className='text-lg text-gray-500'>${product.price}</del>
                                         </div>
                                     ) : (
-                                        <p className='font-semibold text-xl'>${product.price}</p>
+                                        <p className='text-xl text-orange-700 font-semibold'>${product.price}</p>
                                     )}
                                 </div>
                             </div>
@@ -88,7 +90,12 @@ const AllProducts = ({ products }) => {
             </div>
             {/* Pagination */}
             <div className='mt-4 flex mx-auto'>
-                <Pagination total={pageCount} initialPage={1} onChange={(page) => handlePageClick(page)} color='gradient' />
+                <Pagination
+                    total={pageCount}
+                    initialPage={1}
+                    onChange={(page) => handlePageClick(page)}
+                    color='gradient'
+                />
             </div>
         </div>
     );
