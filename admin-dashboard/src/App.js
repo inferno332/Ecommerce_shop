@@ -37,6 +37,25 @@ function App() {
                             <Route path="register" element={<Register />} />
                             <Route path="login" element={<Login />} />
                         </Route>
+                        {/* 404 page */}
+                        <Route
+                            path="*"
+                            element={
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        height: '100vh',
+                                        fontSize: '5rem',
+                                    }}
+                                >
+                                    <p>404!!</p>
+                                    <p>Xin vui lòng gọi lại sau</p> 
+                                </div>
+                            }
+                        />
                     </Route>
                 </Routes>
             </ThemeProvider>
