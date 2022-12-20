@@ -28,7 +28,7 @@ function Register() {
 
     const handleRegister = async (data) => {
         try {
-            await axios.post('https://server-ls-shop.onrender.com/auth/register', data);
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/register`, data);
             toast.success('Successfully toasted!');
             setTimeout(() => {
                 navigate('/login');

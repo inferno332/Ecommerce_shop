@@ -96,7 +96,7 @@ const EditCategoryModal = ({ open, onClose, updateData, params, handleUpload }) 
                     <ImageList variant="masonry" cols={3} gap={6} rowHeight={150} sx={{ width: 600, height: 200 }}>
                         <ImageListItem cols={1} rows={1}>
                             <img
-                                src={`https://server-ls-shop.onrender.com/${params.row.imageUrl}`}
+                                src={`${process.env.REACT_APP_BASE_URL}/${params.row.imageUrl}`}
                                 alt=""
                                 loading="lazy"
                             />

@@ -18,7 +18,7 @@ const Categories = () => {
 
     const createData = async (data) => {
         try {
-            await axiosJWT.post('https://server-ls-shop.onrender.com/categories', data);
+            await axiosJWT.post(`${process.env.REACT_APP_BASE_URL}/categories`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -31,7 +31,7 @@ const Categories = () => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         await axiosJWT
-            .post(`https://server-ls-shop.onrender.com/upload/category/${params.row._id}`, formData)
+            .post(`${process.env.REACT_APP_BASE_URL}/upload/category/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -41,7 +41,7 @@ const Categories = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`https://server-ls-shop.onrender.com/categories/${id}`);
+            await axiosJWT.delete(`${process.env.REACT_APP_BASE_URL}/categories/${id}`);
             setCategories(categories.filter((category) => category._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -51,7 +51,7 @@ const Categories = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`https://server-ls-shop.onrender.com/categories/${params.row._id}`, data);
+            await axiosJWT.put(`${process.env.REACT_APP_BASE_URL}/categories/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -62,7 +62,7 @@ const Categories = () => {
 
     useEffect(() => {
         axiosJWT
-            .get('https://server-ls-shop.onrender.com/categories')
+            .get(`${process.env.REACT_APP_BASE_URL}/categories`)
             .then((res) => setCategories(res.data))
             .catch((err) => console.log(err));
     }, [refresh]);
@@ -75,7 +75,7 @@ const Categories = () => {
             renderCell: (params) => (
                 <img
                     style={{ width: 90, height: 90, objectFit: 'fill', borderRadius: '10px' }}
-                    src={`https://server-ls-shop.onrender.com${params.row.imageUrl}`}
+                    src={`${process.env.REACT_APP_BASE_URL}${params.row.imageUrl}`}
                     alt=""
                 />
             ),

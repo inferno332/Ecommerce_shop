@@ -28,7 +28,7 @@ const Orders = () => {
 
     const createData = async (data) => {
         try {
-            await axiosJWT.post('https://server-ls-shop.onrender.com/orders', data);
+            await axiosJWT.post(`${process.env.REACT_APP_BASE_URL}/orders`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -41,7 +41,7 @@ const Orders = () => {
         const formData = new FormData();
         formData.append('file', e.target.files[0]);
         await axiosJWT
-            .post(`https://server-ls-shop.onrender.com/upload/orders/${params.row._id}`, formData)
+            .post(`${process.env.REACT_APP_BASE_URL}/upload/orders/${params.row._id}`, formData)
             .then(() => {
                 setRefesh((prev) => !prev);
                 toast.success('Successfully uploaded!');
@@ -54,7 +54,7 @@ const Orders = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`https://server-ls-shop.onrender.com/orders/${id}`);
+            await axiosJWT.delete(`${process.env.REACT_APP_BASE_URL}/orders/${id}`);
             setOrders(orders.filter((category) => category._id !== id));
             toast.success('Successfully deleted!');
         } catch (error) {
@@ -65,7 +65,7 @@ const Orders = () => {
 
     const updateData = async (data, params) => {
         try {
-            await axiosJWT.put(`https://server-ls-shop.onrender.com/orders/${params.row._id}`, data);
+            await axiosJWT.put(`${process.env.REACT_APP_BASE_URL}/orders/${params.row._id}`, data);
             setRefesh((prev) => !prev);
             toast.success('Successfully updated!');
         } catch (error) {
@@ -80,7 +80,7 @@ const Orders = () => {
 
     useEffect(() => {
         axiosJWT
-            .get('https://server-ls-shop.onrender.com/orders')
+            .get(`${process.env.REACT_APP_BASE_URL}/orders`)
             .then((res) => setOrders(res.data))
             .catch((err) => {
                 console.log(err);

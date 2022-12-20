@@ -48,7 +48,7 @@ const OrderDetailsModal = ({ open, onClose, orderDetails }) => {
                                     </Box>
                                 </Box>
                                 <img
-                                    src={`https://server-ls-shop.onrender.com${item.image}`}
+                                    src={`${process.env.REACT_APP_BASE_URL}${item.image}`}
                                     alt={item.name}
                                     style={{
                                         width: 150,
