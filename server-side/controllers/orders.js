@@ -114,6 +114,74 @@ const getSoldOrderByMonth = tryCatch(async (req, res) => {
     const orders = await Order.aggregate(aggregate);
     res.status(200).json(orders);
 });
+// Get all orders sold in year  by each category
+const getStaticsByMonth = tryCatch(async (req, res) => {
+    const lookupToProduct = {
+        from: 'products',
+        localField: 'orderDetails.productId',
+        foreignField: '_id',
+        as: 'product',
+    };
+    const lookupToCategory = {
+        from: 'categories',
+        localField: 'product.categoryId',
+        foreignField: '_id',
+        as: 'category',
+    };
+    const getOrderSoldInWomen = [
+        {
+            $project: {
+                _id: 0,
+                orderDetails: 1,
+                createdAt: 1,
+            },
+        },
+        {
+            $unwind: '$orderDetails',
+        },
+        {
+            $lookup: lookupToProduct,
+        },
+        {
+            $unwind: '$product',
+        },
+        {
+            $lookup: lookupToCategory,
+        },
+        {
+            $unwind: '$category',
+        },
+        {
+            $project: {
+                categoryName: '$category.name',
+                quantity: '$orderDetails.quantity',
+                month: { $month: '$createdAt' },
+            },
+        },
+        {
+            $match: {
+                categoryName: {
+                    $eq: req.params.category,
+                },
+            },
+        },
+        {
+            $group: {
+                _id: '$month',
+                total: { $sum: '$quantity' },
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                month: '$_id',
+                total: 1,
+            },
+        },
+    ];
+    const orders = await Order.aggregate(getOrderSoldInWomen);
+    res.status(200).json(orders);
+});
 
 module.exports = {
     getAllOrders,
@@ -125,4 +193,5 @@ module.exports = {
     getSoldOrderByDay,
     getSoldOrderByWeek,
     getSoldOrderByMonth,
+    getStaticsByMonth,
 };
