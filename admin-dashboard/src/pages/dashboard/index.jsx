@@ -54,7 +54,7 @@ function Dashboard() {
         getSoldOrderByWeek();
         getSoldOrderByMonth();
     }, []);
-    console.log(orderSold);
+    
     return (
         <Box m="20px">
             <Box display="flex" justifyContent="space-between" alignItems="center">

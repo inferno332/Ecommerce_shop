@@ -11,10 +11,14 @@ const {
     getSoldOrderByDay,
     getSoldOrderByWeek,
     getSoldOrderByMonth,
+    getStaticsByMonth
 } = require('../controllers/orders');
 const allowRoles = require('../middleware/allowRoles');
 
 const auth = passport.authenticate('jwt', { session: false });
+
+// Get all orders sold in year  by each category
+router.get('/statics/:category', auth, allowRoles('admin', 'staff'), getStaticsByMonth);
 
 router.get('/', auth, allowRoles('admin', 'staff'), getAllOrders);
 router.get('/:id', auth, allowRoles('admin', 'staff'), getOrderById);
@@ -31,5 +35,6 @@ router.get('/sold/week', auth, allowRoles('admin', 'staff'), getSoldOrderByWeek)
 
 //Hiển thị tất cả các mặt hàng được bán trong tuần nay
 router.get('/sold/month', auth, allowRoles('admin', 'staff'), getSoldOrderByMonth);
+
 
 module.exports = router;
