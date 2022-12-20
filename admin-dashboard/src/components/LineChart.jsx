@@ -65,45 +65,32 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         getSaleAccessory();
     }, []);
 
+    const dataChart = (data) => {
+        return monthNames.map((month) => {
+            const monthData = data.find((item) => {
+                return toMonthName(item.month) === month;
+            });
+            return {
+                x: month,
+                y: monthData ? monthData.total : 0,
+            };
+        });
+    };
     const data = [
         {
             id: 'Women',
-            color: tokens('dark').greenAccent[500],
-            data: monthNames.map((month) => {
-                const monthData = saleWomen.find((item) => {
-                    return toMonthName(item.month) === month;
-                });
-                return {
-                    x: month,
-                    y: monthData ? monthData.total : 0,
-                };
-            }),
+            color: tokens('dark').greenAccent[700],
+            data: dataChart(saleWomen),
         },
         {
             id: 'Men',
-            color: tokens('dark').blueAccent[500],
-            data: monthNames.map((month) => {
-                const monthData = saleMen.find((item) => {
-                    return toMonthName(item.month) === month;
-                });
-                return {
-                    x: month,
-                    y: monthData ? monthData.total : 0,
-                };
-            }),
+            color: tokens('dark').blueAccent[200],
+            data: dataChart(saleMen),
         },
         {
             id: 'Accessory',
             color: tokens('dark').redAccent[500],
-            data: monthNames.map((month) => {
-                const monthData = saleAccessory.find((item) => {
-                    return toMonthName(item.month) === month;
-                });
-                return {
-                    x: month,
-                    y: monthData ? monthData.total : 0,
-                };
-            }),
+            data: dataChart(saleAccessory),
         },
     ];
     return (
@@ -142,7 +129,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
                     },
                 },
             }}
-            colors={isDashboard ? { datum: 'color' } : { scheme: 'nivo' }} // added
+            colors={{ scheme: 'category10' }} // added
             margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
             xScale={{ type: 'point' }}
             yScale={{
@@ -158,7 +145,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
             axisRight={null}
             axisBottom={{
                 orient: 'bottom',
-                tickSize: 0,
+                tickSize: 5,
                 tickPadding: 5,
                 tickRotation: 0,
                 legend: isDashboard ? undefined : 'transportation', // added
@@ -177,7 +164,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
             }}
             enableGridX={false}
             enableGridY={false}
-            pointSize={8}
+            pointSize={10}
             pointColor={{ theme: 'background' }}
             pointBorderWidth={2}
             pointBorderColor={{ from: 'serieColor' }}

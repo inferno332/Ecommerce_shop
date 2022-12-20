@@ -152,10 +152,6 @@ function Sidebar() {
                             selected={selected}
                             setSelected={setSelected}
                         />
-
-                        <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
-                            Data
-                        </Typography>
                         {DataPage.map((item) => (
                             <Item
                                 key={item.title}
@@ -166,20 +162,18 @@ function Sidebar() {
                                 setSelected={setSelected}
                             />
                         ))}
-
-                        <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
-                            Pages
-                        </Typography>
                     </Box>
                     {/* Log out */}
                     <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />
-                    <MenuItem
-                        style={{ color: colors.grey[100], paddingLeft: '10%' }}
-                        onClick={handleLogout}
-                        icon={<LogoutOutlined />}
-                    >
-                        <Typography>Log out</Typography>
-                    </MenuItem>
+                    <Box paddingLeft={isCollapsed ? undefined : '10%'}>
+                        <MenuItem
+                            style={{ color: colors.grey[100] }}
+                            onClick={handleLogout}
+                            icon={<LogoutOutlined />}
+                        >
+                            <Typography>Log out</Typography>
+                        </MenuItem>
+                    </Box>
                 </Menu>
             </ProSidebar>
         </Box>

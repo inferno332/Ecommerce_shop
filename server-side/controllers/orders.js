@@ -154,7 +154,9 @@ const getStaticsByMonth = tryCatch(async (req, res) => {
         {
             $project: {
                 categoryName: '$category.name',
-                quantity: '$orderDetails.quantity',
+                quantity: {
+                    $sum: '$orderDetails.quantity',
+                },
                 month: { $month: '$createdAt' },
             },
         },
