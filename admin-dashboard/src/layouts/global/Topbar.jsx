@@ -1,27 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import { io } from 'socket.io-client';
 import moment from 'moment';
-import axiosJWT from '../../axios/axiosJWT';
 import { useNavigate } from 'react-router-dom';
-
-import { Box, IconButton, useTheme, Badge, Popover, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { ColorModeContext, tokens } from '../../theme';
-import InputBase from '@mui/material/InputBase';
-import {
-    LightModeOutlined,
-    DarkModeOutlined,
-    NotificationsOutlined,
-    SettingsOutlined,
-    PersonOutlined,
-    Search,
-} from '@mui/icons-material';
-import { useEffect } from 'react';
+import { LightModeOutlined, DarkModeOutlined, NotificationsOutlined } from '@mui/icons-material';
+import { Box, IconButton, useTheme, Badge, Popover, Typography } from '@mui/material';
+
+import axiosJWT from '../../axios/axiosJWT';
+import { ColorModeContext } from '../../theme';
 
 function Topbar() {
     const navigate = useNavigate();
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
     const [notification, setNotification] = useState([]);
     const [orders, setOrders] = useState([]);
@@ -52,15 +42,7 @@ function Topbar() {
     }, [notification]);
 
     return (
-        <Box display="flex" justifyContent="space-between" p={2}>
-            {/* SEARCH BAR */}
-            <Box display="flex" backgroundColor={colors.primary[400]} borderRadius="3px">
-                <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-                <IconButton type="button" sx={{ p: 1 }}>
-                    <Search />
-                </IconButton>
-            </Box>
-
+        <Box display="flex" justifyContent="flex-end" p={2}>
             {/* ICONS */}
             <Box display="flex">
                 <IconButton onClick={colorMode.toggleColorMode}>
@@ -121,10 +103,6 @@ function Topbar() {
                         )}
                     </div>
                 </StyledBadge>
-
-                <IconButton>
-                    <PersonOutlined />
-                </IconButton>
             </Box>
         </Box>
     );

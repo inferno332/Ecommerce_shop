@@ -17,7 +17,7 @@ const EmptyCart = ({ setOpenCart }) => {
             <button
                 className='border rounded-xl px-5 py-2 bg-orange-200 opacity-80 hover:opacity-100'
                 onClick={() => {
-                    router.push('/product');
+                    router.push('/product/filter');
                     setOpenCart(false);
                 }}>
                 <p className='text-lg font-semibold text-gray-800'>Shop Now</p>

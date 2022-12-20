@@ -93,7 +93,7 @@ export default function Cart({ setOpenCart, openCart }) {
                                                         <button
                                                             className='font-medium opacity-80 hover:opacity-100'
                                                             onClick={() => {
-                                                                router.push('/product');
+                                                                router.push('/product/filter');
                                                                 setOpenCart(false);
                                                             }}>
                                                             Continue Shopping

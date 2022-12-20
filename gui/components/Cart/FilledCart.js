@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import { RiDeleteBin7Line } from 'react-icons/ri';
-
 import { useCart } from '../../zustand/useCart';
 
 const FilledCart = ({ setOpenCart }) => {
