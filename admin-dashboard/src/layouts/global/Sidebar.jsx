@@ -8,12 +8,7 @@ import {
     HomeOutlined,
     PeopleOutlined,
     ReceiptOutlined,
-    PersonOutlined,
-    BarChartOutlined,
-    PieChartOutlineOutlined,
     MenuOutlined,
-    MapOutlined,
-    TimelineOutlined,
     LogoutOutlined,
     AdminPanelSettingsOutlined,
     CategoryOutlined,
@@ -175,47 +170,6 @@ function Sidebar() {
                         <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
                             Pages
                         </Typography>
-
-                        <Item
-                            title="Profile Form"
-                            to="/form"
-                            icon={<PersonOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-
-                        <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
-                            Charts
-                        </Typography>
-
-                        <Item
-                            title="Bar Chart"
-                            to="/bar"
-                            icon={<BarChartOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Pie Chart"
-                            to="/pie"
-                            icon={<PieChartOutlineOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Line"
-                            to="/line"
-                            icon={<TimelineOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                        <Item
-                            title="Geography"
-                            to="/geography"
-                            icon={<MapOutlined />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
                     </Box>
                     {/* Log out */}
                     <Divider variant="middle" sx={{ my: '10px', color: colors.primary[100] }} />

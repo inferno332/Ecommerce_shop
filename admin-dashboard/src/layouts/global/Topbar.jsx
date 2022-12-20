@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { io } from 'socket.io-client';
 import moment from 'moment';
 import axiosJWT from '../../axios/axiosJWT';
+import { useNavigate } from 'react-router-dom';
 
 import { Box, IconButton, useTheme, Badge, Popover, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -18,6 +19,7 @@ import {
 import { useEffect } from 'react';
 
 function Topbar() {
+    const navigate = useNavigate();
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const colorMode = useContext(ColorModeContext);
@@ -92,6 +94,11 @@ function Topbar() {
                                             width: '200px',
                                             borderBottom: '1px solid #ccc',
                                         }}
+                                        onClick={() => {
+                                            navigate('/orders');
+                                            setOpenNotif(false);
+                                            setNotification([]);
+                                        }}
                                     >
                                         <Typography variant="h5">
                                             You have an order of {item.firstName} {item.lastName}
@@ -115,9 +122,6 @@ function Topbar() {
                     </div>
                 </StyledBadge>
 
-                <IconButton>
-                    <SettingsOutlined />
-                </IconButton>
                 <IconButton>
                     <PersonOutlined />
                 </IconButton>
