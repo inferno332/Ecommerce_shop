@@ -33,12 +33,12 @@ const DropDownSort = () => {
                                         pathname: router.pathname,
                                         query: {
                                             ...router.query,
-                                            sort: 'createAt:desc',
+                                            sort: 'createdAt:desc',
                                         },
                                     })
                                 }
                                 className={`${active ? 'bg-black text-white' : ''} p-2 cursor-pointer ${
-                                    sort === 'createAt:desc' ? 'bg-black text-white' : ''
+                                    sort === 'createdAt:desc' ? 'bg-black text-white' : ''
                                 } `}>
                                 Newest
                             </div>
