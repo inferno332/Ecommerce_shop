@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const Brands = ({ suppliers }) => {
     return (
@@ -7,9 +8,11 @@ const Brands = ({ suppliers }) => {
             <div className='grid grid-cols-2 sm:grid-cols-4 justify-items-center items-center border-8 rounded-lg'>
                 {suppliers.map((supplier) => {
                     return (
-                        <img
+                        <Image
                             key={supplier._id}
                             src={`${process.env.BASE_URL}${supplier.imageUrl}`}
+                            height={200}
+                            width={200}
                             alt={supplier.name}
                             className='w-[100%] h-[100%] max-h-[100px] object-contain p-5 border sm:border-0'
                         />
