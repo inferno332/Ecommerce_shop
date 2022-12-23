@@ -29,7 +29,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
 
     const getSaleWomen = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/statics/Women');
+            const res = await axiosJWT.get(`${process.env.REACT_APP_BASE_URL}/orders/statics/Women`);
             setSaleWomen(res.data);
         } catch (error) {
             console.log(error);
@@ -37,7 +37,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
     };
     const getSaleMen = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/statics/Men');
+            const res = await axiosJWT.get(`${process.env.REACT_APP_BASE_URL}/orders/statics/Men`);
             setSaleMen(res.data);
         } catch (error) {
             console.log(error);
@@ -45,7 +45,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
     };
     const getSaleAccessory = async () => {
         try {
-            const res = await axiosJWT.get('http://localhost:9000/orders/statics/Accessory');
+            const res = await axiosJWT.get(`${process.env.REACT_APP_BASE_URL}/orders/statics/Accessory`);
             setSaleAccessory(res.data);
         } catch (error) {
             console.log(error);
