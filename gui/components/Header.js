@@ -37,7 +37,7 @@ const Header = () => {
                 <div
                     className={`${
                         hideHeader ? 'h-0 translate-y-[-100px]' : 'h-[80px] translate-y-0'
-                    } bg-white ease-linear duration-150 flex justify-between items-center h-full gap-2 md:gap-6 mx-[-5px] sm:mx-auto`}>
+                    } bg-white ease-linear duration-150 flex justify-between items-center h-full gap-2 md:gap-6 mx-[-5px] sm:mx-auto pb-2`}>
                     <Link href='/'>
                         <Image
                             src='/ss-logo.svg'
@@ -45,28 +45,28 @@ const Header = () => {
                             width={200}
                             height={200}
                             priority
-                            className={`hover:opacity-70 h-24 w-24 ${isOpen ? 'hidden' : 'block'}`}
+                            className={`hover:opacity-70 h-24 w-24 ${isOpen ? 'hidden md:block' : ''}`}
                         />
                     </Link>
-                    {!isOpen && (
-                        <div className='hidden lg:flex gap-10'>
-                            <Link href='/'>
-                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                    <h4>Home</h4>
-                                </div>
-                            </Link>
-                            <Link href='/product/filter'>
-                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                    <h4>Products</h4>
-                                </div>
-                            </Link>
-                            <Link href='/about-us'>
-                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                    <h4>About Us</h4>
-                                </div>
-                            </Link>
-                        </div>
-                    )}
+
+                    <div className='hidden lg:flex gap-10'>
+                        <Link href='/'>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>Home</h4>
+                            </div>
+                        </Link>
+                        <Link href='/product/filter'>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>Products</h4>
+                            </div>
+                        </Link>
+                        <Link href='/about-us'>
+                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                <h4>About Us</h4>
+                            </div>
+                        </Link>
+                    </div>
+
                     {/* Search bar */}
                     <div className='items-center flex flex-grow rounded-full bg-transparent relative'>
                         <div className='relative w-full flex flex-row-reverse'>
