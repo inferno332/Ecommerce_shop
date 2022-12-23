@@ -20,7 +20,7 @@ const Header = () => {
     const handleScroll = useCallback(() => {
         if (window.pageYOffset > position) {
             sethideHeader(true);
-        } else {
+        } else if (position <= 0) {
             sethideHeader(false);
         }
         setPosition(window.pageYOffset);
