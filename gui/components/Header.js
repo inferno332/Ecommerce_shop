@@ -11,13 +11,18 @@ import SearchBar from './SearchBar';
 const Header = () => {
     const { products } = useCart((state) => state);
     const [openCart, setOpenCart] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     // EVENT SCROLL HEADER
     const [hideHeader, sethideHeader] = useState(false);
     const [position, setPosition] = useState(0);
 
     const handleScroll = useCallback(() => {
-        sethideHeader(window.pageYOffset > position);
+        if (window.pageYOffset > position) {
+            sethideHeader(true);
+        } else {
+            sethideHeader(false);
+        }
         setPosition(window.pageYOffset);
     }, [position, hideHeader]);
 
@@ -40,40 +45,42 @@ const Header = () => {
                         <Image
                             src='/ss-logo.svg'
                             alt='logo'
-                            width={300}
-                            height={300}
+                            width={200}
+                            height={200}
                             priority
-                            className='hidden md:inline-block hover:opacity-70 h-28 w-28'
+                            className={`hover:opacity-70 h-24 w-24 ${isOpen ? 'hidden' : 'block'}`}
                         />
                     </Link>
-                    <div className='hidden lg:flex gap-10'>
-                        <Link href='/'>
-                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                <h4>Home</h4>
-                            </div>
-                        </Link>
-                        <Link href='/product/filter'>
-                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                <h4>Products</h4>
-                            </div>
-                        </Link>
-                        <Link href='/about-us'>
-                            <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
-                                <h4>About Us</h4>
-                            </div>
-                        </Link>
-                    </div>
+                    {!isOpen && (
+                        <div className='hidden lg:flex gap-10'>
+                            <Link href='/'>
+                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                    <h4>Home</h4>
+                                </div>
+                            </Link>
+                            <Link href='/product/filter'>
+                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                    <h4>Products</h4>
+                                </div>
+                            </Link>
+                            <Link href='/about-us'>
+                                <div className='border-b-2 duration-200 border-transparent hover:border-black text-xl'>
+                                    <h4>About Us</h4>
+                                </div>
+                            </Link>
+                        </div>
+                    )}
                     {/* Search bar */}
                     <div className='items-center flex flex-grow rounded-full bg-transparent relative'>
                         <div className='relative w-full flex flex-row-reverse'>
-                            <SearchBar />
+                            <SearchBar setIsOpen={setIsOpen} isOpen={isOpen} />
                         </div>
                     </div>
                     {/* End search bar */}
-                    <div className='flex md:gap-2 items-center'>
+                    <div className={`flex md:gap-2 items-center ${isOpen ? 'hidden sm:flex' : ''}`}>
                         <div className='relative p-4'>
                             <span
-                                className='rounded-full hover:bg-[#E0E0E0] hover:cursor-pointer'
+                                className='rounded-full hover:opacity-70 hover:cursor-pointer'
                                 onClick={() => setOpenCart((prev) => !prev)}>
                                 <FiShoppingCart />
                             </span>
@@ -83,7 +90,7 @@ const Header = () => {
                                 </div>
                             )}
                         </div>
-                        <span className='rounded-full text-lg p-4 hover:bg-[#E0E0E0] hover:cursor-pointer block lg:hidden'>
+                        <span className='rounded-full text-lg p-4 hover:opacity-70 hover:cursor-pointer block lg:hidden'>
                             {/* <FiMenu /> */}
                             <MobileMenuModal />
                         </span>
