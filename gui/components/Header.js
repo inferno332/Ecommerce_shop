@@ -15,15 +15,12 @@ const Header = () => {
 
     // EVENT SCROLL HEADER
     const [hideHeader, sethideHeader] = useState(false);
-    const [position, setPosition] = useState(0);
+    const [position, setPosition] = useState(window.pageYOffset);
 
     const handleScroll = useCallback(() => {
-        if (window.pageYOffset > position) {
-            sethideHeader(true);
-        } else if (position <= 0) {
-            sethideHeader(false);
-        }
-        setPosition(window.pageYOffset);
+        let moving = window.pageYOffset;
+        sethideHeader(moving > position);
+        setPosition(moving);
     }, [position, hideHeader]);
 
     useEffect(() => {
