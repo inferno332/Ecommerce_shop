@@ -13,7 +13,7 @@ export default function MobileMenuModal() {
             link: '/',
         },
         {
-            name: 'All categories',
+            name: 'All products',
             link: '/product/filter',
         },
         {
@@ -62,7 +62,7 @@ export default function MobileMenuModal() {
                         <div className='fixed inset-0 bg-black bg-opacity-25' />
                     </Transition.Child>
 
-                    <div className='fixed w-[80vw] top-0 right-0'>
+                    <div className='fixed w-[90vw] top-0 right-0'>
                         <div className='flex items-center justify-end text-center'>
                             <Transition.Child
                                 as={Fragment}
@@ -95,18 +95,18 @@ export default function MobileMenuModal() {
                                             alt='logo'
                                             width='100'
                                             height='100'
-                                            className='h-fit'
+                                            className='h-fit mt-4'
                                         />
                                     </div>
 
-                                    <div className='flex gap-4 justify-center'>
+                                    <div className='flex gap-4 justify-center mb-10'>
                                         <Link href='/login' legacyBehavior>
-                                            <button className='text-lg px-7 py-[6px] text-white rounded-full border-[1.5px] bg-[#111]'>
+                                            <button className='text-lg px-8 py-[6px] text-white rounded-full border-[1.5px] bg-[#111]'>
                                                 Sign in
                                             </button>
                                         </Link>
                                         <Link href='/register' legacyBehavior>
-                                            <button className='text-lg px-6 py-[6px] text-black rounded-full border-[1.5px] border-[#ccc] bg-white'>
+                                            <button className='text-lg px-7 py-[6px] text-black rounded-full border-[1.5px] border-[#ccc] bg-white'>
                                                 Resgister
                                             </button>
                                         </Link>
