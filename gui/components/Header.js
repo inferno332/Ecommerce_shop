@@ -39,14 +39,16 @@ const Header = () => {
                         hideHeader ? 'h-0 translate-y-[-100px]' : 'h-[80px] translate-y-0'
                     } bg-white ease-linear duration-150 flex justify-between items-center h-full gap-2 md:gap-6 mx-[-5px] sm:mx-auto pb-2`}>
                     <Link href='/'>
-                        <Image
-                            src='/ss-logo.svg'
-                            alt='logo'
-                            width={200}
-                            height={200}
-                            priority
-                            className={`hover:opacity-70 h-24 w-24 ${isOpen ? 'hidden md:block' : ''}`}
-                        />
+                        <div className={`${isOpen ? 'hidden md:block' : ''} transition-all`}>
+                            <Image
+                                src='/ss-logo.svg'
+                                alt='logo'
+                                width={200}
+                                height={200}
+                                priority
+                                className='hover:opacity-70 h-24 w-24'
+                            />
+                        </div>
                     </Link>
 
                     <div className='hidden lg:flex gap-10'>
@@ -74,7 +76,7 @@ const Header = () => {
                         </div>
                     </div>
                     {/* End search bar */}
-                    <div className={`flex md:gap-2 items-center ${isOpen ? 'hidden sm:flex' : ''}`}>
+                    <div className={`flex md:gap-2 items-center transition-all ${isOpen ? 'hidden sm:flex' : ''}`}>
                         <div className='relative p-4'>
                             <span
                                 className='rounded-full hover:opacity-70 hover:cursor-pointer'
