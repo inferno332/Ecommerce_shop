@@ -20,7 +20,6 @@ const AllProducts = ({ products }) => {
     useEffect(() => {
         setCurrentProducts(products.slice(itemOffset, itemOffset + itemPerPage));
         setPageCount(Math.ceil(products.length / itemPerPage));
-        console.log(products.length);
     }, [products, itemOffset]);
     return (
         <div className='flex flex-col w-full gap-5'>
