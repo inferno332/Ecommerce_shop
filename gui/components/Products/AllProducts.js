@@ -29,14 +29,14 @@ const AllProducts = ({ products }) => {
                 {currentProducts.map((product) => {
                     return (
                         <div key={product._id} className='group relative border rounded-lg cursor-pointer'>
-                            <div className=' h-[200px] sm:h-[250px] lg:h-[400px] bg-[#f6f6f6]'>
+                            <div className=' h-[200px] sm:h-[250px] lg:h-[360px] bg-transparent border-b-[#ccc] border truncate'>
                                 <Link href={`/product/details/${product._id}`}>
                                     <Image
                                         src={`${process.env.BASE_URL}${product.imageURL[0]}`}
                                         alt={product.name}
                                         width='300'
                                         height='300'
-                                        className=' w-full h-full object-contain'
+                                        className=' w-full h-full object-contain group-hover:scale-110'
                                     />
                                     {product.sizes[0].discount > 0 && (
                                         <div className='discount absolute top-5'>{product.sizes[0].discount}% Off</div>
@@ -64,7 +64,7 @@ const AllProducts = ({ products }) => {
                             </div>
                             <div className='py-2 sm:py-5 px-1'>
                                 <div className='flex flex-col justify-between gap-1'>
-                                    <p className='text-lg capitalize md:tracking-[0.2px]'>
+                                    <p className='text-md md:text-lg capitalize md:tracking-[0.2px]'>
                                         {product.name.toLowerCase()}
                                     </p>
                                     {product.sizes && (
@@ -74,13 +74,13 @@ const AllProducts = ({ products }) => {
                                     )}
                                     {product?.sizes[0].discount > 0 ? (
                                         <div className='flex gap-3 items-end'>
-                                            <p className='font-semibold text-xl text-orange-600'>
+                                            <p className='font-semibold text-md md:text-lg text-orange-600'>
                                                 ${Math.floor(product.sizes[0].discountPrice)}
                                             </p>
-                                            <del className='text-lg text-gray-500'>${product.price}</del>
+                                            <del className='text-md md:text-lg text-gray-500'>${product.price}</del>
                                         </div>
                                     ) : (
-                                        <p className='text-xl text-orange-700 font-semibold'>${product.price}</p>
+                                        <p className='text-md md:text-lg text-orange-700 font-semibold'>${product.price}</p>
                                     )}
                                 </div>
                             </div>

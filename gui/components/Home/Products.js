@@ -60,13 +60,13 @@ const Products = ({ products }) => {
                     return (
                         <SwiperSlide key={product._id} className='group border rounded-lg cursor-pointer'>
                             <Link href={`/product/details/${product._id}`}>
-                                <div className='relative h-[450px] sm:h-[300px] bg-[#f6f6f6]'>
+                                <div className='relative h-[450px] sm:h-[350px] bg-transparent truncate'>
                                     <Image
                                         src={`${process.env.BASE_URL}${product.imageURL[0]}`}
                                         alt={product.name}
-                                        width='200'
-                                        height='200'
-                                        className=' w-full h-full object-contain'
+                                        width='300'
+                                        height='300'
+                                        className=' w-full h-full object-cover group-hover:scale-110'
                                     />
                                 </div>
                                 {product.sizes[0].discount > 0 && (
