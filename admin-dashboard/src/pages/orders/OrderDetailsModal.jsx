@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Typography, useTheme } from '@mui/material';
 
-import BasicModal from '../common/BasicModal';
+import BasicModal from '../../components/common/BasicModal';
 import { tokens } from '../../theme';
 
 const OrderDetailsModal = ({ open, onClose, orderDetails }) => {

@@ -1,25 +1,33 @@
-import { Box, Button, InputAdornment, MenuItem, OutlinedInput, TextField, Typography, useTheme } from '@mui/material';
+import {
+    Box,
+    Button,
+    InputAdornment,
+    MenuItem,
+    OutlinedInput,
+    TextField,
+    Typography,
+    useTheme,
+} from '@mui/material';
 import { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import BasicModal from '../common/BasicModal';
+import BasicModal from '../../components/common/BasicModal';
 import { tokens } from '../../theme';
 import { DeleteOutline } from '@mui/icons-material';
 
-const EditProductModal = ({ open, onClose, updateData, params, suppliers, categories, handleUpload }) => {
+const CreateProductModal = ({ open, onClose, suppliers, categories, createData }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
     const defaultInputValues = {
-        id: params.row._id,
-        name: params.row.name,
-        description: params.row.description,
-        price: params.row.price,
-        sizes: params.row.sizes,
-        categoryId: params.row.categoryId,
-        supplierId: params.row.supplierId,
+        name: '',
+        description: '',
+        price: '',
+        sizes: [],
+        categoryId: '',
+        supplierId: '',
     };
 
     const [products, setProducts] = useState(defaultInputValues);
@@ -76,7 +84,6 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
     const getContent = () => {
         return (
             <Box sx={modalStyles.inputFields}>
-                <TextField placeholder="Product ID" disabled label="Product ID" name="id" {...register('id')} />
                 <TextField
                     placeholder="Name"
                     name="name"
@@ -107,48 +114,8 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                     required
                     {...register('price')}
                     error={errors.price ? true : false}
-                    onChange={(e) => handleChange({ ...products, price: parseInt(e.target.value) })}
+                    onChange={(e) => handleChange({ ...products, price: e.target.value })}
                 />
-                <Box display="flex" gap={2}>
-                    <TextField
-                        sx={{ flex: 1 }}
-                        placeholder="Category"
-                        name="categoryId"
-                        required
-                        {...register('categoryId')}
-                        error={errors.categoryId ? true : false}
-                        helperText={errors.categoryId?.message}
-                        select
-                        label="Category"
-                        value={products.categoryId}
-                        onChange={(e) => handleChange({ ...products, categoryId: e.target.value })}
-                    >
-                        {categories.map((category) => (
-                            <MenuItem key={category._id} value={category._id}>
-                                {category.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField
-                        sx={{ flex: 1 }}
-                        placeholder="Supplier"
-                        name="supplierId"
-                        required
-                        {...register('supplierId')}
-                        error={errors.supplierId ? true : false}
-                        helperText={errors.supplierId?.message}
-                        select
-                        label="Supplier"
-                        value={products.supplierId}
-                        onChange={(e) => handleChange({ ...products, supplierId: e.target.value })}
-                    >
-                        {suppliers.map((supplier) => (
-                            <MenuItem key={supplier._id} value={supplier._id}>
-                                {supplier.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </Box>
                 {/* Sizes */}
                 {fields.map((field, index) => (
                     <Box key={field.id} display="flex" gap={2}>
@@ -234,14 +201,46 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
                     </Typography>
                 </Button>
                 {/* End Sizes */}
-                <input
-                    type="file"
-                    name="uploadImg"
-                    {...register('uploadImg')}
-                    accept="image/png, image/jpeg"
-                    multiple
-                    onChange={(e) => handleUpload(params, e)}
-                />
+                <Box display="flex" gap={2}>
+                    <TextField
+                        sx={{ flex: 1 }}
+                        placeholder="Category"
+                        name="categoryId"
+                        required
+                        {...register('categoryId')}
+                        error={errors.categoryId ? true : false}
+                        helperText={errors.categoryId?.message}
+                        select
+                        label="Category"
+                        value={products.categoryId}
+                        onChange={(e) => handleChange({ ...products, categoryId: e.target.value })}
+                    >
+                        {categories.map((category) => (
+                            <MenuItem key={category._id} value={category._id}>
+                                {category.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        sx={{ flex: 1 }}
+                        placeholder="Supplier"
+                        name="supplierId"
+                        required
+                        {...register('supplierId')}
+                        error={errors.supplierId ? true : false}
+                        helperText={errors.supplierId?.message}
+                        select
+                        label="Supplier"
+                        value={products.supplierId}
+                        onChange={(e) => handleChange({ ...products, supplierId: e.target.value })}
+                    >
+                        {suppliers.map((supplier) => (
+                            <MenuItem key={supplier._id} value={supplier._id}>
+                                {supplier.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </Box>
             </Box>
         );
     };
@@ -251,12 +250,12 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
             open={open}
             onClose={onClose}
             title="Product"
-            subTitle="Edit product details"
+            subTitle="Add product"
             content={getContent()}
             onSubmit={handleSubmit(() => {
                 try {
                     console.log(products);
-                    updateData(products, params);
+                    createData(products);
                     onClose();
                 } catch (error) {
                     console.log(error);
@@ -266,4 +265,4 @@ const EditProductModal = ({ open, onClose, updateData, params, suppliers, catego
     );
 };
 
-export default EditProductModal;
+export default CreateProductModal;

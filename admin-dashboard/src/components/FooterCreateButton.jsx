@@ -4,8 +4,8 @@ import { Box, Typography, useTheme } from '@mui/material';
 import { GridFooter, GridFooterContainer } from '@mui/x-data-grid';
 
 import { tokens } from '../theme';
-import CreateCategoryModal from './Modals/CreateCategoryModal';
-import CreateProductModal from './Modals/CreateProductModal';
+import CreateCategoryModal from '../pages/categories/CreateCategoryModal';
+import CreateProductModal from '../pages/products/CreateProductModal';
 
 const CreateModal = ({ content, ...props }) => {
     switch (content) {

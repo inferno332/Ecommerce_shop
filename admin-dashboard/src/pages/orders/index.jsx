@@ -13,7 +13,7 @@ import DataTable from '../../components/DataTable';
 import Header from '../../components/Header';
 import ActionsRow from '../../components/ActionsRow';
 import { tokens } from '../../theme';
-import OrderDetailsModal from '../../components/Modals/OrderDetailsModal';
+import OrderDetailsModal from './OrderDetailsModal';
 
 const Orders = () => {
     const theme = useTheme();

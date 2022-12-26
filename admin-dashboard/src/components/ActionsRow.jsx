@@ -3,11 +3,11 @@ import { Box, IconButton, useTheme } from '@mui/material';
 import { DeleteOutline, DescriptionOutlined } from '@mui/icons-material';
 
 import { tokens } from '../theme';
-import EditCategoryModal from './Modals/EditCategoryModal';
-import ConfirmDeleteModal from './Modals/ConfirmDeleteModal';
-import EditCustomerModal from './Modals/EditCustomerModal';
-import EditEmployeeModal from './Modals/EditEmployeeModal';
-import EditProductModal from './Modals/EditProductModal';
+import EditCategoryModal from '../pages/categories/EditCategoryModal';
+import ConfirmDeleteModal from './ConfirmDeleteModal';
+import EditCustomerModal from '../pages/customers/EditCustomerModal';
+import EditEmployeeModal from '../pages/employees/EditEmployeeModal';
+import EditProductModal from '../pages/products/EditProductModal';
 
 const EditModal = ({ content, ...props }) => {
     switch (content) {
@@ -57,20 +57,20 @@ const ActionsRow = ({
                 handleUpload={handleUpload}
                 {...props}
             />
-                <IconButton
-                    sx={{
-                        backgroundColor: colors.greenAccent[500],
-                        ':hover': { backgroundColor: colors.greenAccent[600] },
-                        '&:disabled': { backgroundColor: colors.greenAccent[500], opacity: 0.5 },
-                    }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setOpen(true);
-                    }}
-                    disabled={disableEdit}
-                >
-                    <DescriptionOutlined sx={{ color: '#000' }} />
-                </IconButton>
+            <IconButton
+                sx={{
+                    backgroundColor: colors.greenAccent[500],
+                    ':hover': { backgroundColor: colors.greenAccent[600] },
+                    '&:disabled': { backgroundColor: colors.greenAccent[500], opacity: 0.5 },
+                }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setOpen(true);
+                }}
+                disabled={disableEdit}
+            >
+                <DescriptionOutlined sx={{ color: '#000' }} />
+            </IconButton>
             <IconButton
                 sx={{
                     backgroundColor: colors.redAccent[600],

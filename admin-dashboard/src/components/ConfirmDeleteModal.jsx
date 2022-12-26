@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 
-import BasicModal from '../common/BasicModal';
+import BasicModal from './common/BasicModal';
 
 const ConfirmDeleteModal = ({ open, onClose, onSubmit }) => {
     const getContent = () => {

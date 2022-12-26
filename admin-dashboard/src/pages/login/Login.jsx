@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from '@mui/system';
@@ -37,7 +37,7 @@ function Login() {
         if (user !== null) {
             navigate('/');
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <ContainerAuth>
