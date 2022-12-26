@@ -24,11 +24,6 @@ const DataPage = [
         icon: <AdminPanelSettingsOutlined />,
     },
     {
-        title: 'Customers',
-        to: '/customers',
-        icon: <PeopleOutlined />,
-    },
-    {
         title: 'Categories',
         to: '/categories',
         icon: <CategoryOutlined />,
