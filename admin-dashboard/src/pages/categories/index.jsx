@@ -41,11 +41,11 @@ const Categories = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axiosJWT.delete(`${process.env.REACT_APP_BASE_URL}/categories/${id}`);
-            setCategories(categories.filter((category) => category._id !== id));
-            toast.success('Successfully deleted!');
+            const res = await axiosJWT.delete(`${process.env.REACT_APP_BASE_URL}/categories/${id}`);
+            setRefesh((prev) => !prev);
+            toast.success(res.data.message);
         } catch (error) {
-            console.log(error);
+            toast.error(error.response.data.message);
         }
     };
 
