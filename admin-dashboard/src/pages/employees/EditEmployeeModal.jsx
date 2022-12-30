@@ -154,7 +154,15 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
                                     render={({ field }) => (
                                         <Checkbox
                                             {...field}
-                                            checked={employees.roles?.includes(role) ? true : false}
+                                            // if admin is checked, then staff and manager will be checked and disabled
+                                            checked={
+                                                employees.roles?.includes('admin')
+                                                    ? true
+                                                    : employees.roles?.includes(role)
+                                            }
+                                            disabled={
+                                                employees.roles?.includes('admin') && role !== 'admin' ? true : false
+                                            }
                                             onChange={() => handleCheckboxChange(role)}
                                             color="info"
                                             size="large"
