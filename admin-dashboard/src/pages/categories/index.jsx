@@ -11,7 +11,12 @@ import ActionsRow from '../../components/ActionsRow';
 import { GridToolbar } from '@mui/x-data-grid';
 
 const Categories = () => {
-    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
+    const roles = useSelector((state) => {
+        if (state.auth.login.currentUser !== null) {
+            return state.auth.login.currentUser.payload.roles;
+        }
+        return [];
+    });
     const [categories, setCategories] = useState([]);
     const [pageSize, setPageSize] = useState(10);
     const [refresh, setRefesh] = useState(false);

@@ -11,7 +11,12 @@ import { GridToolbar } from '@mui/x-data-grid';
 import { useSelector } from 'react-redux';
 
 const Products = () => {
-    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
+    const roles = useSelector((state) => {
+        if (state.auth.login.currentUser !== null) {
+            return state.auth.login.currentUser.payload.roles;
+        }
+        return [];
+    });
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [suppliers, setSuppliers] = useState([]);

@@ -19,7 +19,12 @@ const Orders = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
 
-    const roles = useSelector((state) => state.auth.login.currentUser.payload.roles);
+    const roles = useSelector((state) => {
+        if (state.auth.login.currentUser !== null) {
+            return state.auth.login.currentUser.payload.roles;
+        }
+        return [];
+    });
     const [orders, setOrders] = useState([]);
     const [open, setOpen] = useState(false);
     const [orderDetails, setOrderDetails] = useState([]);
