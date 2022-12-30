@@ -36,11 +36,16 @@ const CreateCategoryModal = ({ open, onClose, createData }) => {
     };
 
     const validationSchema = yup.object().shape({
-        name: yup.string().required('Category name is required').min(3, 'Category name must be at least 3 characters'),
+        name: yup
+            .string()
+            .required('Category name is required')
+            .min(3, 'Category name must be at least 3 characters')
+            .max(20, 'Category name must be at most 20 characters'),
         description: yup
             .string()
             .required('Category description is required')
-            .min(10, 'Category description must be at least 10 characters'),
+            .min(10, 'Category description must be at least 10 characters')
+            .max(100, 'Category description must be at most 100 characters'),
     });
 
     const {

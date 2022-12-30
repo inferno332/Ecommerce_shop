@@ -41,15 +41,32 @@ const EditCustomerModal = ({ open, onClose, updateData, params }) => {
     };
 
     const validationSchema = yup.object().shape({
-        firstName: yup.string().required('First name is required').min(3, 'First name must be at least 3 characters'),
-        lastName: yup.string().required('Last name is required').min(3, 'Last name must be at least 3 characters'),
+        firstName: yup
+            .string()
+            .required('First name is required')
+            .min(3, 'First name must be at least 3 characters')
+            .max(20, 'First name must be at most 20 characters'),
+        lastName: yup
+            .string()
+            .required('Last name is required')
+            .min(3, 'Last name must be at least 3 characters')
+            .max(20, 'Last name must be at most 20 characters'),
         email: yup.string().required('Email is required').email('Email is invalid'),
         phoneNumber: yup
             .string()
             .required('Phone number is required')
-            .min(9, 'Phone number must be at least 9 characters'),
-        address: yup.string().required('Address is required').min(10, 'Address must be at least 10 characters'),
-        birthday: yup.date().required('Birthday is required').max(new Date(), 'Birthday must be in the past'),
+            .min(9, 'Phone number must be at least 9 characters')
+            .max(20, 'Phone number must be at most 20 characters'),
+        address: yup
+            .string()
+            .required('Address is required')
+            .min(10, 'Address must be at least 10 characters')
+            .max(100, 'Address must be at most 100 characters'),
+        birthday: yup
+            .date()
+            .required('Birthday is required')
+            .min(new Date(1900, 0, 1), 'Birthday must be after 1900')
+            .max(new Date(2010, 0, 1), 'Birthday must be before 2015'),
     });
 
     const {

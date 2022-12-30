@@ -50,14 +50,20 @@ const EditEmployeeModal = ({ open, onClose, updateData, params }) => {
         fullName: yup
             .string()
             .required('Employee name is required')
-            .min(3, 'Employee name must be at least 3 characters'),
+            .min(3, 'Employee name must be at least 3 characters')
+            .max(20, 'Employee name must be at most 20 characters'),
         email: yup.string().required('Employee email is required').email('Employee email must be valid'),
         phoneNumber: yup
             .string()
             .required('Employee phone number is required')
-            .min(9, 'Employee phone number must be at least 9 characters'),
+            .min(9, 'Employee phone number must be at least 9 characters')
+            .max(20, 'Employee phone number must be at most 20 characters'),
         address: yup.string().min(5, 'Employee address must be at least 3 characters'),
-        birthday: yup.date().required('Birthday is required').max(new Date(), 'Birthday must be in the past'),
+        birthday: yup
+            .date()
+            .required('Birthday is required')
+            .min(new Date(1900, 0, 1), 'Birthday must be after 1900')
+            .max(new Date(2010, 0, 1), 'Birthday must be before 2015'),
         roles: yup.array().min(1, 'Employee must have at least one role'),
     });
 
