@@ -62,7 +62,7 @@ const Products = ({ products }) => {
                             <Link href={`/product/details/${product._id}`}>
                                 <div className='relative h-[450px] sm:h-[350px] bg-transparent truncate'>
                                     <Image
-                                        src={`${process.env.BASE_URL}${product.imageURL[0]}`}
+                                        src={`${process.env.BASE_URL}/${product?.imageURL[0]}`}
                                         alt={product.name}
                                         width='300'
                                         height='300'

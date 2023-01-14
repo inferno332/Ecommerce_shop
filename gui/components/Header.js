@@ -19,6 +19,9 @@ const Header = () => {
 
     const handleScroll = useCallback(() => {
         let moving = window.pageYOffset;
+        if (moving < -1) {
+            sethideHeader(false);
+        }
         sethideHeader(moving > position);
         setPosition(moving);
     }, [position, hideHeader]);
