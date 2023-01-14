@@ -28,14 +28,14 @@ const AllProducts = ({ products }) => {
                 {currentProducts.map((product) => {
                     return (
                         <div key={product._id} className='group relative border rounded-lg cursor-pointer'>
-                            <div className=' h-[200px] sm:h-[250px] lg:h-[360px] bg-transparent border-b-[#ccc] border truncate'>
+                            <div className='h-[200px] sm:h-[250px] lg:h-[360px] bg-transparent border-b-[#ccc] border truncate'>
                                 <Link href={`/product/details/${product._id}`}>
                                     <Image
                                         src={`${process.env.BASE_URL}${product.imageURL[0]}`}
                                         alt={product.name}
                                         width='300'
                                         height='300'
-                                        className=' w-full h-full object-contain group-hover:scale-110'
+                                        className='w-full h-full object-contain xl:object-cover group-hover:scale-110 transition-all duration-300'
                                     />
                                     {product.sizes[0].discount > 0 && (
                                         <div className='discount absolute top-5'>{product.sizes[0].discount}% Off</div>
