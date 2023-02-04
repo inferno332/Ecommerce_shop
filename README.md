@@ -1,5 +1,6 @@
 # Shoes_Online_Shop
-## :[DEMO](https://ls-eshop.vercel.app/)
+## [DEMO](https://ls-eshop.vercel.app/)
+## [Admin Dashboard](https://ls-eshop-admin.vercel.app/)
 
 
 ## :bookmark_tabs:SLIDER
